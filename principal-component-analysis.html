@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with R</title>
+  <meta name="description" content="This book is about using R for machine learning purposes.">
+  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book is about using R for machine learning purposes." />
+  <meta name="github-repo" content="fderyckel/machinelearningwithr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with R" />
+  
+  <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
+  
+
+<meta name="author" content="François de Ryckel">
+
+
+<meta name="date" content="2017-03-14">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="trees-and-classification.html">
+<link rel="next" href="case-study-mushrooms-classification.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">Machine Learning with R</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="4" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>4</b> Trees and Classification</a><ul>
+<li class="chapter" data-level="4.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="trees-and-classification.html"><a href="trees-and-classification.html#first-example."><i class="fa fa-check"></i><b>4.2</b> First example.</a></li>
+<li class="chapter" data-level="4.3" data-path="trees-and-classification.html"><a href="trees-and-classification.html#second-example."><i class="fa fa-check"></i><b>4.3</b> Second Example.</a></li>
+<li class="chapter" data-level="4.4" data-path="trees-and-classification.html"><a href="trees-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>4.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="4.5" data-path="trees-and-classification.html"><a href="trees-and-classification.html#third-example."><i class="fa fa-check"></i><b>4.5</b> Third example.</a></li>
+<li class="chapter" data-level="4.6" data-path="trees-and-classification.html"><a href="trees-and-classification.html#references"><i class="fa fa-check"></i><b>4.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>5</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="5.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>5.1</b> PCA on an easy example.</a></li>
+<li class="chapter" data-level="5.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#attempt-of-pca-on-technical-indicators."><i class="fa fa-check"></i><b>5.2</b> Attempt of PCA on technical indicators.</a></li>
+<li class="chapter" data-level="5.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#doing-pca-and-pcr-with-the-pls-package"><i class="fa fa-check"></i><b>5.3</b> Doing PCA and PCR with the PLS package</a></li>
+<li class="chapter" data-level="5.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>5.4</b> References.</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html"><i class="fa fa-check"></i><b>6</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="6.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>6.1</b> Import the data</a></li>
+<li class="chapter" data-level="6.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data"><i class="fa fa-check"></i><b>6.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="6.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data"><i class="fa fa-check"></i><b>6.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-transform-the-data"><i class="fa fa-check"></i><b>6.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="6.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-visualize-the-data"><i class="fa fa-check"></i><b>6.3.2</b> A. Visualize the data</a></li>
+<li class="chapter" data-level="6.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-modeling"><i class="fa fa-check"></i><b>6.3.3</b> A. Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>6.4</b> Communication</a></li>
+<li class="chapter" data-level="6.5" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#example-one"><i class="fa fa-check"></i><b>6.5</b> Example one</a></li>
+<li class="chapter" data-level="6.6" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#example-two"><i class="fa fa-check"></i><b>6.6</b> Example two</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html"><i class="fa fa-check"></i><b>7</b> Case Study - Predicting Survicalship on the Titanic</a><ul>
+<li class="chapter" data-level="7.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>7.1</b> Import the data.</a></li>
+<li class="chapter" data-level="7.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#tidy-the-data-1"><i class="fa fa-check"></i><b>7.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="7.3" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>7.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-transform-the-data-1"><i class="fa fa-check"></i><b>7.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>7.3.2</b> A. Vizualize with families.</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>7.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="7.5" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>7.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>7.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="7.5.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>7.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>7.6</b> References.</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>8</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="principal-component-analysis" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Principal Component Analysis</h1>
+<p>To create a predictive model based on regression we like to have as many relevant predictors as possible. The whole difficulty resides in finding <em>relevant</em> predictors. For predictors to be relevant, they should explain the variance of the dependent variable.<br />
+Too many predictors (high dimensionality) and we take the risk of over-fitting.</p>
+<p>The intuition of Principal Component Analysis is to find new combination of variables which form larger variances. Why are larger variances important? This is a similar concept of entropy in information theory. Let’s say you have two variables. One of them (Var 1) forms N(1, 0.01) and the other (Var 2) forms N(1, 1). Which variable do you think has more information? Var 1 is always pretty much 1 whereas Var 2 can take a wider range of values, like 0 or 2. Thus, Var 2 has more chances to have various values than Var 1, which means Var 2’s entropy is larger than Var 1’s. Thus, we can say Var 2 contains more information than Var 1.</p>
+<p>PCA tries to find linear combination of the variables which contain much information by looking at the variance. This is why the standard deviation is one of the important metrics to determine the number of new variables in PCA. Another interesting aspect of the new variables derived by PCA is that all new variables are orthogonal. You can think that PCA is rotating and translating the data such that the first axis contains the most information, and the second has the second most information, and so forth.</p>
+<p>Principal Component Analysis (PCA) is a feature extraction methods that use orthogonal linear projections to capture the underlying variance of the data. When PCR compute the principle components is not looking at the response but only at the predictors (by looking for a linear combination of the predictors that has the highest variance). It makes the assumption that the linear combination of the predictors that has the highest variance is associated with the response.</p>
+<p>The algorithm when applied linearly transforms m-dimensional input space to n-dimensional (n &lt; m) output space, with the objective to minimize the amount of information/variance lost by discarding (m-n) dimensions. PCA allows us to discard the variables/features that have less variance.</p>
+<p>When choosing the principal component, we assume that the regression plane varies along the line and doesn’t vary in the other orthogonal direction. By choosing one component and not the other, we’re ignoring the second direction.</p>
+<p>PCR looks in the direction of variation of the predictors to find the places where the responses is most likely to vary.</p>
+<p>Some of the most notable advantages of performing PCA are the following:</p>
+<ul>
+<li>Dimensionality reduction</li>
+<li>Avoidance of multicollinearity between predictors. Variables are orthogonal, so including, say, PC9 in the model has no bearing on, say, PC3</li>
+<li>Variables are ordered in terms of standard error. Thus, they also tend to be ordered in terms of statistical significance</li>
+<li>Overfitting mitigation</li>
+</ul>
+<p>The primary disadvantage is that this model is far more difficult to interpret than a regular logistic regression model</p>
+<p>With principal components regression, the new transformed variables (the principal components) are calculated in a totally <strong>unsupervised</strong> way:</p>
+<ul>
+<li>the response Y is not used to help determine the principal component directions).</li>
+<li>the response does not supervise the identification of the principal components.</li>
+<li>PCR just looks at the x variables</li>
+</ul>
+<p>The PCA method can dramatically improve estimation and insight in problems where multicollinearity is a large problem – as well as aid in detecting it.</p>
+<div id="pca-on-an-easy-example." class="section level2">
+<h2><span class="header-section-number">5.1</span> PCA on an easy example.</h2>
+<p>Let’s say we asked 16 participants four questions (on a 7 scale) about what they care about when choosing a new computer, and got the results like this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Price &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>)
+Software &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">3</span>)
+Aesthetics &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">7</span>)
+Brand &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>)
+buy_computer &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Price, Software, Aesthetics, Brand)</code></pre></div>
+<p>Let’s go on with the PCA. <code>princomp</code> is part of the <em>stats</em> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca &lt;-<span class="st"> </span><span class="kw">princomp</span>(buy_computer, <span class="dt">cor =</span> <span class="ot">TRUE</span>)
+<span class="kw">names</span>(pca)</code></pre></div>
+<pre><code>## [1] &quot;sdev&quot;     &quot;loadings&quot; &quot;center&quot;   &quot;scale&quot;    &quot;n.obs&quot;    &quot;scores&quot;  
+## [7] &quot;call&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(pca)</code></pre></div>
+<pre><code>## Call:
+## princomp(x = buy_computer, cor = TRUE)
+## 
+## Standard deviations:
+##    Comp.1    Comp.2    Comp.3    Comp.4 
+## 1.5589391 0.9804092 0.6816673 0.3792578 
+## 
+##  4  variables and  16 observations.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(pca, <span class="dt">loadings =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Importance of components:
+##                           Comp.1    Comp.2    Comp.3     Comp.4
+## Standard deviation     1.5589391 0.9804092 0.6816673 0.37925777
+## Proportion of Variance 0.6075727 0.2403006 0.1161676 0.03595911
+## Cumulative Proportion  0.6075727 0.8478733 0.9640409 1.00000000
+## 
+## Loadings:
+##            Comp.1 Comp.2 Comp.3 Comp.4
+## Price      -0.523         0.848       
+## Software   -0.177  0.977 -0.120       
+## Aesthetics  0.597  0.134  0.295 -0.734
+## Brand       0.583  0.167  0.423  0.674</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OS &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
+<span class="kw">library</span>(ggbiplot)
+g &lt;-<span class="st"> </span><span class="kw">ggbiplot</span>(pca, <span class="dt">obs.scale =</span> <span class="dv">1</span>, <span class="dt">var.scale =</span> <span class="dv">1</span>, <span class="dt">groups =</span> <span class="kw">as.character</span>(OS),
+              <span class="dt">ellipse =</span> <span class="ot">TRUE</span>, <span class="dt">circle =</span> <span class="ot">TRUE</span>)
+g &lt;-<span class="st"> </span>g +<span class="st"> </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&#39;&#39;</span>)
+g &lt;-<span class="st"> </span>g +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.direction =</span> <span class="st">&#39;horizontal&#39;</span>, 
+               <span class="dt">legend.position =</span> <span class="st">&#39;top&#39;</span>)
+<span class="kw">print</span>(g)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>The code below has been taken and modify from <a href="https://gist.github.com/thigm85/7689508">here</a>. The idea is to plot each variables coefficients inside a unit circle to get insight on a possible interpretation for PCs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggplot2)
+theta &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">2</span>*pi,<span class="dt">length.out =</span> <span class="dv">100</span>)
+circle &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">cos</span>(theta), <span class="dt">y =</span> <span class="kw">sin</span>(theta))
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(circle,<span class="kw">aes</span>(x,y)) +<span class="st"> </span><span class="kw">geom_path</span>()
+loadings &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pca$rotation, 
+                       <span class="dt">.names =</span> <span class="kw">row.names</span>(pca$rotation))
+p +<span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">data=</span>loadings, 
+              <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> pca$loadings[,<span class="dv">1</span>], <span class="dt">y =</span> pca$loadings[,<span class="dv">2</span>], <span class="dt">label =</span> <span class="kw">rownames</span>(pca$loadings), <span class="dt">colour =</span> <span class="kw">rownames</span>(pca$loadings))) +
+<span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>) +
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;PC1&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;PC2&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p>Remember that one of the disadventage of PCA is how difficult it is to interpret the model (ie. what does the PC1 is representing, what does PC2 is representing, etc.). The <strong>biplot</strong> graph help somehow to overcome that.</p>
+<p>In the above graph, one can see that <code>Brand</code>and <code>Aesthetic</code> explain most of the variance in the new predictor PC1 while <code>Software</code> explain most of the variance in the new predictor PC2.</p>
+<p>Once you have done the analysis with PCA, you may want to look into whether the new variables can predict some phenomena well. This is kinda like machine learning: Whether features can classify the data well. Let’s say you have asked the participants one more thing, which OS they are using (Windows or Mac) in your survey, and the results are like this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OS &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
+<span class="co"># Let&#39;s test our model</span>
+model1 &lt;-<span class="st"> </span><span class="kw">glm</span>(OS ~<span class="st"> </span>pca$scores[,<span class="dv">1</span>] +<span class="st"> </span>pca$scores[,<span class="dv">2</span>], <span class="dt">family =</span> binomial)
+<span class="kw">summary</span>(model1)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = OS ~ pca$scores[, 1] + pca$scores[, 2], family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4485  -0.4003   0.1258   0.5652   1.2814  
+## 
+## Coefficients:
+##                 Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)      -0.2138     0.7993  -0.268   0.7891  
+## pca$scores[, 1]   1.4744     0.6411   2.300   0.0215 *
+## pca$scores[, 2]   0.7104     0.8940   0.795   0.4269  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 22.181  on 15  degrees of freedom
+## Residual deviance: 11.338  on 13  degrees of freedom
+## AIC: 17.338
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Let’s see how well this model predicts the kind of OS. You can use fitted() function to see the prediction.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fitted</span>(model1)</code></pre></div>
+<pre><code>##           1           2           3           4           5           6 
+## 0.114201733 0.009372181 0.217716320 0.066009817 0.440016243 0.031640529 
+##           7           8           9          10          11          12 
+## 0.036189119 0.175766013 0.906761064 0.855587371 0.950088045 0.888272270 
+##          13          14          15          16 
+## 0.781098710 0.757499202 0.842557931 0.927223453</code></pre>
+<p>These values represent the probabilities of being 1. For example, we can expect 11% chance that Participant 1 is using OS 1 based on the variable derived by PCA. Thus, in this case, Participant 1 is more likely to be using OS 0, which agrees with the survey response. In this way, PCA can be used with regression models for calculating the probability of a phenomenon or making a prediction.</p>
+<p>I have tried to do the same with scaling the data using <code>scale(x)</code> and it changed absolutely nothing.</p>
+</div>
+<div id="attempt-of-pca-on-technical-indicators." class="section level2">
+<h2><span class="header-section-number">5.2</span> Attempt of PCA on technical indicators.</h2>
+<p>For this purpose, we have taken a random stock, added a lots of variables and have one dependent variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read the file</span>
+<span class="kw">library</span>(readr)
+stock_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;AugmentedStockData/CVX.csv&quot;</span>)</code></pre></div>
+<p>Now onto create our dependent variable and stipping down the data frame to just the columns that interest us, and only get rows and columns without NA.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
+binary =<span class="st"> </span><span class="kw">if_else</span>(stock_data$ret3days[<span class="dv">25</span>:<span class="dv">4150</span>] &gt;<span class="st"> </span><span class="fl">0.03</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+depend_var &lt;-<span class="st"> </span>stock_data[<span class="dv">25</span>:<span class="dv">4150</span>,<span class="dv">8</span>:<span class="dv">34</span>]</code></pre></div>
+<p>The base R function <code>prcomp()</code> is used to perform PCA. PCA only works with normalized data. So we need to center the variable to have mean equals to zero. With parameter <code>scale. = T</code>, we normalize the variables to have standard deviation equals to 1. <strong>Normalized predictors have mean equals to zero and standard deviation equals to one.</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prin_comp &lt;-<span class="st"> </span><span class="kw">prcomp</span>(depend_var, <span class="dt">scale. =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Let’s have a closer look at that ‘prcomp’ function.</p>
+<p><code>Center</code> and <code>scale</code> refers to respective mean and standard deviation of the variables that are used for normalization prior to implementing PCA.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(prin_comp)</code></pre></div>
+<pre><code>## [1] &quot;sdev&quot;     &quot;rotation&quot; &quot;center&quot;   &quot;scale&quot;    &quot;x&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(prin_comp)</code></pre></div>
+<pre><code>## Importance of components:
+##                           PC1    PC2    PC3     PC4     PC5     PC6
+## Standard deviation     3.3007 2.5311 1.6647 1.58184 1.12216 0.89194
+## Proportion of Variance 0.4035 0.2373 0.1026 0.09268 0.04664 0.02947
+## Cumulative Proportion  0.4035 0.6408 0.7434 0.83609 0.88273 0.91220
+##                            PC7     PC8     PC9    PC10    PC11    PC12
+## Standard deviation     0.80601 0.63478 0.59745 0.53196 0.42057 0.39748
+## Proportion of Variance 0.02406 0.01492 0.01322 0.01048 0.00655 0.00585
+## Cumulative Proportion  0.93626 0.95118 0.96440 0.97488 0.98143 0.98728
+##                           PC13    PC14    PC15    PC16    PC17    PC18
+## Standard deviation     0.36869 0.33376 0.18342 0.17136 0.14502 0.08488
+## Proportion of Variance 0.00503 0.00413 0.00125 0.00109 0.00078 0.00027
+## Cumulative Proportion  0.99232 0.99644 0.99769 0.99878 0.99956 0.99982
+##                           PC19    PC20    PC21    PC22     PC23     PC24
+## Standard deviation     0.05953 0.02347 0.01988 0.01569 0.003083 0.002066
+## Proportion of Variance 0.00013 0.00002 0.00001 0.00001 0.000000 0.000000
+## Cumulative Proportion  0.99996 0.99998 0.99999 1.00000 1.000000 1.000000
+##                             PC25      PC26      PC27
+## Standard deviation     2.065e-15 1.629e-15 1.194e-15
+## Proportion of Variance 0.000e+00 0.000e+00 0.000e+00
+## Cumulative Proportion  1.000e+00 1.000e+00 1.000e+00</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#outputs the mean of variables</span>
+prin_comp$center</code></pre></div>
+<pre><code>##         wma3         wma5         wma7         wma9        wma11 
+## 2.621433e-05 7.849430e-05 1.321253e-04 1.852866e-04 2.367136e-04 
+##     rsi_3val     rsi_3dir     rsi_5val     rsi_5dir     rsi_7val 
+## 5.249290e-01 2.259665e-01 5.219632e-01 5.112341e-02 5.198979e-01 
+##     rsi_7dir     rsi_9val     rsi_9dir    rsi_11val    rsi_11dir 
+## 2.280991e-02 5.183530e-01 1.295840e-02 5.171323e-01 8.388109e-03 
+##       11arup      11ardow     11arosci       19arup      19ardow 
+## 5.318600e-01 4.556251e-01 7.623496e-02 5.355895e-01 4.540398e-01 
+##     19arosci       23arup      23ardow     23arosci ave_vol3days 
+## 8.154961e-02 5.418344e-01 4.505785e-01 9.125587e-02 1.393280e-03 
+## ave_vol5days ave_vol7days 
+## 3.236529e-03 4.388667e-03</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#outputs the standard deviation of variables</span>
+prin_comp$scale</code></pre></div>
+<pre><code>##         wma3         wma5         wma7         wma9        wma11 
+##   0.01014433   0.01488609   0.01842084   0.02129883   0.02378999 
+##     rsi_3val     rsi_3dir     rsi_5val     rsi_5dir     rsi_7val 
+##   0.25196379   1.55382629   0.19466505   0.40810579   0.16395437 
+##     rsi_7dir     rsi_9val     rsi_9dir    rsi_11val    rsi_11dir 
+##   0.23886699   0.14412998   0.17015563   0.13002831   0.13287362 
+##       11arup      11ardow     11arosci       19arup      19ardow 
+##   0.37456507   0.36908431   0.65809034   0.36982907   0.36010315 
+##     19arosci       23arup      23ardow     23arosci ave_vol3days 
+##   0.64812635   0.36425219   0.35741487   0.63505784   0.18659298 
+## ave_vol5days ave_vol7days 
+##   0.22564569   0.24793982</code></pre>
+<p>The rotation measure provides the principal component loading. Each column of rotation matrix contains the principal component loading vector. This is the most important measure we should be interested in.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#because it can be a huge matrix, let&#39;s only check the first few rows and columns.</span>
+prin_comp$rotation[<span class="dv">1</span>:<span class="dv">5</span>, <span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
+<pre><code>##             PC1       PC2         PC3         PC4       PC5
+## wma3  0.1788016 0.2543854 -0.00981180 -0.08087736 0.2431686
+## wma5  0.2086344 0.2209183  0.02753808 -0.18315739 0.2465858
+## wma7  0.2252186 0.1839885  0.04507260 -0.23309018 0.2168579
+## wma9  0.2360512 0.1499467  0.05369872 -0.25316224 0.1770487
+## wma11 0.2437448 0.1198431  0.05604151 -0.25599437 0.1376221</code></pre>
+<p>Let’s plot the resultant principal components.</p>
+<p>The prcomp() function also provides the facility to compute standard deviation of each principal component. sdev refers to the standard deviation of principal components.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#compute standard deviation of each principal component</span>
+std_dev &lt;-<span class="st"> </span>prin_comp$sdev
+
+<span class="co">#compute variance</span>
+pr_var &lt;-<span class="st"> </span>std_dev^<span class="dv">2</span>
+
+<span class="co">#check variance of first 10 components</span>
+pr_var[<span class="dv">1</span>:<span class="dv">10</span>]</code></pre></div>
+<pre><code>##  [1] 10.8943784  6.4065586  2.7713407  2.5022255  1.2592331  0.7955608
+##  [7]  0.6496465  0.4029457  0.3569417  0.2829776</code></pre>
+<p>We aim to find the components which explain the maximum variance. This is because, we want to retain as much information as possible using these components. So, higher is the explained variance, higher will be the information contained in those components.</p>
+<p>To compute the proportion of variance explained by each component, we simply divide the variance by sum of total variance. This results in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#proportion of variance explained</span>
+prop_varex &lt;-<span class="st"> </span>pr_var/<span class="kw">sum</span>(pr_var)
+prop_varex[<span class="dv">1</span>:<span class="dv">20</span>]</code></pre></div>
+<pre><code>##  [1] 4.034955e-01 2.372799e-01 1.026422e-01 9.267502e-02 4.663826e-02
+##  [6] 2.946522e-02 2.406098e-02 1.492391e-02 1.322006e-02 1.048065e-02
+## [11] 6.550995e-03 5.851611e-03 5.034607e-03 4.125722e-03 1.246026e-03
+## [16] 1.087586e-03 7.789197e-04 2.668137e-04 1.312590e-04 2.039572e-05</code></pre>
+<p>This shows that first principal component explains 41.7% variance. Second component explains 23.8% variance. Third component explains 10.4% variance and so on. So, how do we decide how many components should we select for modeling stage ?</p>
+<p>The answer to this question is provided by a scree plot. A scree plot is used to access components or factors which explains the most of variability in the data. It represents values in descending order.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#scree plot</span>
+<span class="kw">plot</span>(prop_varex, <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,
+             <span class="dt">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>,
+             <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-27-1.png" width="672" /> Or we can do a cumulative scree plot</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#cumulative scree plot</span>
+<span class="kw">plot</span>(<span class="kw">cumsum</span>(prop_varex), <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,
+              <span class="dt">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>,
+              <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-28-1.png" width="672" /> Hence in this case the first 6 Principal Components explain over 90% of the variance of the data. That is we can use these first 6 PC as predictor in our next model.</p>
+<p>Let’s apply this now on a logisitc regression model. For this, we need to create our binary dependent variable. So we’ll put a 1 for every ret3days &gt; 3%, 0 otherwise.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">cbind</span>(binary, prin_comp$x)
+mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mydata)
+model1 &lt;-<span class="st"> </span><span class="kw">glm</span>(binary ~<span class="st"> </span>PC1 +<span class="st"> </span>PC2 +<span class="st"> </span>PC5 +<span class="st"> </span>PC6 +<span class="st"> </span>PC7, <span class="dt">data =</span> mydata, <span class="dt">family=</span>binomial)
+<span class="kw">summary</span>(model1)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = binary ~ PC1 + PC2 + PC5 + PC6 + PC7, family = binomial, 
+##     data = mydata)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.5159  -0.5197  -0.4511  -0.3740   2.4644  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -2.15924    0.05268 -40.989  &lt; 2e-16 ***
+## PC1         -0.11636    0.01514  -7.685 1.53e-14 ***
+## PC2          0.03253    0.01815   1.793   0.0731 .  
+## PC5         -0.05541    0.04094  -1.353   0.1760    
+## PC6         -0.08353    0.05546  -1.506   0.1320    
+## PC7         -0.04292    0.05665  -0.758   0.4486    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2851.7  on 4125  degrees of freedom
+## Residual deviance: 2784.3  on 4120  degrees of freedom
+## AIC: 2796.3
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">cbind</span>(binary, prin_comp$x)
+mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mydata)
+checkit &lt;-<span class="st"> </span><span class="kw">fitted</span>(model1)
+checkit &lt;-<span class="st"> </span><span class="kw">cbind</span>(binary, checkit)
+checkit &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(checkit)
+<span class="kw">head</span>(checkit %&gt;%<span class="st"> </span><span class="kw">filter</span>(binary ==<span class="st"> </span><span class="dv">1</span>), <span class="dv">20</span>)</code></pre></div>
+<pre><code>##    binary    checkit
+## 1       1 0.18260120
+## 2       1 0.18252003
+## 3       1 0.21606180
+## 4       1 0.21251118
+## 5       1 0.11869114
+## 6       1 0.14243678
+## 7       1 0.15250266
+## 8       1 0.08137055
+## 9       1 0.09081918
+## 10      1 0.07178808
+## 11      1 0.08675686
+## 12      1 0.08601504
+## 13      1 0.05538413
+## 14      1 0.13325771
+## 15      1 0.11428528
+## 16      1 0.13216528
+## 17      1 0.08095967
+## 18      1 0.07966423
+## 19      1 0.09559465
+## 20      1 0.16822463</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(checkit %&gt;%<span class="st"> </span><span class="kw">filter</span>(checkit &gt;<span class="st"> </span><span class="fl">0.2</span>), <span class="dv">20</span>)</code></pre></div>
+<pre><code>##    binary   checkit
+## 1       0 0.2199392
+## 2       1 0.2160618
+## 3       1 0.2125112
+## 4       0 0.2136409
+## 5       1 0.2187997
+## 6       1 0.2116685
+## 7       0 0.2070526
+## 8       0 0.2038604
+## 9       0 0.2097841
+## 10      0 0.2034205
+## 11      0 0.2187273
+## 12      1 0.2275500
+## 13      1 0.2281150
+## 14      0 0.2183669
+## 15      0 0.2060439
+## 16      0 0.2201554
+## 17      0 0.2692442
+## 18      1 0.2772148
+## 19      1 0.2574167
+## 20      1 0.2005783</code></pre>
+<p>Really not very successful model.</p>
+</div>
+<div id="doing-pca-and-pcr-with-the-pls-package" class="section level2">
+<h2><span class="header-section-number">5.3</span> Doing PCA and PCR with the PLS package</h2>
+<p>Same as before we can not have NA data in our set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pls)
+depend_var &lt;-<span class="st"> </span>stock_data[<span class="dv">25</span>:<span class="dv">4150</span>,<span class="dv">8</span>:<span class="dv">35</span>]
+pcr_model &lt;-<span class="st"> </span><span class="kw">pcr</span>(ret3days~., <span class="dt">data =</span> depend_var, <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">validation =</span> <span class="st">&quot;CV&quot;</span>)</code></pre></div>
+<p>In oder to print out the results, simply use the summary function as below</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(pcr_model)</code></pre></div>
+<pre><code>## Data:    X dimension: 4126 27 
+##  Y dimension: 4126 1
+## Fit method: svdpc
+## Number of components considered: 27
+## 
+## VALIDATION: RMSEP
+## Cross-validated using 10 random segments.
+##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+## CV         0.02651   0.0265  0.02651  0.02652  0.02653  0.02646  0.02646
+## adjCV      0.02651   0.0265  0.02651  0.02652  0.02653  0.02646  0.02645
+##        7 comps  8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
+## CV     0.02649  0.02648  0.02646   0.02647   0.02647   0.02647   0.02647
+## adjCV  0.02648  0.02648  0.02645   0.02646   0.02646   0.02646   0.02646
+##        14 comps  15 comps  16 comps  17 comps  18 comps  19 comps
+## CV      0.02647   0.02649   0.02648   0.02651   0.02651   0.02652
+## adjCV   0.02646   0.02648   0.02647   0.02650   0.02650   0.02651
+##        20 comps  21 comps  22 comps  23 comps  24 comps  25 comps
+## CV      0.02653   0.02653   0.02654   0.02652   0.02651   0.02650
+## adjCV   0.02651   0.02652   0.02652   0.02650   0.02650   0.02646
+##        26 comps  27 comps
+## CV      0.02655   0.02660
+## adjCV   0.02645   0.02648
+## 
+## TRAINING: % variance explained
+##           1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps
+## X         40.3495  64.0775  74.3418   83.609  88.2731    91.22   93.626
+## ret3days   0.2797   0.3122   0.3381    0.359   0.9058     1.09    1.103
+##           8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
+## X          95.118   96.440    97.488     98.14    98.728    99.232
+## ret3days    1.122    1.521     1.523      1.56     1.685     1.738
+##           14 comps  15 comps  16 comps  17 comps  18 comps  19 comps
+## X           99.644    99.769    99.878    99.956    99.982    99.996
+## ret3days     1.745     1.746     1.796     1.797     1.847     1.865
+##           20 comps  21 comps  22 comps  23 comps  24 comps  25 comps
+## X            100.0    99.999   100.000   100.000   100.000   100.000
+## ret3days       1.9     1.997     2.017     2.166     2.215     2.268
+##           26 comps  27 comps
+## X          100.000   100.000
+## ret3days     2.594     2.632</code></pre>
+<p>As you can see, two main results are printed, namely the <strong>validation error</strong> and the <strong>cumulative percentage of variance</strong> explained using n components. The cross validation results are computed for each number of components used so that you can easily check the score with a particular number of components without trying each combination on your own. The pls package provides also a set of methods to plot the results of PCR. For example you can plot the results of cross validation using the <code>validationplot</code> function. By default, the pcr function computes the <strong>root mean squared error</strong> and the <code>validationplot</code> function plots this statistic, however you can choose to plot the usual mean squared error or the R2 by setting the val.type argument equal to “MSEP” or “R2” respectively</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the root mean squared error</span>
+<span class="kw">validationplot</span>(pcr_model)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-33-1.png" width="672" /> What you would like to see is a low cross validation error with a lower number of components than the number of variables in your dataset. If this is not the case or if the smalles cross validation error occurs with a number of components close to the number of variables in the original data, then no dimensionality reduction occurs. In the example above, it looks like 3 components are enough to explain more than 90% of the variability in the data. Now you can try to use PCR on a traning-test set and evaluate its performance using, for example, using only 6 components</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train-test split</span>
+train &lt;-<span class="st"> </span>stock_data[<span class="dv">25</span>:<span class="dv">3000</span>,<span class="dv">8</span>:<span class="dv">35</span>]
+y_test &lt;-<span class="st"> </span>stock_data[<span class="dv">3001</span>:<span class="dv">4150</span>,<span class="dv">35</span>]
+test &lt;-<span class="st"> </span>stock_data[<span class="dv">3001</span>:<span class="dv">4150</span>,<span class="dv">8</span>:<span class="dv">34</span>]
+    
+pcr_model &lt;-<span class="st"> </span><span class="kw">pcr</span>(ret3days~., <span class="dt">data =</span> train,<span class="dt">scale =</span><span class="ot">TRUE</span>, <span class="dt">validation =</span> <span class="st">&quot;CV&quot;</span>)
+ 
+pcr_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(pcr_model, test, <span class="dt">ncomp =</span> <span class="dv">6</span>)
+<span class="kw">mean</span>((pcr_pred -<span class="st"> </span>y_test)^<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 0.0005600123</code></pre>
+</div>
+<div id="references." class="section level2">
+<h2><span class="header-section-number">5.4</span> References.</h2>
+<p>Here are the articles I have consulted for this research.</p>
+<ul>
+<li><p><a href="http://yatani.jp/teaching/doku.php?id=hcistats:pca">Principal Component Analysis (PCA)</a></p></li>
+<li><p><a href="http://www.dataperspective.info/2016/02/principal-component-analysis-using-r.html">Principal Component Analysis using R</a></p></li>
+<li><p><a href="https://tgmstat.wordpress.com/2013/11/28/computing-and-visualizing-pca-in-r/">Computing and visualizing PCA in R</a> This is where we learned about the `ggbiplot</p></li>
+<li><p><a href="http://www.analyticsvidhya.com/blog/2016/03/practical-guide-principal-component-analysis-python/">Practical Guide to Principal Component Analysis (PCA) in R &amp; Python</a></p></li>
+<li><p><a href="http://www.milanor.net/blog/performing-principal-components-regression-pcr-in-r/">Performing Principal Components Regression (PCR) in R</a></p></li>
+<li><p><a href="http://gerardnico.com/wiki/data_mining/pca">Data Mining - Principal Component (Analysis|Regression) (PCA)</a></p></li>
+<li><p><a href="https://www.ime.usp.br/~pavan/pdf/MAE0330-PCA-R-2013">PRINCIPAL COMPONENT ANALYSIS IN R</a> A really nice explanation on the difference between the main packages doing PCA such as <code>svd</code>, <code>princomp</code>and <code>prcomp</code>. In R there are two general methods to perform PCA without any missing values: The spectral decomposition method of analysis examines the covariances and correlations between variables, whereas the singular value decomposition method looks at the covariances and correlations among the samples. While both methods can easily be performed within R, the singular value decomposition method is the preferred analysis for numerical accuracy.</p></li>
+</ul>
+<p>Although principal component analysis assumes multivariate normality, this is not a very strict assumption, especially when the procedure is used for data reduction or exploratory purposes. Undoubtedly, the correlation and covariance matrices are better measures of similarity if the data is normal, and yet, PCA is often unaffected by mild violations. However, if the new components are to be used in further analyses, such as regression analysis, normality of the data might be more important.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="trees-and-classification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="case-study-mushrooms-classification.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/fderyckel/bookdown-demo/edit/master/05-pca.Rmd",
+"text": "Edit"
+},
+"download": ["machinelearningwithR.pdf", "machinelearningwithR.epub"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

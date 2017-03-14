@@ -233,7 +233,7 @@ g &lt;-<span class="st"> </span>g +<span class="st"> </span><span class="kw">sca
 g &lt;-<span class="st"> </span>g +<span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.direction =</span> <span class="st">&#39;horizontal&#39;</span>, 
                <span class="dt">legend.position =</span> <span class="st">&#39;top&#39;</span>)
 <span class="kw">print</span>(g)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="machinelearningwithR_files/figure-html/pca_graph1-1.png" width="672" /></p>
 <p>The code below has been taken and modify from <a href="https://gist.github.com/thigm85/7689508">here</a>. The idea is to plot each variables coefficients inside a unit circle to get insight on a possible interpretation for PCs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(ggplot2)
 theta &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">2</span>*pi,<span class="dt">length.out =</span> <span class="dv">100</span>)
@@ -245,7 +245,7 @@ p +<span class="st"> </span><span class="kw">geom_text</span>(<span class="dt">d
               <span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x =</span> pca$loadings[,<span class="dv">1</span>], <span class="dt">y =</span> pca$loadings[,<span class="dv">2</span>], <span class="dt">label =</span> <span class="kw">rownames</span>(pca$loadings), <span class="dt">colour =</span> <span class="kw">rownames</span>(pca$loadings))) +
 <span class="st">  </span><span class="kw">coord_fixed</span>(<span class="dt">ratio=</span><span class="dv">1</span>) +
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;PC1&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;PC2&quot;</span>)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="machinelearningwithR_files/figure-html/pca_graph2-1.png" width="672" /></p>
 <p>Remember that one of the disadventage of PCA is how difficult it is to interpret the model (ie. what does the PC1 is representing, what does PC2 is representing, etc.). The <strong>biplot</strong> graph help somehow to overcome that.</p>
 <p>In the above graph, one can see that <code>Brand</code>and <code>Aesthetic</code> explain most of the variance in the new predictor PC1 while <code>Software</code> explain most of the variance in the new predictor PC2.</p>
 <p>Once you have done the analysis with PCA, you may want to look into whether the new variables can predict some phenomena well. This is kinda like machine learning: Whether features can classify the data well. Let’s say you have asked the participants one more thing, which OS they are using (Windows or Mac) in your survey, and the results are like this.</p>
@@ -389,12 +389,12 @@ prop_varex[<span class="dv">1</span>:<span class="dv">20</span>]</code></pre></d
 <span class="kw">plot</span>(prop_varex, <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,
              <span class="dt">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>,
              <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-27-1.png" width="672" /> Or we can do a cumulative scree plot</p>
+<p><img src="machinelearningwithR_files/figure-html/pca_screeplot1-1.png" width="672" /> Or we can do a cumulative scree plot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#cumulative scree plot</span>
 <span class="kw">plot</span>(<span class="kw">cumsum</span>(prop_varex), <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,
               <span class="dt">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>,
               <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-28-1.png" width="672" /> Hence in this case the first 6 Principal Components explain over 90% of the variance of the data. That is we can use these first 6 PC as predictor in our next model.</p>
+<p><img src="machinelearningwithR_files/figure-html/pca_cumscreeplot1-1.png" width="672" /> Hence in this case the first 6 Principal Components explain over 90% of the variance of the data. That is we can use these first 6 PC as predictor in our next model.</p>
 <p>Let’s apply this now on a logisitc regression model. For this, we need to create our binary dependent variable. So we’ll put a 1 for every ret3days &gt; 3%, 0 otherwise.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">cbind</span>(binary, prin_comp$x)
 mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mydata)
@@ -528,7 +528,7 @@ pcr_model &lt;-<span class="st"> </span><span class="kw">pcr</span>(ret3days~., 
 <p>As you can see, two main results are printed, namely the <strong>validation error</strong> and the <strong>cumulative percentage of variance</strong> explained using n components. The cross validation results are computed for each number of components used so that you can easily check the score with a particular number of components without trying each combination on your own. The pls package provides also a set of methods to plot the results of PCR. For example you can plot the results of cross validation using the <code>validationplot</code> function. By default, the pcr function computes the <strong>root mean squared error</strong> and the <code>validationplot</code> function plots this statistic, however you can choose to plot the usual mean squared error or the R2 by setting the val.type argument equal to “MSEP” or “R2” respectively</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the root mean squared error</span>
 <span class="kw">validationplot</span>(pcr_model)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-33-1.png" width="672" /> What you would like to see is a low cross validation error with a lower number of components than the number of variables in your dataset. If this is not the case or if the smalles cross validation error occurs with a number of components close to the number of variables in the original data, then no dimensionality reduction occurs. In the example above, it looks like 3 components are enough to explain more than 90% of the variability in the data. Now you can try to use PCR on a traning-test set and evaluate its performance using, for example, using only 6 components</p>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-24-1.png" width="672" /> What you would like to see is a low cross validation error with a lower number of components than the number of variables in your dataset. If this is not the case or if the smalles cross validation error occurs with a number of components close to the number of variables in the original data, then no dimensionality reduction occurs. In the example above, it looks like 3 components are enough to explain more than 90% of the variability in the data. Now you can try to use PCR on a traning-test set and evaluate its performance using, for example, using only 6 components</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train-test split</span>
 train &lt;-<span class="st"> </span>stock_data[<span class="dv">25</span>:<span class="dv">3000</span>,<span class="dv">8</span>:<span class="dv">35</span>]
 y_test &lt;-<span class="st"> </span>stock_data[<span class="dv">3001</span>:<span class="dv">4150</span>,<span class="dv">35</span>]

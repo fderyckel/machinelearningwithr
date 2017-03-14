@@ -219,7 +219,7 @@ tree</code></pre></div>
 <p><strong>Branch / Sub-Tree</strong>: A sub section of entire tree is called branch or sub-tree.</p>
 <p><strong>Parent and Child Node</strong>: A node, which is divided into sub-nodes is called parent node of sub-nodes where as sub-nodes are the child of parent node.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(tree)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="machinelearningwithR_files/figure-html/iris_tree-1.png" width="672" /></p>
 <p>This is a model with a <strong>multi-class response</strong>. Each node shows</p>
 <ul>
 <li>the predicted class (setosa, versicolor, virginica),</li>
@@ -266,7 +266,7 @@ ptitanic$parch &lt;-<span class="st"> </span><span class="kw">as.integer</span>(
 <span class="kw">set.seed</span>(<span class="dv">123</span>)
 tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(survived ~<span class="st"> </span>., <span class="dt">data =</span> ptitanic, <span class="dt">cp=</span><span class="fl">0.00001</span>)
 <span class="kw">rpart.plot</span>(tree)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="machinelearningwithR_files/figure-html/titanic_tree-1.png" width="672" /></p>
 <p>Each node shows</p>
 <ul>
 <li>the predicted class (died or survived),</li>
@@ -317,7 +317,7 @@ A more robust alternative to minimum cross-validation error is to use the one st
 ## 6 0.0020000     16     0.440  0.530 0.029076
 ## 7 0.0000100     18     0.436  0.534 0.029157</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotcp</span>(tree)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="machinelearningwithR_files/figure-html/xval_titanic-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree$cptable[<span class="kw">which.min</span>(tree$cptable[,<span class="st">&quot;xerror&quot;</span>]),<span class="st">&quot;CP&quot;</span>]</code></pre></div>
 <pre><code>## [1] 0.002571429</code></pre>
 <p>See if we can prune slightly the tree</p>
@@ -328,7 +328,7 @@ tree.pruned &lt;-<span class="st"> </span><span class="kw">prune</span>(tree, <s
 <span class="co">#Actually this will give us a very similar graphed tree as rattle (and we like that graph!)</span>
 <span class="kw">rpart.plot</span>(tree.pruned, <span class="dt">extra=</span><span class="dv">104</span>, <span class="dt">box.palette=</span><span class="st">&quot;GnBu&quot;</span>,
                <span class="dt">branch.lty=</span><span class="dv">3</span>, <span class="dt">shadow.col=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">nn=</span><span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="machinelearningwithR_files/figure-html/titanic_tree_2-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">conf.matrix &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(ptitanic$survived, <span class="kw">predict</span>(tree.pruned, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>))), <span class="dv">2</span>)
 <span class="kw">rownames</span>(conf.matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Actually died&quot;</span>, <span class="st">&quot;Actually Survived&quot;</span>)
 <span class="kw">colnames</span>(conf.matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Predicted dead&quot;</span>, <span class="st">&quot;Predicted Survived&quot;</span>)
@@ -345,7 +345,7 @@ fit.perf =<span class="st"> </span><span class="kw">performance</span>(fit.pred,
 <span class="kw">plot</span>(fit.perf,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,
      <span class="dt">main=</span><span class="st">&quot;ROC:  Classification Trees on Titanic Dataset&quot;</span>)
 <span class="kw">abline</span>(<span class="dt">a=</span><span class="dv">0</span>,<span class="dt">b=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="machinelearningwithR_files/figure-html/rocr_titanic_tree-1.png" width="672" /></p>
 <p>Ordinarily, using the confusion matrix for creating the ROC curve would give us a single point (as it is based off True positive rate vs false positive rate). What we do here is ask the prediction algorithm to give class probabilities to each observation, and then we plot the performance of the prediction using class probability as a cutoff. This gives us the “smooth” ROC curve.</p>
 </div>
 <div id="how-does-a-tree-decide-where-to-split" class="section level2">

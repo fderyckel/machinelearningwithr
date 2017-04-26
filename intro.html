@@ -25,7 +25,7 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-03-14">
+<meta name="date" content="2017-04-26">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="index.html">
-<link rel="next" href="literature.html">
+<link rel="next" href="logistic-regressions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -105,14 +105,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
+<li class="chapter" data-level="3" data-path="logistic-regressions.html"><a href="logistic-regressions.html"><i class="fa fa-check"></i><b>3</b> Logistic Regressions</a><ul>
+<li class="chapter" data-level="3.1" data-path="logistic-regressions.html"><a href="logistic-regressions.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="logistic-regressions.html"><a href="logistic-regressions.html#the-logistic-equation."><i class="fa fa-check"></i><b>3.2</b> The logistic equation.</a></li>
+<li class="chapter" data-level="3.3" data-path="logistic-regressions.html"><a href="logistic-regressions.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>3.3</b> Performance of Logistic Regression Model</a></li>
+<li class="chapter" data-level="3.4" data-path="logistic-regressions.html"><a href="logistic-regressions.html#setting-up"><i class="fa fa-check"></i><b>3.4</b> Setting up</a></li>
+<li class="chapter" data-level="3.5" data-path="logistic-regressions.html"><a href="logistic-regressions.html#example-1"><i class="fa fa-check"></i><b>3.5</b> Example 1</a></li>
+<li class="chapter" data-level="3.6" data-path="logistic-regressions.html"><a href="logistic-regressions.html#example-2"><i class="fa fa-check"></i><b>3.6</b> Example 2</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="logistic-regressions.html"><a href="logistic-regressions.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>3.6.1</b> Accounting for missing values</a></li>
+<li class="chapter" data-level="3.6.2" data-path="logistic-regressions.html"><a href="logistic-regressions.html#imputting-missing-values"><i class="fa fa-check"></i><b>3.6.2</b> Imputting Missing Values</a></li>
+<li class="chapter" data-level="3.6.3" data-path="logistic-regressions.html"><a href="logistic-regressions.html#roc-and-auc"><i class="fa fa-check"></i><b>3.6.3</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="logistic-regressions.html"><a href="logistic-regressions.html#references"><i class="fa fa-check"></i><b>3.7</b> References</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>4</b> Trees and Classification</a><ul>
-<li class="chapter" data-level="4.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
 <li class="chapter" data-level="4.2" data-path="trees-and-classification.html"><a href="trees-and-classification.html#first-example."><i class="fa fa-check"></i><b>4.2</b> First example.</a></li>
 <li class="chapter" data-level="4.3" data-path="trees-and-classification.html"><a href="trees-and-classification.html#second-example."><i class="fa fa-check"></i><b>4.3</b> Second Example.</a></li>
 <li class="chapter" data-level="4.4" data-path="trees-and-classification.html"><a href="trees-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>4.4</b> How does a tree decide where to split?</a></li>
 <li class="chapter" data-level="4.5" data-path="trees-and-classification.html"><a href="trees-and-classification.html#third-example."><i class="fa fa-check"></i><b>4.5</b> Third example.</a></li>
-<li class="chapter" data-level="4.6" data-path="trees-and-classification.html"><a href="trees-and-classification.html#references"><i class="fa fa-check"></i><b>4.6</b> References</a></li>
+<li class="chapter" data-level="4.6" data-path="trees-and-classification.html"><a href="trees-and-classification.html#references-1"><i class="fa fa-check"></i><b>4.6</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>5</b> Principal Component Analysis</a><ul>
 <li class="chapter" data-level="5.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>5.1</b> PCA on an easy example.</a></li>
@@ -147,7 +159,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.6" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>7.6</b> References.</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>8</b> Final Words</a></li>
-<li class="chapter" data-level="" data-path="references-1.html"><a href="references-1.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="" data-path="references-2.html"><a href="references-2.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -179,7 +191,7 @@ Figure 2.1: Here is a nice figure!
 </div>
 <p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">2.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">2.1</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr::<span class="kw">kable</span>(
-  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,
+  <span class="kw">head</span>(iris, <span class="dv">10</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,
   <span class="dt">booktabs =</span> <span class="ot">TRUE</span>
 )</code></pre></div>
 <table>
@@ -264,79 +276,10 @@ Figure 2.1: Here is a nice figure!
 <td align="right">0.1</td>
 <td align="left">setosa</td>
 </tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.7</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.8</td>
-<td align="right">3.4</td>
-<td align="right">1.6</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.8</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.3</td>
-<td align="right">3.0</td>
-<td align="right">1.1</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.8</td>
-<td align="right">4.0</td>
-<td align="right">1.2</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.7</td>
-<td align="right">4.4</td>
-<td align="right">1.5</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.3</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.7</td>
-<td align="right">3.8</td>
-<td align="right">1.7</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.8</td>
-<td align="right">1.5</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
 </tbody>
 </table>
 <p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown">2016</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015">2015</a>)</span>.</p>
+<p>Throughout this text</p>
 
 </div>
 <h3>References</h3>
@@ -354,7 +297,7 @@ Figure 2.1: Here is a nice figure!
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="literature.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="logistic-regressions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -386,7 +329,7 @@ gitbook.start({
 "link": "https://github.com/fderyckel/bookdown-demo/edit/master/01-intro.Rmd",
 "text": "Edit"
 },
-"download": ["machinelearningwithR.pdf", "machinelearningwithR.epub"],
+"download": ["machinelearningwithR.pdf"],
 "toc": {
 "collapse": "section"
 }

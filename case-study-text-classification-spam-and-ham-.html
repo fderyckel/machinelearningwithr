@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="intro.html">
+<link rel="prev" href="case-study-predicting-survicalship-on-the-titanic.html">
+<link rel="next" href="final-words.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -179,40 +179,148 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Machine Learning with R</h1>
-<h4 class="author"><em>François de Ryckel</em></h4>
-<h4 class="date"><em>2017-05-12</em></h4>
-</div>
-<div id="prerequisites" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>This book is basically a record of my journey in data analysis. So often, I spend time reading articles, blog posts, etc. and wish I could put all the great things I’m learning in a central location.</p>
-<p>So this book is a compilation of all the great techniques I’ve learned along the way. Most of what I have learned is through blog posts, stack overflow questions, etc. I am not taking any credit for all the great ideas, examples, graphs, etc. in this web book. I do take responsability for all mistakes, typos, unclear explanations, poor labeling / presentation of graphs. If you find anything that require improvement, I would be grateful if you would let me know: <a href="mailto:f.deryckel@gmail.com">f.deryckel@gmail.com</a></p>
-<p>I am assuming that you are already somehow familiar with:</p>
-<ul>
-<li>the math behind most algorithms. This is not a math book.<br />
-</li>
-<li>the basics of how to use R. This is not a computer science book nor a R book.</li>
-</ul>
-<p>I wish you great fun in your data science journey, and I hope that this book can contribute positively to your journey.</p>
-<p>As much as it makes sense, we will use the tidyverse and the conventions of tidy data throughout our journey.<br />
-Besides the hype surrounding the tidyverse, there is a couple reasons for us to stick with it:</p>
-<ul>
-<li>learning a language is hard on itself, if we can be proficient and creative with one, it will be much better. All the packages from the tidyverse, might not always be the best ones (more efficient, more elegant), but I’am happy to learn inside out one opiniated framework in order to be able to aplly it effortlessly and creatively.<br />
-</li>
-<li>Because many of the tidyverse packages do their background work in C++, they are usually pretty efficient in the way they work.</li>
-</ul>
+<div id="case-study---text-classification-spam-and-ham." class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Case Study - Text classification: Spam and Ham.</h1>
+<p>This chapter has been inspired by the Coursera course on <a href="https://www.coursera.org/learn/ml-foundations/">Machine Learning Foundations: A Case Study Approach</a> given by Carlos Guestrin and by Emily Fox from Washington University. This course is part of the <a href="https://www.coursera.org/specializations/machine-learning">Machine Learning Specialization</a></p>
+<p>The task was to apply classfification on an Amazon review dataset. Given a review, we create a model that will decide if the review is <em>positive</em> (associated with a rating of 4 or 5) or <em>negative</em> (associate with a rating of 1 or 2). This is a supervised learning task as the grading associated with the reviews is used as the response variable.</p>
+<p>As usual, let’s first start by loading our libraries</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
-<p>Here are some conventions we will be using throughout the book.</p>
-<ul>
-<li><code>df</code> denotes a data frame. Usually the data frame from a raw set of data<br />
-</li>
-<li>We’ll use <code>df2</code>, <code>df3</code>, etc. for other, “cleaner” versions of that raw data set<br />
-</li>
-<li><code>model_pca_xxxx</code>, <code>model_lr_xxxx</code> denotes models. The second part denotes the algorithm.<br />
-</li>
-<li><code>predict_svm_xxxx</code> or <code>predict_mlr_xxxx</code> denotes the outcome of applying a model on a set of indepedent variables.</li>
-</ul>
+<p>Let’s have a quick look at our data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">product_review &lt;-<span class="st"> </span>readr::<span class="kw">read_csv</span>(<span class="st">&quot;dataset/toyamazonPhilips.csv&quot;</span>)
+
+<span class="co">#Let&#39;s have a quick look at the reviews</span>
+<span class="kw">library</span>(pander)
+<span class="kw">pandoc.table</span>(product_review[<span class="dv">2</span>:<span class="dv">4</span>,<span class="dv">1</span>:<span class="dv">3</span>], 
+             <span class="dt">justify =</span> <span class="kw">c</span>(<span class="st">&#39;left&#39;</span>, <span class="st">&#39;left&#39;</span>, <span class="st">&#39;center&#39;</span>), <span class="dt">style =</span> <span class="st">&#39;grid&#39;</span>)</code></pre></div>
+<pre><code>## 
+## 
+## +--------------------------+--------------------------------+----------+
+## | name                     | review                         |  rating  |
+## +==========================+================================+==========+
+## | Philips Avent 3 Pack 9oz | If I had not been given a ton  |    2     |
+## | Bottles                  | of Avent bottles, I would have |          |
+## |                          | chosen some other system.  The |          |
+## |                          | leaking is terrible!!!  You    |          |
+## |                          | have to buy the disks          |          |
+## |                          | separately, you should get     |          |
+## |                          | them for free because they are |          |
+## |                          | absolutely essential.  The     |          |
+## |                          | only way to mix formula in the |          |
+## |                          | bottle or transport liquid is  |          |
+## |                          | to use the disks in the ring,  |          |
+## |                          | then switch to the nipple when |          |
+## |                          | you are ready to feed.  The    |          |
+## |                          | only reason I give it a two is |          |
+## |                          | because I do like that you can |          |
+## |                          | pump directly into the bottle  |          |
+## |                          | with the ISIS breast pump.     |          |
+## |                          | And, I like the sippy cups.    |          |
+## +--------------------------+--------------------------------+----------+
+## | Philips Avent 3 Pack 9oz | Leaks! Especially difficult to |    1     |
+## | Bottles                  | get a tight seal if you use    |          |
+## |                          | one hand (while holding baby). |          |
+## |                          | A much better design is the    |          |
+## |                          | Breast Flow Learning Curve     |          |
+## |                          | First Years bottles. Instead   |          |
+## |                          | buy The First Years 3pk.       |          |
+## |                          | Breastflow 5oz. Bottles These  |          |
+## |                          | worked much better for me.     |          |
+## +--------------------------+--------------------------------+----------+
+## | Philips Avent 3 Pack 9oz | I have been using the Avent    |    5     |
+## | Bottles                  | bottle system for six months   |          |
+## |                          | and have been completely       |          |
+## |                          | satisfied. I introduced an     |          |
+## |                          | Avent bottle to my daughter at |          |
+## |                          | four weeks old and she         |          |
+## |                          | transitioned easily between    |          |
+## |                          | breast and bottle. She is      |          |
+## |                          | still breastfed in the morning |          |
+## |                          | and evenings but receives an   |          |
+## |                          | Avent bottle at daycare and    |          |
+## |                          | has never had a problem. I     |          |
+## |                          | have never had a bottle leak   |          |
+## |                          | of which other consumers have  |          |
+## |                          | complained. I would recommend  |          |
+## |                          | this system to any parent,     |          |
+## |                          | especially those of part-time  |          |
+## |                          | breastfed babies.              |          |
+## +--------------------------+--------------------------------+----------+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Let&#39;s see the table of ratings.  </span>
+<span class="kw">table</span>(product_review$rating)</code></pre></div>
+<pre><code>## 
+##  1  2  3  4  5 
+## 45 33 17 30 66</code></pre>
+<p>Interestingly the ratings on the Avent Bottles are quite spread on the extreme. It might be that people only write reviews if they are super excited or very frustrated with a product. Because we want this to be a binary classification exercise, we’ll do some transformation on these ratings.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We&#39;ll put a 1 for great reviews (4 or 5) or a 0 for bad reviews (1 or 2)</span>
+<span class="co"># We remove all the reviews that have a rating of 3</span>
+product_review &lt;-<span class="st"> </span>product_review %&gt;%<span class="st"> </span><span class="kw">filter</span>(rating !=<span class="st"> </span><span class="dv">3</span>) %&gt;%<span class="st"> </span>
+<span class="st">                    </span><span class="kw">mutate</span>(<span class="dt">rating_new =</span> <span class="kw">if_else</span>(rating &gt;=<span class="st"> </span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>))
+product_review_training &lt;-<span class="st">  </span>product_review[<span class="dv">1</span>:<span class="dv">150</span>, ]</code></pre></div>
+<p>Now we create our corpus, then tokenize it, then make it back to a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tm)
+corpus_toy &lt;-<span class="st"> </span><span class="kw">Corpus</span>(<span class="kw">VectorSource</span>(product_review_training$review))
+tdm_toy &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(corpus_toy, <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>, 
+                                               <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>))
+
+training_set_toy &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(tdm_toy)
+
+training_set_toy &lt;-<span class="st"> </span><span class="kw">cbind</span>(training_set_toy, product_review_training$rating_new)
+
+<span class="kw">colnames</span>(training_set_toy)[<span class="kw">ncol</span>(training_set_toy)] &lt;-<span class="st"> &quot;y&quot;</span>
+
+training_set_toy &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(training_set_toy)
+training_set_toy$y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(training_set_toy$y)</code></pre></div>
+<p>Now that we have our data frame ready, let’s create our model using the <code>svmLinear3</code> method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">review_toy_model &lt;-<span class="st"> </span>caret::<span class="kw">train</span>(y ~., <span class="dt">data =</span> training_set_toy, <span class="dt">method =</span> <span class="st">&#39;svmLinear3&#39;</span>)</code></pre></div>
+<p>Now we try our model on new review data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_review_data &lt;-<span class="st"> </span>product_review[<span class="dv">151</span>:<span class="dv">174</span>, ]
+
+test_corpus &lt;-<span class="st"> </span><span class="kw">Corpus</span>(<span class="kw">VectorSource</span>(test_review_data$review))
+test_tdm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(test_corpus, <span class="dt">control=</span><span class="kw">list</span>(<span class="dt">dictionary =</span> <span class="kw">Terms</span>(tdm_toy)))
+test_tdm &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(test_tdm)
+
+<span class="co">#Build the prediction  </span>
+model_toy_result &lt;-<span class="st"> </span><span class="kw">predict</span>(review_toy_model, <span class="dt">newdata =</span> test_tdm)
+
+check_accuracy &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dt">prediction =</span> model_toy_result, 
+                                      <span class="dt">rating =</span> test_review_data$rating_new))
+
+check_accuracy &lt;-<span class="st"> </span>check_accuracy %&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">prediction =</span> <span class="kw">as.integer</span>(prediction) -<span class="st"> </span><span class="dv">1</span>)
+
+check_accuracy$accuracy &lt;-<span class="st"> </span><span class="kw">if_else</span>(check_accuracy$prediction ==<span class="st"> </span>check_accuracy$rating, <span class="dv">1</span>, <span class="dv">0</span>)
+<span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(check_accuracy$accuracy)), <span class="dv">3</span>)</code></pre></div>
+<pre><code>## 
+##     0     1 
+## 0.458 0.542</code></pre>
+<p>Another way to deal with text classification is to use the <code>RtextTool</code> library.<br />
+We can use the same dataframe that we used in our previous method. Like before we “DocumentTermMatrix”, we create a matrix of terms</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RTextTools)</code></pre></div>
+<pre><code>## Loading required package: SparseM</code></pre>
+<pre><code>## 
+## Attaching package: &#39;SparseM&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     backsolve</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">product_review_matrix &lt;-<span class="st"> </span><span class="kw">create_matrix</span>(product_review[,<span class="dv">2</span>], <span class="dt">language =</span> <span class="st">&quot;English&quot;</span>, 
+                                       <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>, 
+                                       <span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>, 
+                                       <span class="dt">removeStopwords =</span> <span class="ot">FALSE</span>, <span class="dt">stemWords =</span> <span class="ot">FALSE</span>)
+
+product_review_container &lt;-<span class="st"> </span><span class="kw">create_container</span>(product_review_matrix,
+                                             product_review$rating_new, 
+                                             <span class="dt">trainSize =</span> <span class="dv">1</span>:<span class="dv">150</span>, <span class="dt">testSize =</span> <span class="dv">151</span>:<span class="dv">174</span>, 
+                                             <span class="dt">virgin =</span> <span class="ot">FALSE</span>)
+
+product_review_model &lt;-<span class="st"> </span><span class="kw">train_model</span>(product_review_container, <span class="dt">algorithm =</span> <span class="st">&quot;SVM&quot;</span>)
+
+product_review_model_result &lt;-<span class="st"> </span><span class="kw">classify_model</span>(product_review_container, product_review_model)
+x &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(product_review$rating_new[<span class="dv">151</span>:<span class="dv">174</span>], product_review_model_result$SVM_LABEL))
+<span class="kw">colnames</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;actual_ratings&quot;</span>, <span class="st">&quot;predicted_ratings&quot;</span>)
+x &lt;-<span class="st"> </span>x %&gt;%<span class="st"> </span><span class="kw">mutate</span>(<span class="dt">predicted_ratings =</span> predicted_ratings -<span class="st"> </span><span class="dv">1</span>)
+<span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(x$actual_ratings ==<span class="st"> </span>x$predicted_ratings)), <span class="dv">3</span>)</code></pre></div>
+<pre><code>## 
+## FALSE  TRUE 
+##  0.25  0.75</code></pre>
 
 </div>
             </section>
@@ -220,8 +328,8 @@ Besides the hype surrounding the tidyverse, there is a couple reasons for us to 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="case-study-predicting-survicalship-on-the-titanic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -250,7 +358,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/fderyckel/bookdown-demo/edit/master/16-spam_and_ham.Rmd",
 "text": "Edit"
 },
 "download": ["machinelearningwithR.pdf", "machinelearningwithR.epub"],

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-05-12">
+<meta name="date" content="2017-08-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="intro.html">
-<link rel="next" href="logistic-regressions.html">
+<link rel="next" href="logistic-regression.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -104,20 +104,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a></li>
-<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a></li>
-<li class="chapter" data-level="4" data-path="logistic-regressions.html"><a href="logistic-regressions.html"><i class="fa fa-check"></i><b>4</b> Logistic Regressions</a><ul>
-<li class="chapter" data-level="4.1" data-path="logistic-regressions.html"><a href="logistic-regressions.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="logistic-regressions.html"><a href="logistic-regressions.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
-<li class="chapter" data-level="4.3" data-path="logistic-regressions.html"><a href="logistic-regressions.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
-<li class="chapter" data-level="4.4" data-path="logistic-regressions.html"><a href="logistic-regressions.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
-<li class="chapter" data-level="4.5" data-path="logistic-regressions.html"><a href="logistic-regressions.html#example-1"><i class="fa fa-check"></i><b>4.5</b> Example 1</a></li>
-<li class="chapter" data-level="4.6" data-path="logistic-regressions.html"><a href="logistic-regressions.html#example-2"><i class="fa fa-check"></i><b>4.6</b> Example 2</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="logistic-regressions.html"><a href="logistic-regressions.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
-<li class="chapter" data-level="4.6.2" data-path="logistic-regressions.html"><a href="logistic-regressions.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
-<li class="chapter" data-level="4.6.3" data-path="logistic-regressions.html"><a href="logistic-regressions.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#t-tests"><i class="fa fa-check"></i><b>2.1</b> T-tests</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="logistic-regressions.html"><a href="logistic-regressions.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price"><i class="fa fa-check"></i><b>3.1.1</b> First example. Predicting wine price</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#multi-variables-regression"><i class="fa fa-check"></i><b>3.2</b> Multi-variables regression</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price-1"><i class="fa fa-check"></i><b>3.2.1</b> First example. Predicting wine price</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="logistic-regression.html"><a href="logistic-regression.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic-regression.html"><a href="logistic-regression.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic-regression.html"><a href="logistic-regression.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
+<li class="chapter" data-level="4.4" data-path="logistic-regression.html"><a href="logistic-regression.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic-regression.html"><a href="logistic-regression.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
+<li class="chapter" data-level="4.6.2" data-path="logistic-regression.html"><a href="logistic-regression.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
+<li class="chapter" data-level="4.6.3" data-path="logistic-regression.html"><a href="logistic-regression.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="logistic-regression.html"><a href="logistic-regression.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>5</b> Trees and Classification</a><ul>
 <li class="chapter" data-level="5.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
@@ -137,27 +146,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>7.1</b> Import the data</a></li>
 <li class="chapter" data-level="7.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data"><i class="fa fa-check"></i><b>7.2</b> Tidy the data</a></li>
 <li class="chapter" data-level="7.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data"><i class="fa fa-check"></i><b>7.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-transform-the-data"><i class="fa fa-check"></i><b>7.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-visualize-the-data"><i class="fa fa-check"></i><b>7.3.2</b> A. Visualize the data</a></li>
-<li class="chapter" data-level="7.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-modeling"><i class="fa fa-check"></i><b>7.3.3</b> A. Modeling</a></li>
+<li class="chapter" data-level="7.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>7.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>7.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>7.3.3</b> Modeling</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>7.4</b> Communication</a></li>
-<li class="chapter" data-level="7.5" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#example-one"><i class="fa fa-check"></i><b>7.5</b> Example one</a></li>
-<li class="chapter" data-level="7.6" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#example-two"><i class="fa fa-check"></i><b>7.6</b> Example two</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html"><i class="fa fa-check"></i><b>8</b> Case Study - Predicting Survicalship on the Titanic</a><ul>
-<li class="chapter" data-level="8.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>8.1</b> Import the data.</a></li>
-<li class="chapter" data-level="8.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#tidy-the-data-1"><i class="fa fa-check"></i><b>8.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="8.3" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>8.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-transform-the-data-1"><i class="fa fa-check"></i><b>8.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="8.3.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>8.3.2</b> A. Vizualize with families.</a></li>
+<li class="chapter" data-level="8" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>8</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
+<li class="chapter" data-level="8.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>8.1</b> Import the data.</a></li>
+<li class="chapter" data-level="8.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data-1"><i class="fa fa-check"></i><b>8.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="8.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>8.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>8.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="8.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>8.3.2</b> A. Vizualize with families.</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>8.4</b> A. Visualize with cabins.</a></li>
-<li class="chapter" data-level="8.5" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>8.5</b> B. Transform Dealing with missing data.</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>8.5.1</b> Overview.</a></li>
-<li class="chapter" data-level="8.5.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>8.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+<li class="chapter" data-level="8.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>8.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="8.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>8.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>8.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="8.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>8.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>8.6</b> References.</a></li>
+<li class="chapter" data-level="8.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>8.6</b> References.</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="case-study-text-classification-spam-and-ham-.html"><a href="case-study-text-classification-spam-and-ham-.html"><i class="fa fa-check"></i><b>9</b> Case Study - Text classification: Spam and Ham.</a></li>
 <li class="chapter" data-level="10" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>10</b> Final Words</a></li>
@@ -181,7 +188,219 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="mlr" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Multiple Linear Regression</h1>
+<div id="single-variable-regression" class="section level2">
+<h2><span class="header-section-number">3.1</span> Single variable regression</h2>
+<p>The general equation for a linear regression model</p>
+<blockquote>
+<p><span class="math inline">\(y^i = \beta_{0} + \beta_{1} x^i + \epsilon^i\)</span></p>
+</blockquote>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(y^i\)</span> is the <span class="math inline">\(i^{th}\)</span> observation of the dependent variable</li>
+<li><span class="math inline">\(\beta_{0}\)</span> is the intercept coefficient</li>
+<li><span class="math inline">\(\beta_{1}\)</span> is the regression coefficient for the dependent variable</li>
+<li><span class="math inline">\(x^i\)</span> is the <span class="math inline">\(i^{th}\)</span> observation of the independent variable</li>
+<li><span class="math inline">\(\epsilon^i\)</span> is the error term for the <span class="math inline">\(i^{th}\)</span> observation. It basically is the difference in therm of y between the observed value and the estimated value. It is also called the residuals. A good model minimize these errors.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></li>
+</ul>
+<p>Some ways to assess how good our model is to:</p>
+<ol style="list-style-type: decimal">
+<li>compute the SSE (the sum of squared error)
+<ul>
+<li>SSE = <span class="math inline">\((\epsilon^1)^2 + (\epsilon^2)^2 + \ldots + (\epsilon^n)^2\)</span> = <span class="math inline">\(\sum_{i=1}^N \epsilon^i\)</span></li>
+<li>A good model will minimize SSE</li>
+<li>problem: SSE is dependent of N. SSE will naturally increase as N increase</li>
+</ul></li>
+<li>compute the RMSE (the root mean squared error)
+<ul>
+<li>RMSE = <span class="math inline">\(\sqrt {\frac {SSE} {N}}\)</span></li>
+<li>Also a good model will minimize SSE</li>
+<li>It depends of the unit of the dependent variable. It is like the average error the model is making (in term of the unit of the dependent variable)</li>
+</ul></li>
+<li>compute <span class="math inline">\(R^2\)</span>
+<ul>
+<li>It compare the models to a baseline model</li>
+<li><span class="math inline">\(R^2\)</span> is <strong>unitless</strong> and <strong>universaly</strong> interpretable</li>
+<li>SST is the sum of the squared of the difference between the observed value and the mean of all the observed value</li>
+<li><span class="math inline">\(R^2 = 1 - \frac {SSE} {SST}\)</span></li>
+</ul></li>
+</ol>
+<div id="first-example.-predicting-wine-price" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> First example. Predicting wine price</h3>
+<p>The wine.csv file is used.</p>
+<p>Let’s load it and then have a quick look at its structure.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(skimr)
+wine =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../datasets/Wine.csv&quot;</span>)
+<span class="kw">glimpse</span>(wine)</code></pre></div>
+<pre><code>## Observations: 25
+## Variables: 7
+## $ Year        &lt;int&gt; 1952, 1953, 1955, 1957, 1958, 1959, 1960, 1961, 19...
+## $ Price       &lt;dbl&gt; 7.4950, 8.0393, 7.6858, 6.9845, 6.7772, 8.0757, 6....
+## $ WinterRain  &lt;int&gt; 600, 690, 502, 420, 582, 485, 763, 830, 697, 608, ...
+## $ AGST        &lt;dbl&gt; 17.1167, 16.7333, 17.1500, 16.1333, 16.4167, 17.48...
+## $ HarvestRain &lt;int&gt; 160, 80, 130, 110, 187, 187, 290, 38, 52, 155, 96,...
+## $ Age         &lt;int&gt; 31, 30, 28, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17...
+## $ FrancePop   &lt;dbl&gt; 43183.57, 43495.03, 44217.86, 45152.25, 45653.81, ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">skim</span>(wine)</code></pre></div>
+<pre><code>## Numeric Variables
+## # A tibble: 7 x 13
+##           var    type missing complete     n         mean           sd
+##         &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+## 1         Age integer       0       25    25    17.200000    7.6919872
+## 2        AGST numeric       0       25    25    16.509336    0.6753968
+## 3   FrancePop numeric       0       25    25 49694.436760 3665.2702426
+## 4 HarvestRain integer       0       25    25   148.560000   74.4194643
+## 5       Price numeric       0       25    25     7.067224    0.6503409
+## 6  WinterRain integer       0       25    25   605.280000  132.2779649
+## 7        Year integer       0       25    25  1965.800000    7.6919872
+## # ... with 6 more variables: min &lt;dbl&gt;, `25% quantile` &lt;dbl&gt;,
+## #   median &lt;dbl&gt;, `75% quantile` &lt;dbl&gt;, max &lt;dbl&gt;, hist &lt;chr&gt;</code></pre>
+<p>We use the <code>lm</code> function to find our linear regression model. We use <em>AGST</em> as the independent variable while the <em>price</em> is the dependent variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 =<span class="st"> </span><span class="kw">lm</span>(Price ~<span class="st"> </span>AGST, <span class="dt">data =</span> wine)
+<span class="kw">summary</span>(model1)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ AGST, data = wine)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.78450 -0.23882 -0.03727  0.38992  0.90318 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -3.4178     2.4935  -1.371 0.183710    
+## AGST          0.6351     0.1509   4.208 0.000335 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4993 on 23 degrees of freedom
+## Multiple R-squared:  0.435,  Adjusted R-squared:  0.4105 
+## F-statistic: 17.71 on 1 and 23 DF,  p-value: 0.000335</code></pre>
+<p>The <code>summary</code> function applied on the model is giving us a bunch of important information</p>
+<ul>
+<li>the stars next to the predictor variable indicated how significant the variable is for our regression model</li>
+<li>it also gives us the value of the R coefficient</li>
+</ul>
+<p>We could have calculated the R value ourselves:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SSE =<span class="st"> </span><span class="kw">sum</span>(model1$residuals^<span class="dv">2</span>)
+SST =<span class="st"> </span><span class="kw">sum</span>((wine$Price -<span class="st"> </span><span class="kw">mean</span>(wine$Price))^<span class="dv">2</span>)
+r_squared =<span class="st"> </span><span class="dv">1</span> -<span class="st"> </span>SSE/SST
+r_squared</code></pre></div>
+<pre><code>## [1] 0.4350232</code></pre>
+<p>We can now plot the observations and the line of regression; and see how the linear model fits the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">ggplot</span>(wine, <span class="kw">aes</span>(AGST, Price)) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) +<span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/linreg04_graph-1.png" width="672" /> By default, the <code>geom_smooth()</code> will use a 95% confidence interval (which is the grey-er area on the graph). There are 95% chance the line of regression will be within that zone for the whole population.</p>
+<p>It is always nice to see how our residuals are distributed.<br />
+We use the <code>ggplot2</code> library and the <code>fortify</code> function which transform the <code>summary(model1)</code> into a data frame usable for plotting.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span><span class="kw">fortify</span>(model1)
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(model1, <span class="kw">aes</span>(.fitted, .resid)) +<span class="st"> </span><span class="kw">geom_point</span>() 
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) 
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Residuals&quot;</span>) +<span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Plot of the residuals in function of the fitted values&quot;</span>)
+p</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/linreg05_residuals-1.png" width="672" /></p>
+</div>
+</div>
+<div id="multi-variables-regression" class="section level2">
+<h2><span class="header-section-number">3.2</span> Multi-variables regression</h2>
+<p>Instead of just considering one variable as predictor, we’ll add a few more variables to our model with the idea to increase its predictive ability.</p>
+<p>We have to be cautious in adding more variables. Too many variable might give a high <span class="math inline">\(R^2\)</span> on our training data, but this not be the case as we switch to our testing data.</p>
+<p>The general equations can be expressed as</p>
+<blockquote>
+<p><span class="math inline">\(y^i = \beta_{0} + \beta_{1} x_{1}^i + \beta_{2} x_{2}^i + \ldots + \beta_{k} x_{k}^i + \epsilon^i\)</span></p>
+</blockquote>
+<p>when there are k predictors variables.</p>
+<p>There are a bit of trials and errors to make while trying to fit mutliple variables into a model, but a rule of thumb would be to include most of the variable (all these that would make sense) and then take out the ones that are not very significant using the <code>summary(modelx)</code></p>
+<div id="first-example.-predicting-wine-price-1" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> First example. Predicting wine price</h3>
+<p>We continue here with the same dataset, <em>wine.csv</em>.<br />
+First, we can see how each variable is correlated with each other ones, using</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(wine)</code></pre></div>
+<pre><code>##                    Year      Price   WinterRain        AGST HarvestRain
+## Year         1.00000000 -0.4477679  0.016970024 -0.24691585  0.02800907
+## Price       -0.44776786  1.0000000  0.136650547  0.65956286 -0.56332190
+## WinterRain   0.01697002  0.1366505  1.000000000 -0.32109061 -0.27544085
+## AGST        -0.24691585  0.6595629 -0.321090611  1.00000000 -0.06449593
+## HarvestRain  0.02800907 -0.5633219 -0.275440854 -0.06449593  1.00000000
+## Age         -1.00000000  0.4477679 -0.016970024  0.24691585 -0.02800907
+## FrancePop    0.99448510 -0.4668616 -0.001621627 -0.25916227  0.04126439
+##                     Age    FrancePop
+## Year        -1.00000000  0.994485097
+## Price        0.44776786 -0.466861641
+## WinterRain  -0.01697002 -0.001621627
+## AGST         0.24691585 -0.259162274
+## HarvestRain -0.02800907  0.041264394
+## Age          1.00000000 -0.994485097
+## FrancePop   -0.99448510  1.000000000</code></pre>
+<p>by default, R uses the Pearson coefficient of correlation.<br />
+So let’s start by using all variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price ~<span class="st"> </span>Year +<span class="st"> </span>WinterRain +<span class="st"> </span>AGST +<span class="st"> </span>HarvestRain +<span class="st"> </span>Age +<span class="st"> </span>FrancePop, <span class="dt">data =</span> wine)
+<span class="kw">summary</span>(model2)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ Year + WinterRain + AGST + HarvestRain + 
+##     Age + FrancePop, data = wine)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.48179 -0.24662 -0.00726  0.22012  0.51987 
+## 
+## Coefficients: (1 not defined because of singularities)
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  7.092e-01  1.467e+02   0.005 0.996194    
+## Year        -5.847e-04  7.900e-02  -0.007 0.994172    
+## WinterRain   1.043e-03  5.310e-04   1.963 0.064416 .  
+## AGST         6.012e-01  1.030e-01   5.836 1.27e-05 ***
+## HarvestRain -3.958e-03  8.751e-04  -4.523 0.000233 ***
+## Age                 NA         NA      NA       NA    
+## FrancePop   -4.953e-05  1.667e-04  -0.297 0.769578    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3019 on 19 degrees of freedom
+## Multiple R-squared:  0.8294, Adjusted R-squared:  0.7845 
+## F-statistic: 18.47 on 5 and 19 DF,  p-value: 1.044e-06</code></pre>
+<p>While doing so, we notice that the variable <em>Age</em> has NA (issues wiht missing data?) and that the variable <em>FrancePop</em> isn’t very predictive of the price of wine. So we can refine our models, by taking out these 2 variables, and as we’ll see, it won’t affect much our <span class="math inline">\(R^2\)</span> value. Note that with multiple variables regression, it is important to look at the <strong>Adjusted R-squared</strong> as it take into consideration the amount of variables in the model.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price ~<span class="st"> </span>Year +<span class="st"> </span>WinterRain +<span class="st"> </span>AGST +<span class="st"> </span>HarvestRain, <span class="dt">data =</span> wine)
+<span class="kw">summary</span>(model3)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Price ~ Year + WinterRain + AGST + HarvestRain, 
+##     data = wine)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.45470 -0.24273  0.00752  0.19773  0.53637 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 44.0248601 16.4434570   2.677 0.014477 *  
+## Year        -0.0239308  0.0080969  -2.956 0.007819 ** 
+## WinterRain   0.0010755  0.0005073   2.120 0.046694 *  
+## AGST         0.6072093  0.0987022   6.152  5.2e-06 ***
+## HarvestRain -0.0039715  0.0008538  -4.652 0.000154 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.295 on 20 degrees of freedom
+## Multiple R-squared:  0.8286, Adjusted R-squared:  0.7943 
+## F-statistic: 24.17 on 4 and 20 DF,  p-value: 2.036e-07</code></pre>
+<p>Although it isn’t now feasible to graph in 2D the <em>Price</em> in function of the other variables, we can still graph our residuals.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3 &lt;-<span class="st"> </span><span class="kw">fortify</span>(model3)
+p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(model3, <span class="kw">aes</span>(.fitted, .resid)) +<span class="st"> </span><span class="kw">geom_point</span>()
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) +<span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>)
+p &lt;-<span class="st"> </span>p +<span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Residuals&quot;</span>) +<span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Plot of the residuals in function of the fitted values (multiple variables)&quot;</span>)</code></pre></div>
 
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Remember that the error term, <span class="math inline">\(\epsilon^i\)</span>, in the simple linear regression model is independent of x, and is normally distributed, with zero mean and constant variance.<a href="mlr.html#fnref1">↩</a></p></li>
+</ol>
 </div>
             </section>
 
@@ -189,7 +408,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="logistic-regressions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -218,10 +437,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/bookdown-demo/edit/master/02-linear_regressions.Rmd",
+"link": "https://github.com/fderyckel/bookdown-demo/edit/master/04-linear_regressions.Rmd",
 "text": "Edit"
 },
-"download": ["machinelearningwithR.pdf", "machinelearningwithR.epub"],
+"download": null,
 "toc": {
 "collapse": "section"
 }
@@ -234,7 +453,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

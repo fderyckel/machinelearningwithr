@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
-  <meta name="generator" content="bookdown 0.3.9 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-05-12">
+<meta name="date" content="2017-08-12">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
   
   
 <link rel="prev" href="principal-component-analysis.html">
-<link rel="next" href="case-study-predicting-survicalship-on-the-titanic.html">
+<link rel="next" href="case-study-predicting-survivalship-on-the-titanic.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -104,20 +104,29 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a></li>
-<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a></li>
-<li class="chapter" data-level="4" data-path="logistic-regressions.html"><a href="logistic-regressions.html"><i class="fa fa-check"></i><b>4</b> Logistic Regressions</a><ul>
-<li class="chapter" data-level="4.1" data-path="logistic-regressions.html"><a href="logistic-regressions.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="logistic-regressions.html"><a href="logistic-regressions.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
-<li class="chapter" data-level="4.3" data-path="logistic-regressions.html"><a href="logistic-regressions.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
-<li class="chapter" data-level="4.4" data-path="logistic-regressions.html"><a href="logistic-regressions.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
-<li class="chapter" data-level="4.5" data-path="logistic-regressions.html"><a href="logistic-regressions.html#example-1"><i class="fa fa-check"></i><b>4.5</b> Example 1</a></li>
-<li class="chapter" data-level="4.6" data-path="logistic-regressions.html"><a href="logistic-regressions.html#example-2"><i class="fa fa-check"></i><b>4.6</b> Example 2</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="logistic-regressions.html"><a href="logistic-regressions.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
-<li class="chapter" data-level="4.6.2" data-path="logistic-regressions.html"><a href="logistic-regressions.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
-<li class="chapter" data-level="4.6.3" data-path="logistic-regressions.html"><a href="logistic-regressions.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#t-tests"><i class="fa fa-check"></i><b>2.1</b> T-tests</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="logistic-regressions.html"><a href="logistic-regressions.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price"><i class="fa fa-check"></i><b>3.1.1</b> First example. Predicting wine price</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#multi-variables-regression"><i class="fa fa-check"></i><b>3.2</b> Multi-variables regression</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price-1"><i class="fa fa-check"></i><b>3.2.1</b> First example. Predicting wine price</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="logistic-regression.html"><a href="logistic-regression.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic-regression.html"><a href="logistic-regression.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic-regression.html"><a href="logistic-regression.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
+<li class="chapter" data-level="4.4" data-path="logistic-regression.html"><a href="logistic-regression.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic-regression.html"><a href="logistic-regression.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
+<li class="chapter" data-level="4.6.2" data-path="logistic-regression.html"><a href="logistic-regression.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
+<li class="chapter" data-level="4.6.3" data-path="logistic-regression.html"><a href="logistic-regression.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="logistic-regression.html"><a href="logistic-regression.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>5</b> Trees and Classification</a><ul>
 <li class="chapter" data-level="5.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
@@ -137,27 +146,25 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="7.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>7.1</b> Import the data</a></li>
 <li class="chapter" data-level="7.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data"><i class="fa fa-check"></i><b>7.2</b> Tidy the data</a></li>
 <li class="chapter" data-level="7.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data"><i class="fa fa-check"></i><b>7.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="7.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-transform-the-data"><i class="fa fa-check"></i><b>7.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-visualize-the-data"><i class="fa fa-check"></i><b>7.3.2</b> A. Visualize the data</a></li>
-<li class="chapter" data-level="7.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#a.-modeling"><i class="fa fa-check"></i><b>7.3.3</b> A. Modeling</a></li>
+<li class="chapter" data-level="7.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>7.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>7.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="7.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>7.3.3</b> Modeling</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>7.4</b> Communication</a></li>
-<li class="chapter" data-level="7.5" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#example-one"><i class="fa fa-check"></i><b>7.5</b> Example one</a></li>
-<li class="chapter" data-level="7.6" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#example-two"><i class="fa fa-check"></i><b>7.6</b> Example two</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html"><i class="fa fa-check"></i><b>8</b> Case Study - Predicting Survicalship on the Titanic</a><ul>
-<li class="chapter" data-level="8.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>8.1</b> Import the data.</a></li>
-<li class="chapter" data-level="8.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#tidy-the-data-1"><i class="fa fa-check"></i><b>8.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="8.3" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>8.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-transform-the-data-1"><i class="fa fa-check"></i><b>8.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="8.3.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>8.3.2</b> A. Vizualize with families.</a></li>
+<li class="chapter" data-level="8" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>8</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
+<li class="chapter" data-level="8.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>8.1</b> Import the data.</a></li>
+<li class="chapter" data-level="8.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data-1"><i class="fa fa-check"></i><b>8.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="8.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>8.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>8.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="8.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>8.3.2</b> A. Vizualize with families.</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>8.4</b> A. Visualize with cabins.</a></li>
-<li class="chapter" data-level="8.5" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>8.5</b> B. Transform Dealing with missing data.</a><ul>
-<li class="chapter" data-level="8.5.1" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>8.5.1</b> Overview.</a></li>
-<li class="chapter" data-level="8.5.2" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>8.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+<li class="chapter" data-level="8.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>8.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="8.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>8.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="8.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>8.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="8.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>8.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
 </ul></li>
-<li class="chapter" data-level="8.6" data-path="case-study-predicting-survicalship-on-the-titanic.html"><a href="case-study-predicting-survicalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>8.6</b> References.</a></li>
+<li class="chapter" data-level="8.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>8.6</b> References.</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="case-study-text-classification-spam-and-ham-.html"><a href="case-study-text-classification-spam-and-ham-.html"><i class="fa fa-check"></i><b>9</b> Case Study - Text classification: Spam and Ham.</a></li>
 <li class="chapter" data-level="10" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>10</b> Final Words</a></li>
@@ -181,7 +188,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="case-study---mushrooms-classification" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Case Study - Mushrooms Classification</h1>
-<p>This chapter demonstrates how to classify muhsrooms as edible or not. It also answera the question: what are the main characteristics of an edible mushroom?</p>
+<p>This example demonstrates how to classify muhsrooms as edible or not. It also answer the question: what are the main characteristics of an edible mushroom?</p>
 <p><a href="https://stoltzmaniac.com/random-forest-classification-of-mushrooms/">This blog post</a> gave us first the idea and we followed most of it. We also noticed that Kaggle has put online the same data set and classification exercise. We have taken inspiration from some posts <a href="https://www.kaggle.com/abhishekheads/d/uciml/mushroom-classification/walk-through-of-different-classification-models">here</a> and <a href="https://www.kaggle.com/jhuno137/d/uciml/mushroom-classification/classification-tree-using-rpart-100-accuracy">here</a></p>
 <p>The data set is available on the <a href="http://archive.ics.uci.edu/ml/datasets/Mushroom">Machine Learning Repository</a> of the UC Irvine website.</p>
 <div id="import-the-data" class="section level2">
@@ -268,10 +275,9 @@ mushroom &lt;-<span class="st"> </span>mushroom %&gt;%<span class="st"> </span><
 <span class="kw">levels</span>(mushroom$spore_print_color) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;buff&quot;</span>, <span class="st">&quot;chocolate&quot;</span>, <span class="st">&quot;black&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;orange&quot;</span>, 
                                         <span class="st">&quot;green&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;yellow&quot;</span>)
 <span class="kw">levels</span>(mushroom$population) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;abundant&quot;</span>, <span class="st">&quot;clustered&quot;</span>, <span class="st">&quot;numerous&quot;</span>, <span class="st">&quot;scattered&quot;</span>, <span class="st">&quot;several&quot;</span>, <span class="st">&quot;solitary&quot;</span>)
-<span class="kw">levels</span>(mushroom$habitat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wood&quot;</span>, <span class="st">&quot;grasses&quot;</span>, <span class="st">&quot;leaves&quot;</span>, <span class="st">&quot;meadows&quot;</span>, <span class="st">&quot;paths&quot;</span>, <span class="st">&quot;urban&quot;</span>, <span class="st">&quot;waste&quot;</span>)
-
-
-<span class="kw">glimpse</span>(mushroom)</code></pre></div>
+<span class="kw">levels</span>(mushroom$habitat) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;wood&quot;</span>, <span class="st">&quot;grasses&quot;</span>, <span class="st">&quot;leaves&quot;</span>, <span class="st">&quot;meadows&quot;</span>, <span class="st">&quot;paths&quot;</span>, <span class="st">&quot;urban&quot;</span>, <span class="st">&quot;waste&quot;</span>)</code></pre></div>
+<p>Let’s check our changes one last time before diving into in the next phase of our data analysis workflow.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(mushroom)</code></pre></div>
 <pre><code>## Observations: 8,124
 ## Variables: 23
 ## $ edibility                &lt;fctr&gt; poisonous, edible, edible, poisonous...
@@ -307,27 +313,27 @@ x &lt;-<span class="st"> </span>mushroom %&gt;%<span class="st"> </span><span cl
 <span class="st">       </span><span class="kw">rownames_to_column</span>() %&gt;%<span class="st"> </span><span class="kw">arrange</span>(<span class="kw">desc</span>(value))
 <span class="kw">colnames</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Variable name&quot;</span>, <span class="st">&quot;Number of levels&quot;</span>)
 <span class="kw">print</span>(x)</code></pre></div>
-<pre><code>## # A tibble: 23 × 2
+<pre><code>## # A tibble: 23 x 2
 ##           `Variable name` `Number of levels`
 ##                     &lt;chr&gt;              &lt;dbl&gt;
-## 1              gill_color                 12
-## 2               cap_color                 10
-## 3  stalk_color_above_ring                 10
-## 4  stalk_color_below_ring                 10
-## 5                    odor                  9
-## 6       spore_print_color                  9
-## 7                 habitat                  7
-## 8               cap_shape                  6
-## 9              population                  6
+##  1             gill_color                 12
+##  2              cap_color                 10
+##  3 stalk_color_above_ring                 10
+##  4 stalk_color_below_ring                 10
+##  5                   odor                  9
+##  6      spore_print_color                  9
+##  7                habitat                  7
+##  8              cap_shape                  6
+##  9             population                  6
 ## 10             stalk_root                  5
 ## # ... with 13 more rows</code></pre>
 </div>
 <div id="understand-the-data" class="section level2">
 <h2><span class="header-section-number">7.3</span> Understand the data</h2>
 <p>This is the circular phase of our dealing with data. This is where each of the transforming, visualizing and modeling stage reinforce each other to create a better understanding.<br />
-<img src="/Users/fderyckel/Google%20Drive/Software/R%20reading/ML/RandomForest/data_workflow.png" alt="data workflow" /></p>
-<div id="a.-transform-the-data" class="section level3">
-<h3><span class="header-section-number">7.3.1</span> A. Transform the data</h3>
+<img src="otherpics/data_workflow.png" alt="data workflow" /></p>
+<div id="transform-the-data" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Transform the data</h3>
 <p>We noticed from the previous section an issue with the veil_type variable. It has only one factor. So basically, it does not bring any information. Furthermore, factor variable with only one level do create issues later on at the modeling stage. R will throw out an error for the categorical variable that has only one level.<br />
 So let’s take away that column.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mushroom &lt;-<span class="st"> </span>mushroom %&gt;%<span class="st"> </span><span class="kw">select</span>(-<span class="st"> </span>veil_type)</code></pre></div>
@@ -351,8 +357,8 @@ So let’s take away that column.</p>
 ##                        0</code></pre>
 <p>Lucky us! We have no missing data.</p>
 </div>
-<div id="a.-visualize-the-data" class="section level3">
-<h3><span class="header-section-number">7.3.2</span> A. Visualize the data</h3>
+<div id="visualize-the-data" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Visualize the data</h3>
 <p>This is one of the most important step in the DS process. This stage can gives us unexpected insights and often allows us to ask the right questions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
 <span class="kw">ggplot</span>(mushroom, <span class="kw">aes</span>(<span class="dt">x =</span> cap_surface, <span class="dt">y =</span> cap_color, <span class="dt">col =</span> edibility)) +<span class="st"> </span>
@@ -380,8 +386,8 @@ So let’s take away that column.</p>
 <p>Odor is defintely quite an informative predictor. Basically, if it smells <em>fishy</em>, <em>spicy</em> or <em>pungent</em> just stay away. If it smells like <em>anise</em> or <em>almond</em> you can go ahead. If it doesn’t smell anything, you have better chance that it is edible than not.</p>
 <p>TO DO: put a comment on what we see TO DO: put a mosaic graph</p>
 </div>
-<div id="a.-modeling" class="section level3">
-<h3><span class="header-section-number">7.3.3</span> A. Modeling</h3>
+<div id="modeling" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Modeling</h3>
 <p>At this stage, we should have gathered enough information and insights on our data to choose appropriate modeling techniques.</p>
 <p>Before we go ahead, we need to split the data into a training and testing set</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1810</span>)
@@ -402,8 +408,8 @@ test_mushroom &lt;-<span class="st"> </span>mushroom[-mushsample, ]</code></pre>
 ##    edible poisonous 
 ##      0.52      0.48</code></pre>
 <p>It seems like we have the right splits.</p>
-<div id="a.-use-of-regression-tree" class="section level4">
-<h4><span class="header-section-number">7.3.3.1</span> A. Use of Regression Tree</h4>
+<div id="use-of-regression-tree" class="section level4">
+<h4><span class="header-section-number">7.3.3.1</span> Use of Regression Tree</h4>
 <p>As we have many categorical variables, regression tree is an ideal classification tools for such situation.<br />
 We’ll use the <code>rpart</code> package. Let’s give it a try without any customization.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)
@@ -589,8 +595,8 @@ caret::<span class="kw">confusionMatrix</span>(<span class="dt">data =</span> <s
 ## </code></pre>
 <p>Perfect prediction here as well.</p>
 </div>
-<div id="a.-use-of-random-forest" class="section level4">
-<h4><span class="header-section-number">7.3.3.2</span> A. Use of Random Forest</h4>
+<div id="use-of-random-forest" class="section level4">
+<h4><span class="header-section-number">7.3.3.2</span> Use of Random Forest</h4>
 <p>We usually use random forest if a tree is not enough. In this case, as we have perfect prediction using a single tree, it is not really necessary to use a Random Forest algorithm. We just use for learning sake without tuning any of the parameters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(randomForest)
 model_rf &lt;-<span class="st"> </span><span class="kw">randomForest</span>(edibility ~<span class="st"> </span>., <span class="dt">ntree =</span> <span class="dv">50</span>, <span class="dt">data =</span> train_mushroom)
@@ -664,18 +670,18 @@ The next step can tell us this more accurately.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_tree_penalty$variable.importance %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">as_tibble</span>() %&gt;%<span class="st"> </span><span class="kw">rownames_to_column</span>(<span class="dt">var =</span> <span class="st">&quot;variable&quot;</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(value)) %&gt;%<span class="st"> </span><span class="kw">head</span>(<span class="dv">10</span>)</code></pre></div>
-<pre><code>## # A tibble: 10 × 2
+<pre><code>## # A tibble: 10 x 2
 ##                    variable     value
 ##                       &lt;chr&gt;     &lt;dbl&gt;
-## 1                      odor 848.00494
-## 2         spore_print_color 804.39831
-## 3                gill_color 503.71270
-## 4  stalk_surface_above_ring 501.28385
-## 5  stalk_surface_below_ring 453.92877
-## 6                 ring_type 450.29286
-## 7               ring_number 170.56141
-## 8                stalk_root 117.78800
-## 9                   habitat  98.22176
+##  1                     odor 848.00494
+##  2        spore_print_color 804.39831
+##  3               gill_color 503.71270
+##  4 stalk_surface_above_ring 501.28385
+##  5 stalk_surface_below_ring 453.92877
+##  6                ring_type 450.29286
+##  7              ring_number 170.56141
+##  8               stalk_root 117.78800
+##  9                  habitat  98.22176
 ## 10   stalk_color_below_ring  74.72602</code></pre>
 <p>Interestingly gill_size which is the 5th most important predictor in the random forest does not appear in the top 10 of our classification tree.</p>
 <p>Now we apply our model to our testing set.</p>
@@ -689,10 +695,15 @@ The next step can tell us this more accurately.</p>
 ##   poisonous      0       783</code></pre>
 <p>Perfect Prediction!</p>
 </div>
-<div id="a.-use-of-svm" class="section level4">
-<h4><span class="header-section-number">7.3.3.3</span> A. Use of SVM</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
-model_svm &lt;-<span class="st"> </span><span class="kw">svm</span>(edibility ~. , <span class="dt">data=</span>train_mushroom, <span class="dt">cost =</span> <span class="dv">1000</span>, <span class="dt">gamma =</span> <span class="fl">0.01</span>)</code></pre></div>
+<div id="use-of-svm" class="section level4">
+<h4><span class="header-section-number">7.3.3.3</span> Use of SVM</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;e1071&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:simputation&#39;:
+## 
+##     impute</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_svm &lt;-<span class="st"> </span><span class="kw">svm</span>(edibility ~. , <span class="dt">data=</span>train_mushroom, <span class="dt">cost =</span> <span class="dv">1000</span>, <span class="dt">gamma =</span> <span class="fl">0.01</span>)</code></pre></div>
 <p>Check the prediction</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_svm &lt;-<span class="st"> </span><span class="kw">predict</span>(model_svm, <span class="dt">newdata =</span> test_mushroom)
 
@@ -710,13 +721,6 @@ model_svm &lt;-<span class="st"> </span><span class="kw">svm</span>(edibility ~.
 <p>With some fine tuning, a regression tree managed to predict accurately the edibility of mushroom. They were 2 parameters to look at: the <code>cp</code>and the penalty matrix. Random Forest and SVM achieved similar results out of the box.<br />
 The regression tree approach has to be prefered as it is a lot easier to grasp the results from a tree than from a SVM algorithm.</p>
 <p>For sure I will take my little tree picture next time I go shrooming. That said, I will still only go with a good mycologist.</p>
-<p>We would love to hear from you. Give us feedback below.</p>
-</div>
-<div id="example-one" class="section level2">
-<h2><span class="header-section-number">7.5</span> Example one</h2>
-</div>
-<div id="example-two" class="section level2">
-<h2><span class="header-section-number">7.6</span> Example two</h2>
 
 </div>
 </div>
@@ -726,7 +730,7 @@ The regression tree approach has to be prefered as it is a lot easier to grasp t
         </div>
       </div>
 <a href="principal-component-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="case-study-predicting-survicalship-on-the-titanic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="case-study-predicting-survivalship-on-the-titanic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -758,7 +762,7 @@ gitbook.start({
 "link": "https://github.com/fderyckel/bookdown-demo/edit/master/14-mushrooms.Rmd",
 "text": "Edit"
 },
-"download": ["machinelearningwithR.pdf", "machinelearningwithR.epub"],
+"download": null,
 "toc": {
 "collapse": "section"
 }
@@ -771,7 +775,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(script.src))
       script.src  = script.src.replace(/^https?:/, '');
     document.getElementsByTagName("head")[0].appendChild(script);

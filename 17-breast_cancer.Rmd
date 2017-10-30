@@ -1,0 +1,285 @@
+# Case Study - Wisconsin Breast Cancer
+
+This is another classification example.  We have to classify breast tumors as malign or benign.  
+
+The dataset is available on the [UCI Machine learning website](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)) as well as on [Kaggle](https://www.kaggle.com/uciml/breast-cancer-wisconsin-data.  
+
+We have taken ideas from several blogs listed below in the reference section.  
+
+## Import the data  
+```{r message=FALSE}
+library(tidyverse)
+df <- read_csv("../bookdown-MachineLearningwithR/dataset/BreastCancer.csv")
+
+# This is defintely an most important step:  
+# Check for appropriate class on each of the variable.  
+glimpse(df)
+```
+
+So we have `r nrow(df)` observations with `r ncol(df)` variables.  Ideally for so many variables, it would be appropriate to get a few more observations.  
+
+## Tidy the data 
+Basics change of variable type for the outcome variable and renaming of variables badly encoded  
+```{r}
+df$diagnosis <- as.factor(df$diagnosis)
+
+#df <- df %>% rename(concave_points_mean = `concave points_mean`, 
+#                    concave_points_se = `concave points_se`, 
+#                    concave_points_worst = `concave points_worst`)
+```
+
+As you might have noticed, in this case and the precedent we had very little to do here.  This is not usually the case.  
+
+## Understand the data  
+This is the circular phase of our dealing with data. This is where each of the transforming, visualizing and modeling stage reinforce each other to create a better understanding.
+
+Check for missing values  
+```{r}
+map_int(df, function(.x) sum(is.na(.x)))
+```
+Good news, there are no missing values.  
+
+In the case that there would be many missing values, we would go on the transforming data for some appropriate imputation. 
+
+Let's check how balanced is our response variable
+```{r}
+round(prop.table(table(df$diagnosis)), 2)
+```
+The response variable is slightly unbalanced.
+
+Let's look for correlation in the variables.  Most ML algorithms assumed that the predictor variables are  independent from each others.  
+
+Let's check for correlations.  For an anlysis to be robust it is good to remove mutlicollinearity (aka remove highly correlated predictors)  
+```{r correlation_plot, fig.height=9, fig.width=9}
+df_corr <- cor(df %>% select(-id, -diagnosis))
+corrplot::corrplot(df_corr, order = "hclust", tl.cex = 1, addrect = 8)
+```
+
+Indeed there are quite a few variables that are correlated.  On the next step, we will remove the highly correlated ones using the `caret` package.  
+
+### Transform the data  
+```{r message=FALSE}
+library(caret)
+# The findcorrelation() function from caret package remove highly correlated predictors
+# based on whose correlation is above 0.9. This function uses a heuristic algorithm 
+# to determine which variable should be removed instead of selecting blindly
+df2 <- df %>% select(-findCorrelation(df_corr, cutoff = 0.9))
+
+#Number of columns for our new data frame
+ncol(df2)
+```
+
+So our new data frame `df2` is `r ncol(df) - ncol(df2)` variables shorter.  
+
+
+
+### Pre-process the data  
+#### Using PCA
+Let's first go on an unsupervised analysis with a PCA analysis.  
+To do so, we will remove the `id` and `diagnosis` variable, then we will also scale and ceter the variables.  
+```{r cumulative_variance}
+preproc_pca_df <- prcomp(df %>% select(-id, -diagnosis), scale = TRUE, center = TRUE)
+summary(preproc_pca_df)
+
+# Calculate the proportion of variance explained
+pca_df_var <- preproc_pca_df$sdev^2
+pve_df <- pca_df_var / sum(pca_df_var)
+cum_pve <- cumsum(pve_df)
+pve_table <- tibble(comp = seq(1:ncol(df %>% select(-id, -diagnosis))), pve_df, cum_pve)
+
+ggplot(pve_table, aes(x = comp, y = cum_pve)) + 
+  geom_point() + 
+  geom_abline(intercept = 0.95, color = "red", slope = 0)
+```
+
+With the original dataset, 95% of the variance is explained with 10 PC's.  
+
+Let's do the same exercise with our second df, the one where we removed the highly correlated predictors.   
+```{r cumulative_variance2}
+preproc_pca_df2 <- prcomp(df2, scale = TRUE, center = TRUE)
+summary(preproc_pca_df2)
+pca_df2_var <- preproc_pca_df2$sdev^2
+
+# proportion of variance explained
+pve_df2 <- pca_df2_var / sum(pca_df2_var)
+cum_pve_df2 <- cumsum(pve_df2)
+pve_table_df2 <- tibble(comp = seq(1:ncol(df2)), pve_df2, cum_pve_df2)
+
+ggplot(pve_table_df2, aes(x = comp, y = cum_pve_df2)) + 
+  geom_point() + 
+  geom_abline(intercept = 0.95, color = "red", slope = 0)
+```
+In this case, around 8 PC's explained 95% of the variance.  
+
+To visualize which variable are the most influential on the first 2 components
+```{r pc1vspc2}
+library(ggfortify)
+autoplot(preproc_pca_df2, data = df,  colour = 'diagnosis',
+                    loadings = FALSE, loadings.label = TRUE, loadings.colour = "blue")
+```
+
+
+Let's visuzalize the first 3 components.  
+```{r pc123_in_pairs}
+df_pcs <- cbind(as_tibble(df$diagnosis), as_tibble(preproc_pca_df2$x))
+GGally::ggpairs(df_pcs, columns = 2:4, ggplot2::aes(color = value))
+```
+
+As it can be seen from the above plots the first 3 principal components separate the two classes to some extent only, this is expected since the variance explained by these components is not large.  
+
+#### Using LDA
+The advantage of using LDA is that it takes into consideration the different class.  
+```{r}
+preproc_lda_df <- MASS::lda(diagnosis ~., data = df, center = TRUE, scale = TRUE)
+preproc_lda_df
+
+# Making a df out of the LDA for visualization purpose.
+predict_lda_df <- predict(preproc_lda_df, df)$x %>% 
+  as_data_frame() %>% 
+  cbind(diagnosis = df$diagnosis)
+
+```
+
+
+### Model the data
+Let's first create a testing and training set using `caret`
+```{r}
+set.seed(1815)
+df3 <- cbind(diagnosis = df$diagnosis, df2)
+df_sampling_index <- createDataPartition(df3$diagnosis, times = 1, p = 0.8, list = FALSE)
+df_training <- df3[df_sampling_index, ]
+df_testing <-  df3[-df_sampling_index, ]
+df_control <- trainControl(method="cv",
+                           number = 15,
+                           repeats = 3, 
+                           classProbs = TRUE,
+                           summaryFunction = twoClassSummary)
+```
+
+
+#### Logistic regression  
+```{r message=FALSE, warning=FALSE}
+model_logreg_df <- train(diagnosis ~., data = df_training, method = "glm", 
+                         metric = "ROC", preProcess = c("scale", "center"), 
+                         trControl = df_control)
+
+prediction_logreg_df <- predict(model_logreg_df, df_testing)
+cm_logreg_df <- confusionMatrix(prediction_logreg_df, df_testing$diagnosis, positive = "M")
+cm_logreg_df
+```
+
+Using the `glm` package
+```{r message=FALSE, warning=FALSE}
+df2b <- cbind(diagnosis = df$diagnosis, df2)
+model2_logreg_df2 <- glm(diagnosis ~., data = df2b, 
+                         family = binomial(link = "logit"), control = list(maxit = 50))
+summary(model2_logreg_df2)
+anova(model2_logreg_df2, test = "Chisq")
+```
+
+
+#### Random Forest  
+```{r message=FALSE, warning=FALSE}
+model_rf_df <- train(diagnosis ~., data = df_training,
+                     method = "rf", 
+                     metric = 'ROC', 
+                     trControl = df_control)
+
+prediction_rf_df <- predict(model_rf_df, df_testing)
+cm_rf_df <- confusionMatrix(prediction_rf_df, df_testing$diagnosis, positive = "M")
+cm_rf_df
+```
+
+```{r randomforest_model_plot}
+plot(model_rf_df)
+plot(model_rf_df$finalModel)
+varImpPlot(model_rf_df$finalModel)
+```
+
+
+```{r message=FALSE}
+model_rf2_df <- train(diagnosis ~., data = df_training, 
+                      method = "ranger", 
+                      metric = "ROC", 
+                      preProcess = c("scale", "center"), 
+                      trControl = df_control)
+prediction_rf2_df <- predict(model_rf2_df, df_testing)
+confusionMatrix(prediction_rf2_df, df_testing$diagnosis, positive = "M")
+```
+
+#### KNN
+```{r}
+model_knn_df <- train(diagnosis ~., data = df_training, 
+                      method = "knn", 
+                      metric = "ROC", 
+                      preProcess = c("scale", "center"), 
+                      trControl = df_control, 
+                      tuneLength =31)
+
+plot(model_knn_df)
+
+prediction_knn_df <- predict(model_knn_df, df_testing)
+cm_knn_df <- confusionMatrix(prediction_knn_df, df_testing$diagnosis, positive = "M")
+cm_knn_df
+```
+
+
+#### Support Vector Machine  
+```{r message=FALSE}
+model_svm_df <- train(diagnosis ~., data = df_training, method = "svmRadial", 
+                      metric = "ROC", 
+                      preProcess = c("scale", "center"), 
+                      trace = FALSE, 
+                      trControl = df_control)
+
+prediction_svm_df <- predict(model_svm_df, df_testing)
+cm_svm_df <- confusionMatrix(prediction_svm_df, df_testing$diagnosis, positive = "M")
+cm_svm_df
+```
+
+#### Neural Network with LDA
+To use the LDA pre-processing step, we need to also create the same training and testing set.  
+```{r}
+lda_training <- predict_lda_df[df_sampling_index, ]
+lda_testing <- predict_lda_df[-df_sampling_index, ]
+model_nnetlda_df <- train(diagnosis ~., lda_training, 
+                          method = "nnet", 
+                          metric = "ROC", 
+                          preProcess = c("center", "scale"), 
+                          tuneLength = 10, 
+                          trace = FALSE, 
+                          trControl = df_control)
+
+prediction_nnetlda_df <- predict(model_nnetlda_df, lda_testing)
+cm_nnetlda_df <- confusionMatrix(prediction_nnetlda_df, lda_testing$diagnosis, positive = "M")
+```
+
+
+#### Models evaluation  
+```{r model_evaluation_plot}
+model_list <- list(rf = model_rf_df, svm = model_svm_df, 
+                   logisic = model_logreg_df, Neural_with_LDA = model_nnetlda_df)
+results <- resamples(model_list)
+
+summary(results)
+
+bwplot(results, metric = "ROC")
+#dotplot(results)
+```
+
+The logistic model has to much variability for it to be reliable.  The SVM and Neural Network with LDA pre-processing are giving the best results. 
+The ROC metric measure the auc of the roc curve of each model. This metric is independent of any threshold. Let’s remember how these models result with the testing dataset. Prediction classes are obtained by default with a threshold of 0.5 which could not be the best with an unbalanced dataset like this.
+
+```{r}
+cm_list <- list(cm_rf = cm_rf_df, cm_svm = cm_svm_df, 
+                   cm_logisic = cm_logreg_df, cm_nnet_LDA = cm_nnetlda_df)
+results <- map_df(cm_list, function(x) x$byClass) %>% as_tibble() %>% 
+  mutate(stat = names(cm_rf_df$byClass))
+```
+
+The best results for sensitivity (detection of breast cases) is LDA_NNET which also has a great F1 score.
+
+## References  
+A useful popular kernel on this dataset on [Kaggle](https://www.kaggle.com/lbronchal/breast-cancer-dataset-analysis)
+Another one, also on [Kaggle](https://www.kaggle.com/sonicboom8/breast-cancer-data-with-logistic-randomforest)
+And [another one](https://www.kaggle.com/murnix/cluster-rf-boosting-svm-accuracy-97-auc-0-96/notebook), especially nice to compare models. 

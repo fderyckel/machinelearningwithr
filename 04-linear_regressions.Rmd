@@ -1,0 +1,127 @@
+# Multiple Linear Regression {#mlr}
+
+##Single variable regression
+
+The general equation for a linear regression model
+
+> $y^i = \beta_{0} + \beta_{1} x^i + \epsilon^i$
+
+where:
+
+* $y^i$ is the $i^{th}$ observation of the dependent variable
+* $\beta_{0}$ is the intercept coefficient
+* $\beta_{1}$ is the regression coefficient for the dependent variable
+* $x^i$ is the $i^{th}$ observation of the independent variable 
+* $\epsilon^i$ is the error term for the $i^{th}$ observation.  It basically is the difference in therm of y between the observed value and the estimated value.  It is also called the residuals. A good model minimize these errors. ^[Remember that the error term, $\epsilon^i$, in the simple linear regression model is independent of x, and is normally distributed, with zero mean and constant variance.]
+
+
+Some ways to assess how good our model is to:
+
+1.  compute the SSE (the sum of squared error)
+    + SSE = $(\epsilon^1)^2 + (\epsilon^2)^2 + \ldots + (\epsilon^n)^2$ = $\sum_{i=1}^N \epsilon^i$
+    + A good model will minimize SSE
+    + problem: SSE is dependent of N.  SSE will naturally increase as N increase
+2.  compute the RMSE (the root mean squared error)
+    + RMSE = $\sqrt {\frac {SSE} {N}}$
+    + Also a good model will minimize SSE
+    + It depends of the unit of the dependent variable.  It is like the average error the model is making (in term of the unit of the dependent variable)
+3.  compute $R^2$
+    + It compare the models to a baseline model
+    + $R^2$ is **unitless** and **universaly** interpretable
+    + SST is the sum of the squared of the difference between the observed value and the mean of all the observed value
+    + $R^2 = 1 - \frac {SSE} {SST}$
+    
+###First example.  Predicting wine price
+The wine.csv file is used. 
+
+Let's load it and then have a quick look at its structure.
+```{r linreg01}
+library(tidyverse)
+library(skimr)
+wine = read.csv("../datasets/Wine.csv")
+glimpse(wine)
+skim(wine)
+```
+
+We use the `lm` function to find our linear regression model.  We use *AGST* as the independent variable while the *price* is the dependent variable.
+```{r linreg02_model}
+model1 = lm(Price ~ AGST, data = wine)
+summary(model1)
+```
+
+The `summary` function applied on the model is giving us a bunch of important information
+
+  * the stars next to the predictor variable indicated how significant the variable is for our regression model
+  * it also gives us the value of the R coefficient
+
+We could have calculated the R value ourselves:
+```{r linreg03_ssquare}
+SSE = sum(model1$residuals^2)
+SST = sum((wine$Price - mean(wine$Price))^2)
+r_squared = 1 - SSE/SST
+r_squared
+```
+
+We can now plot the observations and the line of regression; and see how the linear model fits the data.
+```{r linreg04_graph}
+library(ggplot2)
+ggplot(wine, aes(AGST, Price)) + 
+  geom_point(shape = 1, col = "blue") + 
+  geom_smooth(method = "lm", col = "red")
+```
+By default, the `geom_smooth()` will use a 95% confidence interval (which is the grey-er area on the graph).  There are 95% chance the line of regression will be within that zone for the whole population. 
+
+It is always nice to see how our residuals are distributed.  
+We use the `ggplot2` library and the `fortify` function which transform the `summary(model1)` into a data frame usable for plotting. 
+```{r linreg05_residuals}
+model1 <- fortify(model1)
+p <- ggplot(model1, aes(.fitted, .resid)) + geom_point() 
+p <- p + geom_hline(yintercept = 0, col = "red", linetype = "dashed") 
+p <- p + xlab("Fitted values") + ylab("Residuals") + ggtitle("Plot of the residuals in function of the fitted values")
+p
+```
+
+
+##Multi-variables regression
+
+Instead of just considering one variable as predictor, we'll add a few more variables to our model with the idea to increase its predictive ability.  
+
+We have to be cautious in adding more variables.  Too many variable might give a high $R^2$ on our training data, but this not be the case as we switch to our testing data.
+
+The general equations can be expressed as
+
+> $y^i = \beta_{0} + \beta_{1} x_{1}^i + \beta_{2} x_{2}^i + \ldots + \beta_{k} x_{k}^i + \epsilon^i$
+
+when there are k predictors variables.
+
+There are a bit of trials and errors to make while trying to fit multiple variables into a model, but a rule of thumb would be to include most of the variable (all these that would make sense) and then take out the ones that are not very significant using the `summary(modelx)`
+
+###First example.  Predicting wine price
+We continue here with the same dataset, *wine.csv*.  
+First, we can see how each variable is correlated with each other ones, using
+```{r linreg06_wine}
+cor(wine)
+```
+by default, R uses the Pearson coefficient of correlation.   
+So let's start by using all variables.  
+```{r}
+model2 <- lm(Price ~ Year + WinterRain + AGST + HarvestRain + Age + FrancePop, data = wine)
+summary(model2)
+```
+While doing so, we notice that the variable *Age* has NA (issues with missing data?) and that the variable *FrancePop* isn't very predictive of the price of wine.  So we can refine our models, by taking out these 2 variables, and as we'll see, it won't affect much our $R^2$ value.  Note that with multiple variables regression, it is important to look at the **Adjusted R-squared** as it take into consideration the amount of variables in the model.
+```{r}
+model3 <- lm(Price ~ Year + WinterRain + AGST + HarvestRain, data = wine)
+summary(model3)
+```
+
+Although it isn't now feasible to graph in 2D the *Price* in function of the other variables, we can still graph our residuals.  
+
+```{r}
+model3 <- fortify(model3)
+p <- ggplot(model3, aes(.fitted, .resid)) + geom_point()
+p <- p + geom_hline(yintercept = 0, col = "red", linetype = "dashed") + xlab("Fitted values")
+p <- p + ylab("Residuals") + ggtitle("Plot of the residuals in function of the fitted values (multiple variables)")
+
+```
+
+

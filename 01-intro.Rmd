@@ -1,0 +1,79 @@
+# Tests and inferences {#intro}
+
+Definitely the first thing to be familiar with while doing machine learning works is the basic of statistical inferences.  
+In this chapter, we go over some of the few important topics and r-ways to do them.  
+
+Let's get started.  
+
+## T-tests
+The __independent t test__ is used to test if there is any statistically *significant difference between two means*. Use of an independent t test requires several assumptions to be satisfied.  
+
+1.  The variables are continuous and independent
+1.  The variables are normally distributed
+1.  The variances in each group are equal
+
+When these assumptions are satisfied the results of the t test are valid. Otherwise they are invalid and you need to use a non-parametric test. When data is not normally distributed you can apply transformations to make it normally distributed.
+
+Using the `mtcars` data set, we check if there are any difference in mile per gallon (mpg) for each of the automatic and manual group.  
+
+Check the data and mark as factor the driving system. 
+
+```{r intro01, message=FALSE}
+library(tidyverse)
+glimpse(mtcars)
+df <- mtcars
+df$am <- factor(df$am, labels = c("automatic", "manual"))
+df2 <- df %>% select(mpg, am)
+glimpse(df2)
+```
+
+Generate descriptive statistic for each group.  
+
+```{r intr02}
+df2 %>% group_by(am) %>% 
+  summarise(mean = mean(mpg), minimum = min(mpg), maximum = max(mpg))
+```
+
+Generate boxplot for each group
+```{r intro03_boxplot}
+ggplot(df2, aes(x = am, y = mpg)) + 
+  geom_boxplot(fill = c("dodgerblue3", "goldenrod2")) + 
+  labs(title = "Achieved milage for Automatic / Manual cars", 
+       x = "Type of car")
+```
+
+Test the normality of the data.  
+To do so, we can use the __Shapiro Wilk Normality Test__
+```{r intro04_summary}
+df2 %>% group_by(am) %>% 
+  summarise(shaprio_test = shapiro.test(mpg)$p.value)
+
+```
+
+There is no evidence of departure from normality.  
+
+Test the equal variance in each group.  
+To do so, we use the `levene.test` from the `car` package.  
+```{r intro05_leveneTest}
+car::leveneTest(mpg ~ am, center = mean, data = df2)
+```
+
+Because the variance in the 2 groups is not equal, we have to transform the data.  
+
+Apply a log transformation to stabilize the variance.  
+```{r intro06_logtransformed}
+log_transformed_mpg = log(df2$mpg)
+```
+
+Now we can finally apply the t test to our data.  
+```{r intro07_ttest}
+t.test(log_transformed_mpg ~ df2$am, var.equal = TRUE)
+```
+
+Interpret the results.  
+
+* Manual cars have on average a higher mileage per Gallon (24 mpg)  compared to Automatic (17 mpg).  
+* The box plot did not reveal the presence of outliers
+* The Shapiro-Wilk normality test did not show any deviation from normality in the data  
+* The Levene Test showed difference in the variance in the 2 group.  We addressed that by log transforming the data  
+* The t test show a significant difference in the mean of miles per gallon from automatic and manual cars.  

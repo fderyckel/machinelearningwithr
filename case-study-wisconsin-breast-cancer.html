@@ -25,7 +25,7 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-09-30">
+<meta name="date" content="2017-10-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -255,7 +255,7 @@ df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="s
 <div id="tidy-the-data-2" class="section level2">
 <h2><span class="header-section-number">11.2</span> Tidy the data</h2>
 <p>Basics change of variable type for the outcome variable and renaming of variables badly encoded</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df$diagnosis &lt;-<span class="st"> </span><span class="kw">as.factor</span>(df$diagnosis)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>diagnosis &lt;-<span class="st"> </span><span class="kw">as.factor</span>(df<span class="op">$</span>diagnosis)
 
 <span class="co">#df &lt;- df %&gt;% rename(concave_points_mean = `concave points_mean`, </span>
 <span class="co">#                    concave_points_se = `concave points_se`, </span>
@@ -266,7 +266,7 @@ df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="s
 <h2><span class="header-section-number">11.3</span> Understand the data</h2>
 <p>This is the circular phase of our dealing with data. This is where each of the transforming, visualizing and modeling stage reinforce each other to create a better understanding.</p>
 <p>Check for missing values</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_int</span>(df, function(.x) <span class="kw">sum</span>(<span class="kw">is.na</span>(.x)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_int</span>(df, <span class="cf">function</span>(.x) <span class="kw">sum</span>(<span class="kw">is.na</span>(.x)))</code></pre></div>
 <pre><code>##                      id               diagnosis             radius_mean 
 ##                       0                       0                       0 
 ##            texture_mean          perimeter_mean               area_mean 
@@ -292,15 +292,15 @@ df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="s
 <p>Good news, there are no missing values.</p>
 <p>In the case that there would be many missing values, we would go on the transforming data for some appropriate imputation.</p>
 <p>Let’s check how balanced is our response variable</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$diagnosis)), <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df<span class="op">$</span>diagnosis)), <span class="dv">2</span>)</code></pre></div>
 <pre><code>## 
 ##    B    M 
 ## 0.63 0.37</code></pre>
 <p>The response variable is slightly unbalanced.</p>
 <p>Let’s look for correlation in the variables. Most ML algorithms assumed that the predictor variables are independent from each others.</p>
 <p>Let’s check for correlations. For an anlysis to be robust it is good to remove mutlicollinearity (aka remove highly correlated predictors)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_corr &lt;-<span class="st"> </span><span class="kw">cor</span>(df %&gt;%<span class="st"> </span><span class="kw">select</span>(-id, -diagnosis))
-corrplot::<span class="kw">corrplot</span>(df_corr, <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.cex =</span> <span class="dv">1</span>, <span class="dt">addrect =</span> <span class="dv">8</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_corr &lt;-<span class="st"> </span><span class="kw">cor</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>id, <span class="op">-</span>diagnosis))
+corrplot<span class="op">::</span><span class="kw">corrplot</span>(df_corr, <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.cex =</span> <span class="dv">1</span>, <span class="dt">addrect =</span> <span class="dv">8</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/correlation_plot-1.png" width="864" /></p>
 <p>Indeed there are quite a few variables that are correlated. On the next step, we will remove the highly correlated ones using the <code>caret</code> package.</p>
 <div id="transform-the-data-1" class="section level3">
@@ -309,7 +309,7 @@ corrplot::<span class="kw">corrplot</span>(df_corr, <span class="dt">order =</sp
 <span class="co"># The findcorrelation() function from caret package remove highly correlated predictors</span>
 <span class="co"># based on whose correlation is above 0.9. This function uses a heuristic algorithm </span>
 <span class="co"># to determine which variable should be removed instead of selecting blindly</span>
-df2 &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span><span class="kw">select</span>(-<span class="kw">findCorrelation</span>(df_corr, <span class="dt">cutoff =</span> <span class="fl">0.9</span>))
+df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">findCorrelation</span>(df_corr, <span class="dt">cutoff =</span> <span class="fl">0.9</span>))
 
 <span class="co">#Number of columns for our new data frame</span>
 <span class="kw">ncol</span>(df2)</code></pre></div>
@@ -322,7 +322,7 @@ df2 &lt;-<span class="st"> </span>df %&gt;%<span class="st"> </span><span class=
 <h4><span class="header-section-number">11.3.2.1</span> Using PCA</h4>
 <p>Let’s first go on an unsupervised analysis with a PCA analysis.<br />
 To do so, we will remove the <code>id</code> and <code>diagnosis</code> variable, then we will also scale and ceter the variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_pca_df &lt;-<span class="st"> </span><span class="kw">prcomp</span>(df %&gt;%<span class="st"> </span><span class="kw">select</span>(-id, -diagnosis), <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_pca_df &lt;-<span class="st"> </span><span class="kw">prcomp</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>id, <span class="op">-</span>diagnosis), <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>)
 <span class="kw">summary</span>(preproc_pca_df)</code></pre></div>
 <pre><code>## Importance of components:
 ##                           PC1    PC2     PC3     PC4     PC5     PC6
@@ -346,13 +346,13 @@ To do so, we will remove the <code>id</code> and <code>diagnosis</code> variable
 ## Proportion of Variance 0.00052 0.00027 0.00023 0.00005 0.00002 0.00000
 ## Cumulative Proportion  0.99942 0.99969 0.99992 0.99997 1.00000 1.00000</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the proportion of variance explained</span>
-pca_df_var &lt;-<span class="st"> </span>preproc_pca_df$sdev^<span class="dv">2</span>
-pve_df &lt;-<span class="st"> </span>pca_df_var /<span class="st"> </span><span class="kw">sum</span>(pca_df_var)
+pca_df_var &lt;-<span class="st"> </span>preproc_pca_df<span class="op">$</span>sdev<span class="op">^</span><span class="dv">2</span>
+pve_df &lt;-<span class="st"> </span>pca_df_var <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pca_df_var)
 cum_pve &lt;-<span class="st"> </span><span class="kw">cumsum</span>(pve_df)
-pve_table &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">comp =</span> <span class="kw">seq</span>(<span class="dv">1</span>:<span class="kw">ncol</span>(df %&gt;%<span class="st"> </span><span class="kw">select</span>(-id, -diagnosis))), pve_df, cum_pve)
+pve_table &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">comp =</span> <span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>id, <span class="op">-</span>diagnosis))), pve_df, cum_pve)
 
-<span class="kw">ggplot</span>(pve_table, <span class="kw">aes</span>(<span class="dt">x =</span> comp, <span class="dt">y =</span> cum_pve)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="kw">ggplot</span>(pve_table, <span class="kw">aes</span>(<span class="dt">x =</span> comp, <span class="dt">y =</span> cum_pve)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">0.95</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">slope =</span> <span class="dv">0</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/cumulative_variance-1.png" width="672" /></p>
 <p>With the original dataset, 95% of the variance is explained with 10 PC’s.</p>
@@ -376,19 +376,24 @@ pve_table &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span cla
 ## Standard deviation     0.09768 0.08667 0.03692
 ## Proportion of Variance 0.00043 0.00034 0.00006
 ## Cumulative Proportion  0.99960 0.99994 1.00000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_df2_var &lt;-<span class="st"> </span>preproc_pca_df2$sdev^<span class="dv">2</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_df2_var &lt;-<span class="st"> </span>preproc_pca_df2<span class="op">$</span>sdev<span class="op">^</span><span class="dv">2</span>
 
 <span class="co"># proportion of variance explained</span>
-pve_df2 &lt;-<span class="st"> </span>pca_df2_var /<span class="st"> </span><span class="kw">sum</span>(pca_df2_var)
+pve_df2 &lt;-<span class="st"> </span>pca_df2_var <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pca_df2_var)
 cum_pve_df2 &lt;-<span class="st"> </span><span class="kw">cumsum</span>(pve_df2)
-pve_table_df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">comp =</span> <span class="kw">seq</span>(<span class="dv">1</span>:<span class="kw">ncol</span>(df2)), pve_df2, cum_pve_df2)
+pve_table_df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">comp =</span> <span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df2)), pve_df2, cum_pve_df2)
 
-<span class="kw">ggplot</span>(pve_table_df2, <span class="kw">aes</span>(<span class="dt">x =</span> comp, <span class="dt">y =</span> cum_pve_df2)) +<span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_point</span>() +<span class="st"> </span>
+<span class="kw">ggplot</span>(pve_table_df2, <span class="kw">aes</span>(<span class="dt">x =</span> comp, <span class="dt">y =</span> cum_pve_df2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">0.95</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">slope =</span> <span class="dv">0</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/cumulative_variance2-1.png" width="672" /> In this case, around 8 PC’s explained 95% of the variance.</p>
 <p>To visualize which variable are the most influential on the first 2 components</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)</code></pre></div>
+<pre><code>## Warning: namespace &#39;DBI&#39; is not available and has been replaced
+## by .GlobalEnv when processing object &#39;quiet&#39;
+
+## Warning: namespace &#39;DBI&#39; is not available and has been replaced
+## by .GlobalEnv when processing object &#39;quiet&#39;</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;ggfortify&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:ggbiplot&#39;:
@@ -398,15 +403,15 @@ pve_table_df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span
                     <span class="dt">loadings =</span> <span class="ot">FALSE</span>, <span class="dt">loadings.label =</span> <span class="ot">TRUE</span>, <span class="dt">loadings.colour =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/pc1vspc2-1.png" width="672" /></p>
 <p>Let’s visuzalize the first 3 components.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_pcs &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as_tibble</span>(df$diagnosis), <span class="kw">as_tibble</span>(preproc_pca_df2$x))
-GGally::<span class="kw">ggpairs</span>(df_pcs, <span class="dt">columns =</span> <span class="dv">2</span>:<span class="dv">4</span>, ggplot2::<span class="kw">aes</span>(<span class="dt">color =</span> value))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_pcs &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as_tibble</span>(df<span class="op">$</span>diagnosis), <span class="kw">as_tibble</span>(preproc_pca_df2<span class="op">$</span>x))
+GGally<span class="op">::</span><span class="kw">ggpairs</span>(df_pcs, <span class="dt">columns =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">color =</span> value))</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/pc123_in_pairs-1.png" width="672" /></p>
 <p>As it can be seen from the above plots the first 3 principal components separate the two classes to some extent only, this is expected since the variance explained by these components is not large.</p>
 </div>
 <div id="using-lda" class="section level4">
 <h4><span class="header-section-number">11.3.2.2</span> Using LDA</h4>
 <p>The advantage of using LDA is that it takes into consideration the different class.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_lda_df &lt;-<span class="st"> </span>MASS::<span class="kw">lda</span>(diagnosis ~., <span class="dt">data =</span> df, <span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_lda_df &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">lda</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df, <span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)
 preproc_lda_df</code></pre></div>
 <pre><code>## Call:
 ## lda(diagnosis ~ ., data = df, center = TRUE, scale = TRUE)
@@ -475,32 +480,33 @@ preproc_lda_df</code></pre></div>
 ## symmetry_worst           2.783102e+00
 ## fractal_dimension_worst  2.117830e+01</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Making a df out of the LDA for visualization purpose.</span>
-predict_lda_df &lt;-<span class="st"> </span><span class="kw">predict</span>(preproc_lda_df, df)$x %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">as_data_frame</span>() %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df$diagnosis)</code></pre></div>
+predict_lda_df &lt;-<span class="st"> </span><span class="kw">predict</span>(preproc_lda_df, df)<span class="op">$</span>x <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as_data_frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df<span class="op">$</span>diagnosis)</code></pre></div>
 </div>
 </div>
 <div id="model-the-data-1" class="section level3">
 <h3><span class="header-section-number">11.3.3</span> Model the data</h3>
 <p>Let’s first create a testing and training set using <code>caret</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1815</span>)
-df3 &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df$diagnosis, df2)
-df_sampling_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df3$diagnosis, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">p =</span> <span class="fl">0.8</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
+df3 &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df<span class="op">$</span>diagnosis, df2)
+df_sampling_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df3<span class="op">$</span>diagnosis, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">p =</span> <span class="fl">0.8</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
 df_training &lt;-<span class="st"> </span>df3[df_sampling_index, ]
-df_testing &lt;-<span class="st">  </span>df3[-df_sampling_index, ]
+df_testing &lt;-<span class="st">  </span>df3[<span class="op">-</span>df_sampling_index, ]
 df_control &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,
                            <span class="dt">number =</span> <span class="dv">15</span>,
                            <span class="dt">repeats =</span> <span class="dv">3</span>, 
                            <span class="dt">classProbs =</span> <span class="ot">TRUE</span>,
                            <span class="dt">summaryFunction =</span> twoClassSummary)</code></pre></div>
+<pre><code>## Warning: `repeats` has no meaning for this resampling method.</code></pre>
 <div id="logistic-regression-1" class="section level4">
 <h4><span class="header-section-number">11.3.3.1</span> Logistic regression</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_logreg_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis ~., <span class="dt">data =</span> df_training, <span class="dt">method =</span> <span class="st">&quot;glm&quot;</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_logreg_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training, <span class="dt">method =</span> <span class="st">&quot;glm&quot;</span>, 
                          <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>), 
                          <span class="dt">trControl =</span> df_control)
 
 prediction_logreg_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_logreg_df, df_testing)
-cm_logreg_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_logreg_df, df_testing$diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_logreg_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_logreg_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
 cm_logreg_df</code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
@@ -529,8 +535,8 @@ cm_logreg_df</code></pre></div>
 ##        &#39;Positive&#39; Class : M               
 ## </code></pre>
 <p>Using the <code>glm</code> package</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2b &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df$diagnosis, df2)
-model2_logreg_df2 &lt;-<span class="st"> </span><span class="kw">glm</span>(diagnosis ~., <span class="dt">data =</span> df2b, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2b &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df<span class="op">$</span>diagnosis, df2)
+model2_logreg_df2 &lt;-<span class="st"> </span><span class="kw">glm</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df2b, 
                          <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> <span class="st">&quot;logit&quot;</span>), <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxit =</span> <span class="dv">50</span>))
 <span class="kw">summary</span>(model2_logreg_df2)</code></pre></div>
 <pre><code>## 
@@ -616,83 +622,83 @@ model2_logreg_df2 &lt;-<span class="st"> </span><span class="kw">glm</span>(diag
 </div>
 <div id="random-forest" class="section level4">
 <h4><span class="header-section-number">11.3.3.2</span> Random Forest</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis ~., <span class="dt">data =</span> df_training,
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training,
                      <span class="dt">method =</span> <span class="st">&quot;rf&quot;</span>, 
                      <span class="dt">metric =</span> <span class="st">&#39;ROC&#39;</span>, 
                      <span class="dt">trControl =</span> df_control)
 
 prediction_rf_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_rf_df, df_testing)
-cm_rf_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_rf_df, df_testing$diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_rf_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_rf_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
 cm_rf_df</code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction  B  M
-##          B 70  2
-##          M  1 40
+##          B 71  3
+##          M  0 39
 ##                                           
 ##                Accuracy : 0.9735          
 ##                  95% CI : (0.9244, 0.9945)
 ##     No Information Rate : 0.6283          
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.9429          
-##  Mcnemar&#39;s Test P-Value : 1               
+##                   Kappa : 0.9423          
+##  Mcnemar&#39;s Test P-Value : 0.2482          
 ##                                           
-##             Sensitivity : 0.9524          
-##             Specificity : 0.9859          
-##          Pos Pred Value : 0.9756          
-##          Neg Pred Value : 0.9722          
+##             Sensitivity : 0.9286          
+##             Specificity : 1.0000          
+##          Pos Pred Value : 1.0000          
+##          Neg Pred Value : 0.9595          
 ##              Prevalence : 0.3717          
-##          Detection Rate : 0.3540          
-##    Detection Prevalence : 0.3628          
-##       Balanced Accuracy : 0.9691          
+##          Detection Rate : 0.3451          
+##    Detection Prevalence : 0.3451          
+##       Balanced Accuracy : 0.9643          
 ##                                           
 ##        &#39;Positive&#39; Class : M               
 ## </code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_rf_df)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/randomforest_model_plot-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_rf_df$finalModel)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_rf_df<span class="op">$</span>finalModel)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/randomforest_model_plot-2.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(model_rf_df$finalModel)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(model_rf_df<span class="op">$</span>finalModel)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/randomforest_model_plot-3.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf2_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis ~., <span class="dt">data =</span> df_training, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf2_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training, 
                       <span class="dt">method =</span> <span class="st">&quot;ranger&quot;</span>, 
                       <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
                       <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>), 
                       <span class="dt">trControl =</span> df_control)
 prediction_rf2_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_rf2_df, df_testing)
-<span class="kw">confusionMatrix</span>(prediction_rf2_df, df_testing$diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)</code></pre></div>
+<span class="kw">confusionMatrix</span>(prediction_rf2_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)</code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction  B  M
-##          B 70  3
-##          M  1 39
+##          B 71  3
+##          M  0 39
 ##                                           
-##                Accuracy : 0.9646          
-##                  95% CI : (0.9118, 0.9903)
+##                Accuracy : 0.9735          
+##                  95% CI : (0.9244, 0.9945)
 ##     No Information Rate : 0.6283          
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16          
 ##                                           
-##                   Kappa : 0.9235          
-##  Mcnemar&#39;s Test P-Value : 0.6171          
+##                   Kappa : 0.9423          
+##  Mcnemar&#39;s Test P-Value : 0.2482          
 ##                                           
 ##             Sensitivity : 0.9286          
-##             Specificity : 0.9859          
-##          Pos Pred Value : 0.9750          
-##          Neg Pred Value : 0.9589          
+##             Specificity : 1.0000          
+##          Pos Pred Value : 1.0000          
+##          Neg Pred Value : 0.9595          
 ##              Prevalence : 0.3717          
 ##          Detection Rate : 0.3451          
-##    Detection Prevalence : 0.3540          
-##       Balanced Accuracy : 0.9572          
+##    Detection Prevalence : 0.3451          
+##       Balanced Accuracy : 0.9643          
 ##                                           
 ##        &#39;Positive&#39; Class : M               
 ## </code></pre>
 </div>
 <div id="knn" class="section level4">
 <h4><span class="header-section-number">11.3.3.3</span> KNN</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_knn_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis ~., <span class="dt">data =</span> df_training, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_knn_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training, 
                       <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>, 
                       <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
                       <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>), 
@@ -702,7 +708,7 @@ prediction_rf2_df &lt;-<span class="st"> </span><span class="kw">predict</span>(
 <span class="kw">plot</span>(model_knn_df)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction_knn_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_knn_df, df_testing)
-cm_knn_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_knn_df, df_testing$diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_knn_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_knn_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
 cm_knn_df</code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
@@ -733,38 +739,38 @@ cm_knn_df</code></pre></div>
 </div>
 <div id="support-vector-machine" class="section level4">
 <h4><span class="header-section-number">11.3.3.4</span> Support Vector Machine</h4>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_svm_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis ~., <span class="dt">data =</span> df_training, <span class="dt">method =</span> <span class="st">&quot;svmRadial&quot;</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_svm_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training, <span class="dt">method =</span> <span class="st">&quot;svmRadial&quot;</span>, 
                       <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
                       <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>), 
                       <span class="dt">trace =</span> <span class="ot">FALSE</span>, 
                       <span class="dt">trControl =</span> df_control)
 
 prediction_svm_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_svm_df, df_testing)
-cm_svm_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_svm_df, df_testing$diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_svm_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_svm_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
 cm_svm_df</code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction  B  M
-##          B 71  1
-##          M  0 41
+##          B 49  1
+##          M 22 41
 ##                                           
-##                Accuracy : 0.9912          
-##                  95% CI : (0.9517, 0.9998)
+##                Accuracy : 0.7965          
+##                  95% CI : (0.7104, 0.8664)
 ##     No Information Rate : 0.6283          
-##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##     P-Value [Acc &gt; NIR] : 8.810e-05       
 ##                                           
-##                   Kappa : 0.981           
-##  Mcnemar&#39;s Test P-Value : 1               
+##                   Kappa : 0.6046          
+##  Mcnemar&#39;s Test P-Value : 3.042e-05       
 ##                                           
 ##             Sensitivity : 0.9762          
-##             Specificity : 1.0000          
-##          Pos Pred Value : 1.0000          
-##          Neg Pred Value : 0.9861          
+##             Specificity : 0.6901          
+##          Pos Pred Value : 0.6508          
+##          Neg Pred Value : 0.9800          
 ##              Prevalence : 0.3717          
 ##          Detection Rate : 0.3628          
-##    Detection Prevalence : 0.3628          
-##       Balanced Accuracy : 0.9881          
+##    Detection Prevalence : 0.5575          
+##       Balanced Accuracy : 0.8332          
 ##                                           
 ##        &#39;Positive&#39; Class : M               
 ## </code></pre>
@@ -773,17 +779,17 @@ cm_svm_df</code></pre></div>
 <h4><span class="header-section-number">11.3.3.5</span> Neural Network with LDA</h4>
 <p>To use the LDA pre-processing step, we need to also create the same training and testing set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lda_training &lt;-<span class="st"> </span>predict_lda_df[df_sampling_index, ]
-lda_testing &lt;-<span class="st"> </span>predict_lda_df[-df_sampling_index, ]
-model_nnetlda_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis ~., lda_training, 
+lda_testing &lt;-<span class="st"> </span>predict_lda_df[<span class="op">-</span>df_sampling_index, ]
+model_nnetlda_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., lda_training, 
                           <span class="dt">method =</span> <span class="st">&quot;nnet&quot;</span>, 
                           <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
                           <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>), 
                           <span class="dt">tuneLength =</span> <span class="dv">10</span>, 
                           <span class="dt">trace =</span> <span class="ot">FALSE</span>, 
-                          <span class="dt">trControl =</span> df_control)</code></pre></div>
-<pre><code>## Loading required package: nnet</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction_nnetlda_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_nnetlda_df, lda_testing)
-cm_nnetlda_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_nnetlda_df, lda_testing$diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)</code></pre></div>
+                          <span class="dt">trControl =</span> df_control)
+
+prediction_nnetlda_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_nnetlda_df, lda_testing)
+cm_nnetlda_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_nnetlda_df, lda_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)</code></pre></div>
 </div>
 <div id="models-evaluation" class="section level4">
 <h4><span class="header-section-number">11.3.3.6</span> Models evaluation</h4>
@@ -800,33 +806,43 @@ results &lt;-<span class="st"> </span><span class="kw">resamples</span>(model_li
 ## Number of resamples: 15 
 ## 
 ## ROC 
-##                   Min. 1st Qu. Median   Mean 3rd Qu. Max. NA&#39;s
-## rf              0.9426  0.9829 0.9952 0.9888       1    1    0
-## svm             0.9617  0.9952 1.0000 0.9930       1    1    0
-## logisic         0.8640  0.9151 1.0000 0.9617       1    1    0
-## Neural_with_LDA 0.9617  0.9952 1.0000 0.9950       1    1    0
+##                      Min.   1st Qu.    Median      Mean   3rd Qu. Max.
+## rf              0.9497608 0.9808612 1.0000000 0.9889952 1.0000000    1
+## svm             0.8995215 0.9449761 0.9712919 0.9644072 0.9832536    1
+## logisic         0.8827751 0.9660088 1.0000000 0.9744418 1.0000000    1
+## Neural_with_LDA 0.9760766 0.9932217 1.0000000 0.9950027 1.0000000    1
+##                 NA&#39;s
+## rf                 0
+## svm                0
+## logisic            0
+## Neural_with_LDA    0
 ## 
 ## Sens 
-##                   Min. 1st Qu. Median   Mean 3rd Qu. Max. NA&#39;s
-## rf              0.8421  0.9474 1.0000 0.9684       1    1    0
-## svm             0.8421  0.9737 1.0000 0.9719       1    1    0
-## logisic         0.8421  0.9237 0.9474 0.9477       1    1    0
-## Neural_with_LDA 0.9474  1.0000 1.0000 0.9896       1    1    0
+##                      Min.   1st Qu.    Median      Mean   3rd Qu.
+## rf              0.8947368 0.9473684 1.0000000 0.9721053 1.0000000
+## svm             0.5263158 0.6052632 0.6842105 0.6815789 0.7368421
+## logisic         0.8947368 0.9473684 0.9473684 0.9615789 1.0000000
+## Neural_with_LDA 0.9473684 0.9736842 1.0000000 0.9859649 1.0000000
+##                      Max. NA&#39;s
+## rf              1.0000000    0
+## svm             0.8421053    0
+## logisic         1.0000000    0
+## Neural_with_LDA 1.0000000    0
 ## 
 ## Spec 
-##                   Min. 1st Qu. Median   Mean 3rd Qu. Max. NA&#39;s
-## rf              0.8182  0.8712 0.9167 0.9182       1    1    0
-## svm             0.8333  0.9129 1.0000 0.9652       1    1    0
-## logisic         0.8182  0.9091 1.0000 0.9530       1    1    0
-## Neural_with_LDA 0.9091  0.9091 1.0000 0.9586       1    1    0</code></pre>
+##                      Min.   1st Qu.    Median      Mean 3rd Qu. Max. NA&#39;s
+## rf              0.6363636 0.9090909 0.9090909 0.9095960       1    1    0
+## svm             0.8181818 0.9128788 1.0000000 0.9641414       1    1    0
+## logisic         0.8181818 0.9128788 1.0000000 0.9530303       1    1    0
+## Neural_with_LDA 0.8181818 0.9166667 1.0000000 0.9590909       1    1    0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bwplot</span>(results, <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/model_evaluation_plot-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dotplot(results)</span></code></pre></div>
 <p>The logistic model has to much variability for it to be reliable. The SVM and Neural Network with LDA pre-processing are giving the best results. The ROC metric measure the auc of the roc curve of each model. This metric is independent of any threshold. Let’s remember how these models result with the testing dataset. Prediction classes are obtained by default with a threshold of 0.5 which could not be the best with an unbalanced dataset like this.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cm_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">cm_rf =</span> cm_rf_df, <span class="dt">cm_svm =</span> cm_svm_df, 
                    <span class="dt">cm_logisic =</span> cm_logreg_df, <span class="dt">cm_nnet_LDA =</span> cm_nnetlda_df)
-results &lt;-<span class="st"> </span><span class="kw">map_df</span>(cm_list, function(x) x$byClass) %&gt;%<span class="st"> </span><span class="kw">as_tibble</span>() %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">stat =</span> <span class="kw">names</span>(cm_rf_df$byClass))</code></pre></div>
+results &lt;-<span class="st"> </span><span class="kw">map_df</span>(cm_list, <span class="cf">function</span>(x) x<span class="op">$</span>byClass) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">stat =</span> <span class="kw">names</span>(cm_rf_df<span class="op">$</span>byClass))</code></pre></div>
 <p>The best results for sensitivity (detection of breast cases) is LDA_NNET which also has a great F1 score.</p>
 </div>
 </div>

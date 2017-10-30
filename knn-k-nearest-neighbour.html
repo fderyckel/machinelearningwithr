@@ -25,7 +25,7 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-09-30">
+<meta name="date" content="2017-10-30">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -225,18 +225,18 @@ df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="s
 ## $ fractal_dimension &lt;dbl&gt; 0.079, 0.057, 0.060, 0.097, 0.059, 0.076, 0....</code></pre>
 <p>Change the diagnosis result into a factor</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span>df
-df2$diagnosis_result &lt;-<span class="st"> </span><span class="kw">factor</span>(df2$diagnosis_result, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;M&quot;</span>), 
+df2<span class="op">$</span>diagnosis_result &lt;-<span class="st"> </span><span class="kw">factor</span>(df2<span class="op">$</span>diagnosis_result, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;M&quot;</span>), 
                                <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Benign&quot;</span>, <span class="st">&quot;Malignant&quot;</span>))
-df2 &lt;-<span class="st"> </span>df2 %&gt;%<span class="st"> </span><span class="kw">select</span>(-id)
+df2 &lt;-<span class="st"> </span>df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>id)
 
-<span class="kw">prop.table</span>(<span class="kw">table</span>(df2$diagnosis_result))</code></pre></div>
+<span class="kw">prop.table</span>(<span class="kw">table</span>(df2<span class="op">$</span>diagnosis_result))</code></pre></div>
 <pre><code>## 
 ##    Benign Malignant 
 ##      0.38      0.62</code></pre>
 <p>Like with PCA, KNN is quite sensitve the scale of the variable. So it is important to first standardize the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
-param_preproc_df2 &lt;-<span class="st"> </span><span class="kw">preProcess</span>(df2[,<span class="dv">2</span>:<span class="dv">9</span>], <span class="dt">method =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>))
-preproc_df2 &lt;-<span class="st"> </span><span class="kw">predict</span>(param_preproc_df2, df2[, <span class="dv">2</span>:<span class="dv">9</span>])
+param_preproc_df2 &lt;-<span class="st"> </span><span class="kw">preProcess</span>(df2[,<span class="dv">2</span><span class="op">:</span><span class="dv">9</span>], <span class="dt">method =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>))
+preproc_df2 &lt;-<span class="st"> </span><span class="kw">predict</span>(param_preproc_df2, df2[, <span class="dv">2</span><span class="op">:</span><span class="dv">9</span>])
 <span class="kw">summary</span>(preproc_df2)</code></pre></div>
 <pre><code>##      radius            texture          perimeter            area        
 ##  Min.   :-1.60891   Min.   :-1.3923   Min.   :-1.8914   Min.   :-1.5667  
@@ -252,15 +252,15 @@ preproc_df2 &lt;-<span class="st"> </span><span class="kw">predict</span>(param_
 ##  Mean   : 0.00000   Mean   : 0.0000   Mean   : 0.0000   Mean   : 0.0000  
 ##  3rd Qu.: 0.63312   3rd Qu.: 0.4956   3rd Qu.: 0.5142   3rd Qu.: 0.5288  
 ##  Max.   : 2.75035   Max.   : 3.5703   Max.   : 3.6001   Max.   : 3.9639</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_df2 &lt;-<span class="st"> </span><span class="kw">bind_cols</span>(<span class="dt">diagnosis =</span> df2$diagnosis_result, preproc_df2)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_df2 &lt;-<span class="st"> </span><span class="kw">bind_cols</span>(<span class="dt">diagnosis =</span> df2<span class="op">$</span>diagnosis_result, preproc_df2)
 
-param_split_df2&lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df2$diagnosis_result, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">p =</span> <span class="fl">0.8</span>, 
+param_split_df2&lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df2<span class="op">$</span>diagnosis_result, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">p =</span> <span class="fl">0.8</span>, 
                                       <span class="dt">list =</span> <span class="ot">FALSE</span>)
 train_df2 &lt;-<span class="st"> </span>preproc_df2[param_split_df2, ]
-test_df2 &lt;-<span class="st"> </span>preproc_df2[-param_split_df2, ]
+test_df2 &lt;-<span class="st"> </span>preproc_df2[<span class="op">-</span>param_split_df2, ]
 
 <span class="co">#We can check that we still have the same kind of split</span>
-<span class="kw">prop.table</span>(<span class="kw">table</span>(train_df2$diagnosis))</code></pre></div>
+<span class="kw">prop.table</span>(<span class="kw">table</span>(train_df2<span class="op">$</span>diagnosis))</code></pre></div>
 <pre><code>## 
 ##    Benign Malignant 
 ##  0.382716  0.617284</code></pre>
@@ -292,10 +292,10 @@ test_df2 &lt;-<span class="st"> </span>preproc_df2[-param_split_df2, ]
 ## $ OD280_OD315_diluted_wines &lt;dbl&gt; 3.92, 3.40, 3.17, 3.45, 2.93, 2.85, ...
 ## $ Proline                   &lt;int&gt; 1065, 1050, 1185, 1480, 735, 1450, 1...</code></pre>
 <p>The origin is our dependent variable. Let’s make it a factor.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df$Origin &lt;-<span class="st"> </span><span class="kw">as.factor</span>(df$Origin)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>Origin &lt;-<span class="st"> </span><span class="kw">as.factor</span>(df<span class="op">$</span>Origin)
 
 <span class="co">#Let&#39;s check our explained variable distribution of origin</span>
-<span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$Origin)), <span class="dv">2</span>)</code></pre></div>
+<span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df<span class="op">$</span>Origin)), <span class="dv">2</span>)</code></pre></div>
 <pre><code>## 
 ##    1    2    3 
 ## 0.33 0.40 0.27</code></pre>
@@ -335,16 +335,16 @@ test_df2 &lt;-<span class="st"> </span>preproc_df2[-param_split_df2, ]
 <h3><span class="header-section-number">5.2.1</span> Understand the data</h3>
 <p>We first slide our data in a training and testing set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span>df
-param_split_df2 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df2$Origin, <span class="dt">p =</span> <span class="fl">0.75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
+param_split_df2 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df2<span class="op">$</span>Origin, <span class="dt">p =</span> <span class="fl">0.75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
 
 train_df2 &lt;-<span class="st"> </span>df2[param_split_df2, ]
-test_df2 &lt;-<span class="st"> </span>df2[-param_split_df2, ]</code></pre></div>
+test_df2 &lt;-<span class="st"> </span>df2[<span class="op">-</span>param_split_df2, ]</code></pre></div>
 <p>The great with caret is we can standardize our data in the the training phase.</p>
 <div id="model-the-data" class="section level4">
 <h4><span class="header-section-number">5.2.1.1</span> Model the data</h4>
 <p>Let’s keep using <code>caret</code> for our training.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trnctrl_df2 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>, <span class="dt">number =</span> <span class="dv">10</span>, <span class="dt">repeats =</span> <span class="dv">3</span>)
-model_knn_df2 &lt;-<span class="st"> </span><span class="kw">train</span>(Origin ~., <span class="dt">data =</span> train_df2, <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>, 
+model_knn_df2 &lt;-<span class="st"> </span><span class="kw">train</span>(Origin <span class="op">~</span>., <span class="dt">data =</span> train_df2, <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>, 
                        <span class="dt">trControl =</span> trnctrl_df2, 
                        <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>),  
                        <span class="dt">tuneLength =</span> <span class="dv">10</span>)</code></pre></div>
@@ -357,36 +357,36 @@ model_knn_df2 &lt;-<span class="st"> </span><span class="kw">train</span>(Origin
 ## 
 ## Pre-processing: centered (13), scaled (13) 
 ## Resampling: Cross-Validated (10 fold, repeated 3 times) 
-## Summary of sample sizes: 122, 121, 122, 121, 120, 121, ... 
+## Summary of sample sizes: 122, 121, 122, 123, 121, 121, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   k   Accuracy   Kappa    
-##    5  0.9697253  0.9544585
-##    7  0.9681074  0.9518094
-##    9  0.9633455  0.9448680
-##   11  0.9652015  0.9476770
-##   13  0.9675824  0.9511580
-##   15  0.9705128  0.9556658
-##   17  0.9752747  0.9628869
-##   19  0.9778388  0.9667217
-##   21  0.9802198  0.9701749
-##   23  0.9800366  0.9698333
+##    5  0.9683639  0.9526312
+##    7  0.9486874  0.9230904
+##    9  0.9558547  0.9338828
+##   11  0.9729670  0.9595767
+##   13  0.9729670  0.9595767
+##   15  0.9711416  0.9567394
+##   17  0.9704029  0.9557419
+##   19  0.9614103  0.9421467
+##   21  0.9656410  0.9485898
+##   23  0.9636020  0.9456872
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
-## The final value used for the model was k = 21.</code></pre>
+## The final value used for the model was k = 13.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_knn_df2)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/plot01_knn-1.png" width="672" /></p>
 <p>Let’s use our model to make our prediction</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction_knn_df2 &lt;-<span class="st"> </span><span class="kw">predict</span>(model_knn_df2, <span class="dt">newdata =</span> test_df2)
 
-<span class="kw">confusionMatrix</span>(prediction_knn_df2, <span class="dt">reference =</span> test_df2$Origin)</code></pre></div>
+<span class="kw">confusionMatrix</span>(prediction_knn_df2, <span class="dt">reference =</span> test_df2<span class="op">$</span>Origin)</code></pre></div>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction  1  2  3
-##          1 14  1  0
+##          1 14  2  0
 ##          2  0 15  0
-##          3  0  1 12
+##          3  0  0 12
 ## 
 ## Overall Statistics
 ##                                           
@@ -395,20 +395,20 @@ model_knn_df2 &lt;-<span class="st"> </span><span class="kw">train</span>(Origin
 ##     No Information Rate : 0.3953          
 ##     P-Value [Acc &gt; NIR] : 1.02e-14        
 ##                                           
-##                   Kappa : 0.93            
+##                   Kappa : 0.9299          
 ##  Mcnemar&#39;s Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: 1 Class: 2 Class: 3
 ## Sensitivity            1.0000   0.8824   1.0000
-## Specificity            0.9655   1.0000   0.9677
-## Pos Pred Value         0.9333   1.0000   0.9231
+## Specificity            0.9310   1.0000   1.0000
+## Pos Pred Value         0.8750   1.0000   1.0000
 ## Neg Pred Value         1.0000   0.9286   1.0000
 ## Prevalence             0.3256   0.3953   0.2791
 ## Detection Rate         0.3256   0.3488   0.2791
-## Detection Prevalence   0.3488   0.3488   0.3023
-## Balanced Accuracy      0.9828   0.9412   0.9839</code></pre>
+## Detection Prevalence   0.3721   0.3488   0.2791
+## Balanced Accuracy      0.9655   0.9412   1.0000</code></pre>
 </div>
 </div>
 </div>

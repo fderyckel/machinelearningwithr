@@ -1,0 +1,104 @@
+# Case Study - Text classification: Spam and Ham.  
+
+This chapter has been inspired by the Coursera course on [Machine Learning Foundations: A Case Study Approach](https://www.coursera.org/learn/ml-foundations/) given by Carlos Guestrin and by Emily Fox from Washington University.  This course is part of the [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning)
+
+The task was to apply classfification on an Amazon review dataset.  Given a review, we create a model that will decide if the review is *positive* (associated with a rating of 4 or 5) or *negative* (associate with a rating of 1 or 2).   This is a supervised learning task as the grading associated with the reviews is used as the response variable.  
+
+What we have done here is to create a subset of the dataset with only one product.  The *Philips Avent Bottle*.  
+
+As usual, let's first load the libraries
+```{r message=FALSE}
+library(tidyverse)
+```
+
+Let's have a quick look at our data.  
+```{r message=FALSE, warning=FALSE}
+df <- read_csv("dataset/toyamazonPhilips.csv")
+df <- as_tibble(df)
+df2 <- df[,2:3]
+
+#Let's have a quick look at the reviews
+library(pander)
+pandoc.table(df2[1:3,], 
+             justify = 'left', style = 'grid')
+
+#Let's see the table of ratings.  
+table(df2$rating)
+```
+
+Interestingly the ratings on the Avent Bottles are quite spread on the extreme. It might be that people only write reviews if they are super excited or very frustrated with a product. Because we want this to be a binary classification exercise, we’ll do some transformation on these ratings.
+First we combine the positive reviews together (the 4 and 5 ratings) and the negative reviews together (the 1 and 2 ratings).  Then we take out the neutral reviews.  
+
+```{r}
+# We'll put a 1 for great reviews (4 or 5) or a 0 for bad reviews (1 or 2)
+# We remove all the reviews that have a rating of 3
+df2 <- df %>% filter(rating != 3) %>% 
+                    mutate(rating_new = if_else(rating >= 4, 1, 0))
+df_training <-  df2[1:150, ]
+```
+
+Now we create our corpus, then tokenize it, then make it back to a data frame.  
+```{r message=FALSE}
+library(tm)
+corpus_toy <- Corpus(VectorSource(df_training$review))
+tdm_toy <- DocumentTermMatrix(corpus_toy, list(removePunctuation = TRUE, 
+                                               removeNumbers = TRUE))
+
+training_set_toy <- as.matrix(tdm_toy)
+
+training_set_toy <- cbind(training_set_toy, df_training$rating_new)
+
+colnames(training_set_toy)[ncol(training_set_toy)] <- "y"
+
+training_set_toy <- as.data.frame(training_set_toy)
+training_set_toy$y <- as.factor(training_set_toy$y)
+```
+
+Now that we have our data frame ready, let’s create our model using the `svmLinear3` method.    
+```{r message=FALSE}
+review_toy_model <- caret::train(y ~., data = training_set_toy, method = 'svmLinear3')
+```
+
+Now we try our model on new review data  
+```{r}
+test_review_data <- df2[151:174, ]
+
+test_corpus <- Corpus(VectorSource(test_review_data$review))
+test_tdm <- DocumentTermMatrix(test_corpus, control=list(dictionary = Terms(tdm_toy)))
+test_tdm <- as.matrix(test_tdm)
+
+#Build the prediction  
+model_toy_result <- predict(review_toy_model, newdata = test_tdm)
+
+check_accuracy <- as.data.frame(cbind(prediction = model_toy_result, 
+                                      rating = test_review_data$rating_new))
+
+check_accuracy <- check_accuracy %>% mutate(prediction = as.integer(prediction) - 1)
+
+check_accuracy$accuracy <- if_else(check_accuracy$prediction == check_accuracy$rating, 1, 0)
+round(prop.table(table(check_accuracy$accuracy)), 3)
+```
+
+Another way to deal with text classification is to use the `RtextTool` library.  
+We can use the same dataframe that we used in our previous method. Like before we “DocumentTermMatrix”, we create a matrix of terms  
+```{r}
+library(RTextTools)
+product_review_matrix <- create_matrix(df2[,2], language = "English", 
+                                       removeNumbers = TRUE, 
+                                       removePunctuation = TRUE, 
+                                       removeStopwords = FALSE, stemWords = FALSE)
+
+product_review_container <- create_container(product_review_matrix,
+                                             df2$rating_new, 
+                                             trainSize = 1:150, testSize = 151:174, 
+                                             virgin = FALSE)
+
+product_review_model <- train_model(product_review_container, algorithm = "SVM")
+
+product_review_model_result <- classify_model(product_review_container, product_review_model)
+x <- as.data.frame(cbind(df2$rating_new[151:174], product_review_model_result$SVM_LABEL))
+colnames(x) <- c("actual_ratings", "predicted_ratings")
+x <- x %>% mutate(predicted_ratings = predicted_ratings - 1)
+round(prop.table(table(x$actual_ratings == x$predicted_ratings)), 3)
+```
+

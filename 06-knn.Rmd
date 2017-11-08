@@ -1,0 +1,110 @@
+# KNN - K Nearest Neighbour
+
+The principle behind KNN classifier (K-Nearest Neighbor) algorithm is to find K predefined number of training samples that are closest in the distance to a new point & predict a label for our new point using these samples.
+
+## Example 1.  Prostate Cancer dataset  
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+df <- read_csv("../bookdown-MachineLearningwithR/dataset/prostate_cancer.csv")
+glimpse(df)
+```
+
+Change the diagnosis result into a factor
+```{r}
+df2 <- df
+df2$diagnosis_result <- factor(df2$diagnosis_result, levels = c("B", "M"), 
+                               labels = c("Benign", "Malignant"))
+df2 <- df2 %>% select(-id)
+
+prop.table(table(df2$diagnosis_result))
+```
+
+
+Like with PCA, KNN is quite sensitve the scale of the variable.  So it is important to first standardize the data.  
+```{r message=FALSE, warning=FALSE}
+library(caret)
+param_preproc_df2 <- preProcess(df2[,2:9], method = c("scale", "center"))
+preproc_df2 <- predict(param_preproc_df2, df2[, 2:9])
+summary(preproc_df2)
+preproc_df2 <- bind_cols(diagnosis = df2$diagnosis_result, preproc_df2)
+
+param_split_df2<- createDataPartition(df2$diagnosis_result, times = 1, p = 0.8, 
+                                      list = FALSE)
+train_df2 <- preproc_df2[param_split_df2, ]
+test_df2 <- preproc_df2[-param_split_df2, ]
+
+#We can check that we still have the same kind of split
+prop.table(table(train_df2$diagnosis))
+```
+
+
+## Example 2.  Wine dataset  
+
+We load the dataset and do some quick cleaning  
+```{r message=FALSE, warning=FALSE}
+df <- read_csv("../bookdown-MachineLearningwithR/dataset/Wine_UCI.csv", col_names = FALSE)
+colnames(df) <- c("Origin", "Alcohol", "Malic_acid", "Ash", "Alkalinity_of_ash", 
+                  "Magnesium", "Total_phenols", "Flavanoids", "Nonflavonoids_phenols", 
+                  "Proanthocyanins", "Color_intensity", "Hue", "OD280_OD315_diluted_wines", 
+                  "Proline")
+
+glimpse(df)
+```
+
+The origin is our dependent variable.  Let's make it a factor. 
+```{r}
+df$Origin <- as.factor(df$Origin)
+
+#Let's check our explained variable distribution of origin
+round(prop.table(table(df$Origin)), 2)
+```
+That's nice, our explained variable is almost equally distributed with the 3 set of origin.  
+
+```{r}
+# Let's also check if we have any NA values
+summary(df)
+```
+Here we noticed that the range of values in our variable is quite wide.  It means our data will need to be standardize. We also note that we no "NA" values.  That's quite a nice surprise!
+
+### Understand the data  
+We first slide our data in a training and testing set.  
+```{r}
+df2 <- df
+param_split_df2 <- createDataPartition(df2$Origin, p = 0.75, list = FALSE)
+
+train_df2 <- df2[param_split_df2, ]
+test_df2 <- df2[-param_split_df2, ]
+```
+
+The great with caret is we can standardize our data in the the training phase.  
+
+#### Model the data  
+Let's keep using `caret` for our training.  
+```{r}
+trnctrl_df2 <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
+model_knn_df2 <- train(Origin ~., data = train_df2, method = "knn", 
+                       trControl = trnctrl_df2, 
+                       preProcess = c("center", "scale"),  
+                       tuneLength = 10)
+
+```
+
+```{r plot01_knn}
+model_knn_df2
+
+plot(model_knn_df2)
+```
+
+Let's use our model to make our prediction
+```{r}
+prediction_knn_df2 <- predict(model_knn_df2, newdata = test_df2)
+
+confusionMatrix(prediction_knn_df2, reference = test_df2$Origin)
+```
+
+
+## References  
+
+* KNN R, K-Nearest neighbor implementation in R using caret package. [Here](http://dataaspirant.com/2017/01/09/knn-implementation-r-using-caret-package/)
+* 

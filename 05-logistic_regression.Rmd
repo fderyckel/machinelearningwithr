@@ -1,4 +1,4 @@
-# Logistic Regression
+# Logistic Regression {#logistic}
 
 ## Introduction
 Logistic Regression is a classification algorithm. It is used to predict a binary outcome (1 / 0, Yes / No, True / False) given a set of independent variables. To represent binary / categorical outcome, we use dummy variables. You can also think of logistic regression as a special case of linear regression when the outcome variable is categorical, where we are using log of odds as dependent variable. In simple words, it predicts the probability of occurrence of an event by fitting data to a logit function.  
@@ -366,10 +366,8 @@ prediction_lgr_df4 <- if_else(prediction_lgr_df4 > 0.5, "positive", "negative")
 prediction_lgr_df4 <- factor(prediction_lgr_df4)
 levels(prediction_lgr_df4) <- c("negative", "positive")
 
-
-
-table(df4$test, prediction_lgr_df4)
-table(df4$test)
+#table(df4$test, prediction_lgr_df4)
+#table(df4$test)
 ########
 
 #confusionMatrix(data = accuracy_model_lr3, 
@@ -380,17 +378,17 @@ table(df4$test)
 ### ROC and AUC
 ```{r roc_model3_pic1}
 prediction_lgr_df4 <- predict(model_lgr_df4, data = df4, type="response")
-pr <- prediction(prediction_lgr_df4, df4$test)
-prf <- performance(pr, measure = "tpr", x.measure = "fpr")
-plot(prf)
+#pr <- prediction(prediction_lgr_df4, df4$test)
+#prf <- performance(pr, measure = "tpr", x.measure = "fpr")
+#plot(prf)
 
 ```
 
 
 Let's go back to the ideal cut off point that would balance the sensitivity and specificity. 
 ```{r}
-cost_diabetes_perf <- performance(pr, "cost")
-cutoff <- pr@cutoffs[[1]][which.min(cost_diabetes_perf@y.values[[1]])]
+#cost_diabetes_perf <- performance(pr, "cost")
+#cutoff <- pr@cutoffs[[1]][which.min(cost_diabetes_perf@y.values[[1]])]
 ```
 
 So for maximum accuracy, the ideal cutoff point is `0.487194`.  
@@ -409,23 +407,23 @@ Another cost measure that is popular is overall accuracy. This measure optimizes
 
 Actually the `ROCR` package can also give us a plot of accuracy for various cutoff points
 ```{r roc_model3_pic2}
-prediction_lgr_df4 <- performance(pr, measure = "acc")
-plot(prediction_lgr_df4)
+#prediction_lgr_df4 <- performance(pr, measure = "acc")
+#plot(prediction_lgr_df4)
 ```
 
 
 Often in medical research for instance, there is a cost in having false negative is quite higher than a false positve.  
 Let's say the cost of missing someone having diabetes is 3 times the cost of telling someone that he has diabetes when in reality he/she doesn't.  
 ```{r}
-cost_diabetes_perf <- performance(pr, "cost", cost.fp = 1, cost.fn = 3)
-cutoff <- pr@cutoffs[[1]][which.min(cost_diabetes_perf@y.values[[1]])]
+#cost_diabetes_perf <- performance(pr, "cost", cost.fp = 1, cost.fn = 3)
+#cutoff <- pr@cutoffs[[1]][which.min(cost_diabetes_perf@y.values[[1]])]
 ```
 
 Lastly, in regards to AUC
 ```{r}
-auc <- performance(pr, measure = "auc")
-auc <- auc@y.values[[1]]
-auc
+#auc <- performance(pr, measure = "auc")
+#auc <- auc@y.values[[1]]
+#auc
 ```
 
 

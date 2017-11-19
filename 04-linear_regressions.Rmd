@@ -35,18 +35,17 @@ Some ways to assess how good our model is to:
 The wine.csv file is used. 
 
 Let's load it and then have a quick look at its structure.
-```{r linreg01}
+```{r linreg01, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(skimr)
-wine = read.csv("../datasets/Wine.csv")
-glimpse(wine)
-skim(wine)
+df = read_csv("dataset/Wine.csv")
+skim(df)
 ```
 
 We use the `lm` function to find our linear regression model.  We use *AGST* as the independent variable while the *price* is the dependent variable.
 ```{r linreg02_model}
-model1 = lm(Price ~ AGST, data = wine)
-summary(model1)
+model_lm_df = lm(Price ~ AGST, data = df)
+summary(model_lm_df)
 ```
 
 The `summary` function applied on the model is giving us a bunch of important information
@@ -56,16 +55,15 @@ The `summary` function applied on the model is giving us a bunch of important in
 
 We could have calculated the R value ourselves:
 ```{r linreg03_ssquare}
-SSE = sum(model1$residuals^2)
-SST = sum((wine$Price - mean(wine$Price))^2)
+SSE = sum(model_lm_df$residuals^2)
+SST = sum((df$Price - mean(df$Price))^2)
 r_squared = 1 - SSE/SST
 r_squared
 ```
 
 We can now plot the observations and the line of regression; and see how the linear model fits the data.
 ```{r linreg04_graph}
-library(ggplot2)
-ggplot(wine, aes(AGST, Price)) + 
+ggplot(df, aes(AGST, Price)) + 
   geom_point(shape = 1, col = "blue") + 
   geom_smooth(method = "lm", col = "red")
 ```
@@ -74,7 +72,7 @@ By default, the `geom_smooth()` will use a 95% confidence interval (which is the
 It is always nice to see how our residuals are distributed.  
 We use the `ggplot2` library and the `fortify` function which transform the `summary(model1)` into a data frame usable for plotting. 
 ```{r linreg05_residuals}
-model1 <- fortify(model1)
+model1 <- fortify(model_lm_df)
 p <- ggplot(model1, aes(.fitted, .resid)) + geom_point() 
 p <- p + geom_hline(yintercept = 0, col = "red", linetype = "dashed") 
 p <- p + xlab("Fitted values") + ylab("Residuals") + ggtitle("Plot of the residuals in function of the fitted values")
@@ -100,24 +98,24 @@ There are a bit of trials and errors to make while trying to fit multiple variab
 We continue here with the same dataset, *wine.csv*.  
 First, we can see how each variable is correlated with each other ones, using
 ```{r linreg06_wine}
-cor(wine)
+cor(df)
 ```
 by default, R uses the Pearson coefficient of correlation.   
 So let's start by using all variables.  
 ```{r}
-model2 <- lm(Price ~ Year + WinterRain + AGST + HarvestRain + Age + FrancePop, data = wine)
-summary(model2)
+model2_lm_df <- lm(Price ~ Year + WinterRain + AGST + HarvestRain + Age + FrancePop, data = df)
+summary(model2_lm_df)
 ```
 While doing so, we notice that the variable *Age* has NA (issues with missing data?) and that the variable *FrancePop* isn't very predictive of the price of wine.  So we can refine our models, by taking out these 2 variables, and as we'll see, it won't affect much our $R^2$ value.  Note that with multiple variables regression, it is important to look at the **Adjusted R-squared** as it take into consideration the amount of variables in the model.
 ```{r}
-model3 <- lm(Price ~ Year + WinterRain + AGST + HarvestRain, data = wine)
-summary(model3)
+model3_lm_df <- lm(Price ~ Year + WinterRain + AGST + HarvestRain, data = df)
+summary(model3_lm_df)
 ```
 
 Although it isn't now feasible to graph in 2D the *Price* in function of the other variables, we can still graph our residuals.  
 
 ```{r}
-model3 <- fortify(model3)
+model3 <- fortify(model3_lm_df)
 p <- ggplot(model3, aes(.fitted, .resid)) + geom_point()
 p <- p + geom_hline(yintercept = 0, col = "red", linetype = "dashed") + xlab("Fitted values")
 p <- p + ylab("Residuals") + ggtitle("Plot of the residuals in function of the fitted values (multiple variables)")

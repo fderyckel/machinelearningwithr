@@ -1,11 +1,37 @@
-# Tests and inferences {#intro}
+# Tests and inferences {#testinference}
 
 Definitely the first thing to be familiar with while doing machine learning works is the basic of statistical inferences.  
-In this chapter, we go over some of the few important topics and r-ways to do them.  
+In this chapter, we go over some of these important concepts and the r-ways to do them.  
 
 Let's get started.  
 
-## T-tests
+## Assumption of normality {#normality}
+Copied from [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3693611/)
+
+Many of the statistical procedures including correlation, regression, t tests, and analysis of variance, namely parametric tests, are based on the assumption that the data follows a normal distribution or a Gaussian distribution (after Johann Karl Gauss, 1777–1855); that is, it is assumed that the populations from which the samples are taken are normally distributed. The assumption of normality is especially critical when constructing reference intervals for variables. Normality and other assumptions should be taken seriously, for when these assumptions do not hold, it is impossible to draw accurate and reliable conclusions about reality.
+
+\index{Test of normality}
+
+With large enough sample sizes (> 30 or 40), the violation of the normality assumption should not cause major problems; this implies that we can use parametric procedures even when the data are not normally distributed (8). If we have samples consisting of hundreds of observations, we can ignore the distribution of the data (3). According to the central limit theorem, 
+
+* if the sample data are approximately normal then the sampling distribution too will be normal; 
+* in large samples (> 30 or 40), the sampling distribution tends to be normal, regardless of the shape of the data 
+* means of random samples from any distribution will themselves have normal distribution. 
+
+Although true normality is considered to be a myth, we can look for normality visually by using normal plots or by significance tests, that is, comparing the sample distribution to a normal one. It is important to ascertain whether data show a serious deviation from normality.
+
+### Visual check of normality
+
+Visual inspection of the distribution may be used for assessing normality, although this approach is usually unreliable and does not guarantee that the distribution is normal. However, when data are presented visually, readers of an article can judge the distribution assumption by themselves. The frequency distribution (histogram), stem-and-leaf plot, boxplot, P-P plot (probability-probability plot), and Q-Q plot (quantile-quantile plot) \index{Q-Q plot} are used for checking normality visually. The frequency distribution that plots the observed values against their frequency, provides both a visual judgment about whether the distribution is bell shaped and insights about gaps in the data and outliers outlying values. A Q-Q plot is very similar to the P-P plot except that it plots the quantiles (values that split a data set into equal portions) of the data set instead of every individual score in the data. Moreover, the Q-Q plots are easier to interpret in case of large sample sizes. The boxplot shows the median as a horizontal line inside the box and the interquartile range (range between the 25 th to 75 th percentiles) as the length of the box. The whiskers (line extending from the top and bottom of the box) represent the minimum and maximum values when they are within 1.5 times the interquartile range from either end of the box. Scores greater than 1.5 times the interquartile range are out of the boxplot and are considered as outliers, and those greater than 3 times the interquartile range are extreme outliers. A boxplot that is symmetric with the median line at approximately the center of the box and with symmetric whiskers that are slightly longer than the subsections of the center box suggests that the data may have come from a normal distribution.
+
+### Normality tests
+
+The various normality tests compare the scores in the sample to a normally distributed set of scores with the same mean and standard deviation; the null hypothesis is that “sample distribution is normal.” If the test is significant, the distribution is non-normal. For small sample sizes, normality tests have little power to reject the null hypothesis and therefore small samples most often pass normality tests. For large sample sizes, significant results would be derived even in the case of a small deviation from normality, although this small deviation will not affect the results of a parametric test. It has been reported that the K-S test has low power and it should not be seriously considered for testing normality (11). Moreover, it is not recommended when parameters are estimated from the data, regardless of sample size (12).
+
+The Shapiro-Wilk test \index{Shapiro-Wilk test} is based on the correlation between the data and the corresponding normal scores and provides better power than the K-S test even after the Lilliefors correction. Power is the most frequent measure of the value of a test for normality. Some researchers recommend the Shapiro-Wilk test as the best choice for testing the normality of data.
+
+## T-tests {#ttest}
+\index{T test}
 The __independent t test__ is used to test if there is any statistically *significant difference between two means*. Use of an independent t test requires several assumptions to be satisfied.  
 
 1.  The variables are continuous and independent
@@ -17,7 +43,7 @@ When these assumptions are satisfied the results of the t test are valid. Otherw
 Using the `mtcars` data set, we check if there are any difference in mile per gallon (mpg) for each of the automatic and manual group.  
 
 Check the data and mark as factor the driving system. 
-
+\index{mtcars}
 ```{r intro01, message=FALSE}
 library(tidyverse)
 glimpse(mtcars)

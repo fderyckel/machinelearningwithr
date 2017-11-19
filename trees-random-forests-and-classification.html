@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with R</title>
+  <meta name="description" content="This book is about using R for machine learning purposes.">
+  <meta name="generator" content="bookdown 0.5.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book is about using R for machine learning purposes." />
+  <meta name="github-repo" content="fderyckel/machinelearningwithr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with R" />
+  
+  <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
+  
+
+<meta name="author" content="François de Ryckel">
+
+
+<meta name="date" content="2017-11-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="principal-component-analysis.html">
+<link rel="next" href="model-evaluation.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">Machine Learning with R</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-requisite-and-conventions"><i class="fa fa-check"></i><b>1.1</b> Pre-requisite and conventions</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.2</b> Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="testinference.html"><a href="testinference.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
+<li class="chapter" data-level="2.1" data-path="testinference.html"><a href="testinference.html#normality"><i class="fa fa-check"></i><b>2.1</b> Assumption of normality</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="testinference.html"><a href="testinference.html#visual-check-of-normality"><i class="fa fa-check"></i><b>2.1.1</b> Visual check of normality</a></li>
+<li class="chapter" data-level="2.1.2" data-path="testinference.html"><a href="testinference.html#normality-tests"><i class="fa fa-check"></i><b>2.1.2</b> Normality tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="testinference.html"><a href="testinference.html#ttest"><i class="fa fa-check"></i><b>2.2</b> T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price"><i class="fa fa-check"></i><b>3.1.1</b> First example. Predicting wine price</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#multi-variables-regression"><i class="fa fa-check"></i><b>3.2</b> Multi-variables regression</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price-1"><i class="fa fa-check"></i><b>3.2.1</b> First example. Predicting wine price</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="logistic.html"><a href="logistic.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="logistic.html"><a href="logistic.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic.html"><a href="logistic.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic.html"><a href="logistic.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
+<li class="chapter" data-level="4.4" data-path="logistic.html"><a href="logistic.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic.html"><a href="logistic.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic.html"><a href="logistic.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="logistic.html"><a href="logistic.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
+<li class="chapter" data-level="4.6.2" data-path="logistic.html"><a href="logistic.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
+<li class="chapter" data-level="4.6.3" data-path="logistic.html"><a href="logistic.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="logistic.html"><a href="logistic.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html"><i class="fa fa-check"></i><b>5</b> Softmax and multinomial regressions</a><ul>
+<li class="chapter" data-level="5.1" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.1</b> Multinomial Logistic Regression</a></li>
+<li class="chapter" data-level="5.2" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#references-1"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="knnchapter.html"><a href="knnchapter.html"><i class="fa fa-check"></i><b>6</b> KNN - K Nearest Neighbour</a><ul>
+<li class="chapter" data-level="6.1" data-path="knnchapter.html"><a href="knnchapter.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>6.1</b> Example 1. Prostate Cancer dataset</a></li>
+<li class="chapter" data-level="6.2" data-path="knnchapter.html"><a href="knnchapter.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>6.2</b> Example 2. Wine dataset</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="knnchapter.html"><a href="knnchapter.html#understand-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Understand the data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="knnchapter.html"><a href="knnchapter.html#references-2"><i class="fa fa-check"></i><b>6.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>7</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>7.1</b> PCA on an easy example.</a></li>
+<li class="chapter" data-level="7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>7.2</b> References.</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>8</b> Trees, Random forests and Classification</a><ul>
+<li class="chapter" data-level="8.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>8.2</b> First example.</a></li>
+<li class="chapter" data-level="8.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>8.3</b> Second Example.</a></li>
+<li class="chapter" data-level="8.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>8.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="8.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>8.5</b> Third example.</a></li>
+<li class="chapter" data-level="8.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-3"><i class="fa fa-check"></i><b>8.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>9</b> Model Evaluation</a><ul>
+<li class="chapter" data-level="9.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Biais variance tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>9.2</b> Bagging</a></li>
+<li class="chapter" data-level="9.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>9.3</b> Cross Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>10</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
+<li class="chapter" data-level="10.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>10.1</b> Import the data.</a></li>
+<li class="chapter" data-level="10.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>10.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="10.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>10.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>10.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="10.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>10.3.2</b> A. Vizualize with families.</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>10.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="10.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>10.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>10.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="10.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>10.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>10.6</b> References.</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html"><i class="fa fa-check"></i><b>11</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="11.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>11.1</b> Import the data</a></li>
+<li class="chapter" data-level="11.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data-1"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="11.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data-2"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>11.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="11.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>11.3.3</b> Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>11.4</b> Communication</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html"><i class="fa fa-check"></i><b>12</b> Case Study - Wisconsin Breast Cancer</a><ul>
+<li class="chapter" data-level="12.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#import-the-data-1"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
+<li class="chapter" data-level="12.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="12.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Pre-process the data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#model-the-data-1"><i class="fa fa-check"></i><b>12.3.3</b> Model the data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#references-4"><i class="fa fa-check"></i><b>12.4</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="trees-random-forests-and-classification" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Trees, Random forests and Classification</h1>
+<div id="introduction-1" class="section level2">
+<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<p>Classification trees are non-parametric methods to recursively partition the data into more “pure” nodes, based on splitting rules.</p>
+<p>Logistic regression vs Decision trees. It is dependent on the type of problem you are solving. Let’s look at some key factors which will help you to decide which algorithm to use:</p>
+<ul>
+<li>If the relationship between dependent &amp; independent variable is well approximated by a linear model, linear regression will outperform tree based model.</li>
+<li>If there is a high non-linearity &amp; complex relationship between dependent &amp; independent variables, a tree model will outperform a classical regression method.</li>
+<li>If you need to build a model which is easy to explain to people, a decision tree model will always do better than a linear model. Decision tree models are even simpler to interpret than linear regression!</li>
+</ul>
+<p>The 2 main disadventages of Decision trees: <strong>Over fitting</strong>: Over fitting is one of the most practical difficulty for decision tree models. This problem gets solved by setting constraints on model parameters and pruning (discussed in detailed below).</p>
+<p><strong>Not fit for continuous variables</strong>: While working with continuous numerical variables, decision tree looses information when it categorizes variables in different categories.</p>
+<p>Decision trees use multiple algorithms to decide to split a node in two or more sub-nodes. The creation of sub-nodes increases the homogeneity of resultant sub-nodes. In other words, we can say that purity of the node increases with respect to the target variable. Decision tree splits the nodes on all available variables and then selects the split which results in most homogeneous sub-nodes.</p>
+</div>
+<div id="first-example." class="section level2">
+<h2><span class="header-section-number">8.2</span> First example.</h2>
+<p>Let’s do a CART on the iris dataset. This is the <code>Hello World!</code> of CART.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)
+<span class="kw">library</span>(rpart.plot)
+<span class="kw">data</span>(<span class="st">&quot;iris&quot;</span>)
+<span class="kw">str</span>(iris)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(iris<span class="op">$</span>Species)</code></pre></div>
+<pre><code>## 
+##     setosa versicolor  virginica 
+##         50         50         50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(Species <span class="op">~</span>., <span class="dt">data =</span> iris, <span class="dt">method =</span> <span class="st">&quot;class&quot;</span>)
+tree</code></pre></div>
+<pre><code>## n= 150 
+## 
+## node), split, n, loss, yval, (yprob)
+##       * denotes terminal node
+## 
+## 1) root 150 100 setosa (0.33333333 0.33333333 0.33333333)  
+##   2) Petal.Length&lt; 2.45 50   0 setosa (1.00000000 0.00000000 0.00000000) *
+##   3) Petal.Length&gt;=2.45 100  50 versicolor (0.00000000 0.50000000 0.50000000)  
+##     6) Petal.Width&lt; 1.75 54   5 versicolor (0.00000000 0.90740741 0.09259259) *
+##     7) Petal.Width&gt;=1.75 46   1 virginica (0.00000000 0.02173913 0.97826087) *</code></pre>
+<p>The method-argument can be switched according to the type of the response variable. It is <code>class</code> for categorial, <code>anova</code> for numerical, <code>poisson</code> for count data and `exp for survival data.</p>
+<p><em>Important Terminology related to Decision Trees</em></p>
+<p><strong>Root Node</strong>: It represents entire population or sample and this further gets divided into two or more homogeneous sets.</p>
+<p><strong>Splitting</strong>: It is a process of dividing a node into two or more sub-nodes.</p>
+<p><strong>Decision Node</strong>: When a sub-node splits into further sub-nodes, then it is called decision node.</p>
+<p><strong>Leaf/ Terminal Node</strong>: Nodes do not split is called Leaf or Terminal node.</p>
+<p><strong>Pruning</strong>: When we remove sub-nodes of a decision node, this process is called pruning. You can say opposite process of splitting.</p>
+<p><strong>Branch / Sub-Tree</strong>: A sub section of entire tree is called branch or sub-tree.</p>
+<p><strong>Parent and Child Node</strong>: A node, which is divided into sub-nodes is called parent node of sub-nodes where as sub-nodes are the child of parent node.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(tree)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/iris_tree-1.png" width="672" /></p>
+<p>This is a model with a <strong>multi-class response</strong>. Each node shows</p>
+<ul>
+<li>the predicted class (setosa, versicolor, virginica),</li>
+<li>the predicted probability of each class,</li>
+<li>the percentage of observations in the node</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(iris<span class="op">$</span>Species, <span class="kw">predict</span>(tree, <span class="dt">type =</span> <span class="st">&quot;class&quot;</span>))</code></pre></div>
+<pre><code>##             
+##              setosa versicolor virginica
+##   setosa         50          0         0
+##   versicolor      0         49         1
+##   virginica       0          5        45</code></pre>
+</div>
+<div id="second-example." class="section level2">
+<h2><span class="header-section-number">8.3</span> Second Example.</h2>
+<p>Data set is the titanic. This is a model with a <strong>binary response</strong>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;ptitanic&quot;</span>)
+<span class="kw">str</span>(ptitanic)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    1309 obs. of  6 variables:
+##  $ pclass  : Factor w/ 3 levels &quot;1st&quot;,&quot;2nd&quot;,&quot;3rd&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ survived: Factor w/ 2 levels &quot;died&quot;,&quot;survived&quot;: 2 2 1 1 1 2 2 1 2 1 ...
+##  $ sex     : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 1 2 1 2 1 2 1 2 1 2 ...
+##  $ age     :Class &#39;labelled&#39;  atomic [1:1309] 29 0.917 2 30 25 ...
+##   .. ..- attr(*, &quot;units&quot;)= chr &quot;Year&quot;
+##   .. ..- attr(*, &quot;label&quot;)= chr &quot;Age&quot;
+##  $ sibsp   :Class &#39;labelled&#39;  atomic [1:1309] 0 1 1 1 1 0 1 0 2 0 ...
+##   .. ..- attr(*, &quot;label&quot;)= chr &quot;Number of Siblings/Spouses Aboard&quot;
+##  $ parch   :Class &#39;labelled&#39;  atomic [1:1309] 0 2 2 2 2 0 0 0 0 0 ...
+##   .. ..- attr(*, &quot;label&quot;)= chr &quot;Number of Parents/Children Aboard&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ptitanic<span class="op">$</span>age &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(ptitanic<span class="op">$</span>age)
+ptitanic<span class="op">$</span>sibsp &lt;-<span class="st"> </span><span class="kw">as.integer</span>(ptitanic<span class="op">$</span>sibsp)
+ptitanic<span class="op">$</span>parch &lt;-<span class="st"> </span><span class="kw">as.integer</span>(ptitanic<span class="op">$</span>parch)</code></pre></div>
+<p>Actually we can make the table more relevant.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(ptitanic<span class="op">$</span>sex, ptitanic<span class="op">$</span>survived), <span class="dv">1</span>), <span class="dv">2</span>)</code></pre></div>
+<pre><code>##         
+##          died survived
+##   female 0.27     0.73
+##   male   0.81     0.19</code></pre>
+<p>One can see here that the sum of the percentage add to 1 horizontally. If one want to make it vertically, we use <em>2</em>.</p>
+<p>You can find the default limits by typing ?rpart.control. The first one we want to unleash is the <code>cp</code> parameter, this is the metric that stops splits that aren’t deemed important enough. The other one we want to open up is <code>minsplit</code> which governs how many passengers must sit in a bucket before even looking for a split.</p>
+<p>By putting a very low <code>cp</code> we are asking to have a very deep tree. The idea is that we prune it later. So in this first regression on <code>ptitanic</code> we’ll set a very low cp.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)
+<span class="kw">library</span>(rpart.plot)
+<span class="kw">set.seed</span>(<span class="dv">123</span>)
+tree &lt;-<span class="st"> </span><span class="kw">rpart</span>(survived <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> ptitanic, <span class="dt">cp=</span><span class="fl">0.00001</span>)
+<span class="kw">rpart.plot</span>(tree)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/titanic_tree-1.png" width="672" /></p>
+<p>Each node shows</p>
+<ul>
+<li>the predicted class (died or survived),</li>
+<li>the predicted probability of survival,</li>
+<li>the percentage of observations in the node.</li>
+</ul>
+<p>Let’s do a confusion matrix based on this tree.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">conf.matrix &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(ptitanic<span class="op">$</span>survived, <span class="kw">predict</span>(tree, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>)), <span class="dv">2</span>), <span class="dv">2</span>)
+<span class="kw">rownames</span>(conf.matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Actually died&quot;</span>, <span class="st">&quot;Actually Survived&quot;</span>)
+<span class="kw">colnames</span>(conf.matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Predicted dead&quot;</span>, <span class="st">&quot;Predicted Survived&quot;</span>)
+conf.matrix</code></pre></div>
+<pre><code>##                    
+##                     Predicted dead Predicted Survived
+##   Actually died               0.83               0.16
+##   Actually Survived           0.17               0.84</code></pre>
+<p>Let’s learn a bit more about trees. By using the <code>name</code> function, one can see all the object inherent to the <code>tree</code> function.<br />
+A few intersting ones. The `$where component indicates to which leaf the different observations have been assigned.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(tree)</code></pre></div>
+<pre><code>##  [1] &quot;frame&quot;               &quot;where&quot;               &quot;call&quot;               
+##  [4] &quot;terms&quot;               &quot;cptable&quot;             &quot;method&quot;             
+##  [7] &quot;parms&quot;               &quot;control&quot;             &quot;functions&quot;          
+## [10] &quot;numresp&quot;             &quot;splits&quot;              &quot;csplit&quot;             
+## [13] &quot;variable.importance&quot; &quot;y&quot;                   &quot;ordered&quot;</code></pre>
+<p>How to prune a tree? We want the cp value (with a simpler tree) that minimizes the xerror. So you need to find the lowest Cross-Validation Error. 2 ways to do this. Either the <code>plotcp</code> or the <code>printcp</code> functions. The <code>plotcp</code> is a visual representation of <code>printcp</code> function.</p>
+<p>The problem with reducing the `xerror is that the cross-validation error is a random quantity. There is no guarantee that if we were to fit the sequence of trees again using a different random seed that the same tree would minimize the cross-validation error.<br />
+A more robust alternative to minimum cross-validation error is to use the one standard deviation rule: choose the smallest tree whose cross-validation error is within one standard error of the minimum. Depending on how we define this there are two possible choices. The first tree whose point estimate of the cross-validation error falls within the ± 1 xstd of the minimum. On the other hand the standard error lower limit of the tree of size three is within + 1 xstd of the minimum.</p>
+<p>Either of these is a reasonable choice, but insisting that the point estimate itself fall within the standard error limits is probably the more robust solution.</p>
+<p>As discussed earlier, the technique of setting constraint is a greedy-approach. In other words, it will check for the best split instantaneously and move forward until one of the specified stopping condition is reached. Let’s consider the following case when you’re driving: There are 2 lanes: A lane with cars moving at 80km/h A lane with trucks moving at 30km/h At this instant, you are a car in the fast lane and you have 2 choices: Take a left and overtake the other 2 cars quickly Keep moving in the present lane Lets analyze these choice. In the former choice, you’ll immediately overtake the car ahead and reach behind the truck and start moving at 30 km/h, looking for an opportunity to move back right. All cars originally behind you move ahead in the meanwhile. This would be the optimum choice if your objective is to maximize the distance covered in next say 10 seconds. In the later choice, you sale through at same speed, cross trucks and then overtake maybe depending on situation ahead. Greedy you!</p>
+<p>This is exactly the difference between normal decision tree &amp; pruning. A decision tree with constraints won’t see the truck ahead and adopt a greedy approach by taking a left. On the other hand if we use pruning, we in effect look at a few steps ahead and make a choice. So we know pruning is better.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">printcp</span>(tree)</code></pre></div>
+<pre><code>## 
+## Classification tree:
+## rpart(formula = survived ~ ., data = ptitanic, cp = 1e-05)
+## 
+## Variables actually used in tree construction:
+## [1] age    parch  pclass sex    sibsp 
+## 
+## Root node error: 500/1309 = 0.38197
+## 
+## n= 1309 
+## 
+##          CP nsplit rel error xerror     xstd
+## 1 0.4240000      0     1.000  1.000 0.035158
+## 2 0.0210000      1     0.576  0.576 0.029976
+## 3 0.0150000      3     0.534  0.570 0.029863
+## 4 0.0113333      5     0.504  0.566 0.029787
+## 5 0.0025714      9     0.458  0.530 0.029076
+## 6 0.0020000     16     0.440  0.530 0.029076
+## 7 0.0000100     18     0.436  0.534 0.029157</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plotcp</span>(tree)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/xval_titanic-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree<span class="op">$</span>cptable[<span class="kw">which.min</span>(tree<span class="op">$</span>cptable[,<span class="st">&quot;xerror&quot;</span>]),<span class="st">&quot;CP&quot;</span>]</code></pre></div>
+<pre><code>## [1] 0.002571429</code></pre>
+<p>See if we can prune slightly the tree</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bestcp &lt;-<span class="st"> </span>tree<span class="op">$</span>cptable[<span class="kw">which.min</span>(tree<span class="op">$</span>cptable[,<span class="st">&quot;xerror&quot;</span>]),<span class="st">&quot;CP&quot;</span>]
+tree.pruned &lt;-<span class="st"> </span><span class="kw">prune</span>(tree, <span class="dt">cp =</span> bestcp)
+
+<span class="co">#this time we add a few arguments to add some mojo to our graphed tree.</span>
+<span class="co">#Actually this will give us a very similar graphed tree as rattle (and we like that graph!)</span>
+<span class="kw">rpart.plot</span>(tree.pruned, <span class="dt">extra=</span><span class="dv">104</span>, <span class="dt">box.palette=</span><span class="st">&quot;GnBu&quot;</span>,
+               <span class="dt">branch.lty=</span><span class="dv">3</span>, <span class="dt">shadow.col=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">nn=</span><span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/titanic_tree_2-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">conf.matrix &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(ptitanic<span class="op">$</span>survived, <span class="kw">predict</span>(tree.pruned, <span class="dt">type=</span><span class="st">&quot;class&quot;</span>))), <span class="dv">2</span>)
+<span class="kw">rownames</span>(conf.matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Actually died&quot;</span>, <span class="st">&quot;Actually Survived&quot;</span>)
+<span class="kw">colnames</span>(conf.matrix) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Predicted dead&quot;</span>, <span class="st">&quot;Predicted Survived&quot;</span>)
+conf.matrix</code></pre></div>
+<pre><code>##                    
+##                     Predicted dead Predicted Survived
+##   Actually died               0.57               0.05
+##   Actually Survived           0.13               0.25</code></pre>
+<p>Another way to check the output of the classifier is with a ROC (Receiver Operating Characteristics) Curve. This plots the true positive rate against the false positive rate, and gives us a visual feedback as to how well our model is performing. The package we will use for this is ROCR.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ROCR)
+fit.pr =<span class="st"> </span><span class="kw">predict</span>(tree.pruned, <span class="dt">type=</span><span class="st">&quot;prob&quot;</span>)[,<span class="dv">2</span>]
+fit.pred =<span class="st"> </span><span class="kw">prediction</span>(fit.pr, ptitanic<span class="op">$</span>survived)
+fit.perf =<span class="st"> </span><span class="kw">performance</span>(fit.pred,<span class="st">&quot;tpr&quot;</span>,<span class="st">&quot;fpr&quot;</span>)
+<span class="kw">plot</span>(fit.perf,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,
+     <span class="dt">main=</span><span class="st">&quot;ROC:  Classification Trees on Titanic Dataset&quot;</span>)
+<span class="kw">abline</span>(<span class="dt">a=</span><span class="dv">0</span>,<span class="dt">b=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/rocr_titanic_tree-1.png" width="672" /></p>
+<p>Ordinarily, using the confusion matrix for creating the ROC curve would give us a single point (as it is based off True positive rate vs false positive rate). What we do here is ask the prediction algorithm to give class probabilities to each observation, and then we plot the performance of the prediction using class probability as a cutoff. This gives us the “smooth” ROC curve.</p>
+</div>
+<div id="how-does-a-tree-decide-where-to-split" class="section level2">
+<h2><span class="header-section-number">8.4</span> How does a tree decide where to split?</h2>
+<p>A bit more theory, before we go further. This part has been taken from this <a href="https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/">great tutorial</a>.</p>
+</div>
+<div id="third-example." class="section level2">
+<h2><span class="header-section-number">8.5</span> Third example.</h2>
+<p>The dataset I will be using for this third example is the “Adult” dataset hosted on UCI’s Machine Learning Repository. It contains approximately 32000 observations, with 15 variables. The dependent variable that in all cases we will be trying to predict is whether or not an “individual” has an income greater than $50,000 a year.</p>
+<p>Here is the set of variables contained in the data.</p>
+<ul>
+<li>age – The age of the individual</li>
+<li>type_employer – The type of employer the individual has. Whether they are government, military, private, an d so on.</li>
+<li>fnlwgt – The number of people the census takers believe that observation represents. We will be ignoring this variable</li>
+<li>education – The highest level of education achieved for that individual</li>
+<li>education_num – Highest level of education in numerical form</li>
+<li>marital – Marital status of the individual</li>
+<li>occupation – The occupation of the individual</li>
+<li>relationship – A bit more difficult to explain. Contains family relationship values like husband, father, and so on, but only contains one per observation. I’m not sure what this is supposed to represent</li>
+<li>race – descriptions of the individuals race. Black, White, Eskimo, and so on</li>
+<li>sex – Biological Sex</li>
+<li>capital_gain – Capital gains recorded</li>
+<li>capital_loss – Capital Losses recorded</li>
+<li>hr_per_week – Hours worked per week</li>
+<li>country – Country of origin for person</li>
+<li>income – Boolean Variable. Whether or not the person makes more than $50,000 per annum income.</li>
+</ul>
+</div>
+<div id="references-3" class="section level2">
+<h2><span class="header-section-number">8.6</span> References</h2>
+<ul>
+<li><a href="http://machine-master.blogspot.com/2012/11/trees-with-rpart-package.html">Trees with the rpart package</a></li>
+<li><a href="https://archive.ics.uci.edu/ml/datasets/Wholesale+customers">Wholesale customers Data Set</a> Origin of the data set of first example.</li>
+<li><a href="http://trevorstephens.com/kaggle-titanic-tutorial/r-part-3-decision-trees/">Titanic: Getting Started With R - Part 3: Decision Trees</a>. First understanding on how to read the graph of a tree.<br />
+</li>
+<li><a href="https://rpubs.com/minma/cart_with_rpart">Classification and Regression Trees (CART) with rpart and rpart.plot</a>. Got the <code>Titanic</code> example from there as well as a first understanding on pruning.<br />
+</li>
+<li><a href="http://scg.sdsu.edu/ctrees_r/">Statistical Consulting Group</a>. We learn here how to use the ROC curve. And we got out of it the <code>adult</code>dataset.</li>
+<li><a href="https://www.analyticsvidhya.com/blog/2016/04/complete-tutorial-tree-based-modeling-scratch-in-python/">A Complete Tutorial on Tree Based Modeling from Scratch (in R &amp; Python)</a>. This website is a real gems as always.</li>
+<li><a href="">Stephen Milborrow. rpart.plot: Plot rpart Models. An Enhanced Version of plot.rpart., 2016. R Package.</a> It is important to cite the very generous people who dedicates so much of their time to offer us great tool.</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="principal-component-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-evaluation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/10-trees.Rmd",
+"text": "Suggest edit to this page"
+},
+"download": ["machinelearningwithR.pdf"],
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

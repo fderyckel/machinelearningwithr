@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="testinference.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="mlr.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -214,51 +214,127 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Machine Learning with R</h1>
-<h4 class="author"><em>François de Ryckel</em></h4>
-<h4 class="date"><em>2017-11-19</em></h4>
+<div id="testinference" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Tests and inferences</h1>
+<p>Definitely the first thing to be familiar with while doing machine learning works is the basic of statistical inferences.<br />
+In this chapter, we go over some of these important concepts and the r-ways to do them.</p>
+<p>Let’s get started.</p>
+<div id="normality" class="section level2">
+<h2><span class="header-section-number">2.1</span> Assumption of normality</h2>
+<p>Copied from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3693611/">here</a></p>
+<p>Many of the statistical procedures including correlation, regression, t tests, and analysis of variance, namely parametric tests, are based on the assumption that the data follows a normal distribution or a Gaussian distribution (after Johann Karl Gauss, 1777–1855); that is, it is assumed that the populations from which the samples are taken are normally distributed. The assumption of normality is especially critical when constructing reference intervals for variables. Normality and other assumptions should be taken seriously, for when these assumptions do not hold, it is impossible to draw accurate and reliable conclusions about reality.</p>
+
+<p>With large enough sample sizes (&gt; 30 or 40), the violation of the normality assumption should not cause major problems; this implies that we can use parametric procedures even when the data are not normally distributed (8). If we have samples consisting of hundreds of observations, we can ignore the distribution of the data (3). According to the central limit theorem,</p>
+<ul>
+<li>if the sample data are approximately normal then the sampling distribution too will be normal;</li>
+<li>in large samples (&gt; 30 or 40), the sampling distribution tends to be normal, regardless of the shape of the data</li>
+<li>means of random samples from any distribution will themselves have normal distribution.</li>
+</ul>
+<p>Although true normality is considered to be a myth, we can look for normality visually by using normal plots or by significance tests, that is, comparing the sample distribution to a normal one. It is important to ascertain whether data show a serious deviation from normality.</p>
+<div id="visual-check-of-normality" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Visual check of normality</h3>
+<p>Visual inspection of the distribution may be used for assessing normality, although this approach is usually unreliable and does not guarantee that the distribution is normal. However, when data are presented visually, readers of an article can judge the distribution assumption by themselves. The frequency distribution (histogram), stem-and-leaf plot, boxplot, P-P plot (probability-probability plot), and Q-Q plot (quantile-quantile plot)  are used for checking normality visually. The frequency distribution that plots the observed values against their frequency, provides both a visual judgment about whether the distribution is bell shaped and insights about gaps in the data and outliers outlying values. A Q-Q plot is very similar to the P-P plot except that it plots the quantiles (values that split a data set into equal portions) of the data set instead of every individual score in the data. Moreover, the Q-Q plots are easier to interpret in case of large sample sizes. The boxplot shows the median as a horizontal line inside the box and the interquartile range (range between the 25 th to 75 th percentiles) as the length of the box. The whiskers (line extending from the top and bottom of the box) represent the minimum and maximum values when they are within 1.5 times the interquartile range from either end of the box. Scores greater than 1.5 times the interquartile range are out of the boxplot and are considered as outliers, and those greater than 3 times the interquartile range are extreme outliers. A boxplot that is symmetric with the median line at approximately the center of the box and with symmetric whiskers that are slightly longer than the subsections of the center box suggests that the data may have come from a normal distribution.</p>
 </div>
-<div id="prerequisites" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>Welcome to my reference book in machine learning. I have tried to put in it all the tricks, tips, how-to, must-know, etc. I consult it almost everytime I embark on data science project. It is impossible to remember all the coding practices, hence this my data science in R bible.<br />
-This book is basically a record of my journey in data analysis. So often, I spend time reading articles, blog posts, etc. and wish I could put all the things I’m learning in a central location. It is a living document with constant additions.</p>
-<p>So this book is a compilation of the techniques I’ve learned along the way. Most of what I have learned is through blog posts, stack overflow questions, etc. I am not taking any credit for all the great ideas, examples, graphs, etc. in this web book. I do take responsibility for all mistakes, typos, unclear explanations, poor labeling / presentation of graphs. If you find anything that require improvement, I would be grateful if you would let me know: <a href="mailto:f.deryckel@gmail.com">f.deryckel@gmail.com</a> or even better post an issue on github <a href="https://github.com/fderyckel/machinelearningwithr">here</a>.</p>
-<p>I am assuming that you are already somehow familiar with:</p>
-<ul>
-<li>the math behind most algorithms. This is not a math book.<br />
-</li>
-<li>the basics of how to use R. This is not a computer science book nor an introductory R book.</li>
-</ul>
-<p>I wish you loads of fun in your data science journey, and I hope that this book can contribute positively to your experience.</p>
-<div id="pre-requisite-and-conventions" class="section level2">
-<h2><span class="header-section-number">1.1</span> Pre-requisite and conventions</h2>
-<p>As much as it makes sense, we will use the tidyverse and the conventions of tidy data throughout our journey.<br />
-Besides the hype surrounding the tidyverse, there is a couple reasons for us to stick with it:</p>
-<ul>
-<li>learning a language is hard on itself. If we can be proficient and creative with one, it will be much better. All the packages from the tidyverse, might not always be the best ones (more efficient, more elegant), but I’m happy to learn inside out one opinionated framework in order to be able to apply it effortlessly and creatively.<br />
-</li>
-<li>Because many of the tidyverse packages do their background work in C++, they are usually pretty efficient in the way they work.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
-<p>Here are some conventions we will be using throughout the book.</p>
-<ul>
-<li><code>df</code> denotes a data frame. Usually the data frame from a raw set of data<br />
-</li>
-<li>We’ll use <code>df2</code>, <code>df3</code>, etc. for other, “cleaner” versions of that raw data set<br />
-</li>
-<li><code>model_pca_xxxx</code>, <code>model_lr_xxxx</code> denotes models. The second part denotes the algorithm.<br />
-</li>
-<li><code>predict_svm_xxxx</code> or <code>predict_mlr_xxxx</code> denotes the outcome of applying a model on a set of independent variables.</li>
-</ul>
+<div id="normality-tests" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Normality tests</h3>
+<p>The various normality tests compare the scores in the sample to a normally distributed set of scores with the same mean and standard deviation; the null hypothesis is that “sample distribution is normal.” If the test is significant, the distribution is non-normal. For small sample sizes, normality tests have little power to reject the null hypothesis and therefore small samples most often pass normality tests. For large sample sizes, significant results would be derived even in the case of a small deviation from normality, although this small deviation will not affect the results of a parametric test. It has been reported that the K-S test has low power and it should not be seriously considered for testing normality (11). Moreover, it is not recommended when parameters are estimated from the data, regardless of sample size (12).</p>
+<p>The Shapiro-Wilk test  is based on the correlation between the data and the corresponding normal scores and provides better power than the K-S test even after the Lilliefors correction. Power is the most frequent measure of the value of a test for normality. Some researchers recommend the Shapiro-Wilk test as the best choice for testing the normality of data.</p>
 </div>
-<div id="organization" class="section level2">
-<h2><span class="header-section-number">1.2</span> Organization</h2>
-<p>The first part of the book is more about the nitty-gritty of each machine learning algorithm. We do not really go into the depth of how they work and why they work the way they do. Instead it is really on how to leveraged R and various R libraries to use the ML algorithms.<br />
-The second part of the book is about various case studies. Most of them come either from the <a href="http://archive.ics.uci.edu/ml/index.php">UCI Machine learning</a> repository or <a href="http://kaggle.com">Kaggle</a>.</p>
-<p>The two parts can (and maybe should?) be read concommitenly. We use machine learning to model real-life situation, so I see it as essential to go from the algortihms and theory to the case study and practical applications.</p>
-<p>So in the first part, we start by talking about inference and tests with the Chapter <a href="testinference.html#testinference">2</a>. We then go onto the various linear regression technique with the Chapter <a href="mlr.html#mlr">3</a>. Chapter <a href="logistic.html#logistic">4</a> is about logisitic regression and the various way to evaluate a logisitic model. We then go onto the K Nearest Neighbour with <a href="knnchapter.html#knnchapter">6</a>.</p>
-<p>The case studies have been put by order of skills required to approach the practical situation.</p>
+</div>
+<div id="ttest" class="section level2">
+<h2><span class="header-section-number">2.2</span> T-tests</h2>
+<p> The <strong>independent t test</strong> is used to test if there is any statistically <em>significant difference between two means</em>. Use of an independent t test requires several assumptions to be satisfied.</p>
+<ol style="list-style-type: decimal">
+<li>The variables are continuous and independent</li>
+<li>The variables are normally distributed</li>
+<li>The variances in each group are equal</li>
+</ol>
+<p>When these assumptions are satisfied the results of the t test are valid. Otherwise they are invalid and you need to use a non-parametric test. When data is not normally distributed you can apply transformations to make it normally distributed.</p>
+<p>Using the <code>mtcars</code> data set, we check if there are any difference in mile per gallon (mpg) for each of the automatic and manual group.</p>
+<p>Check the data and mark as factor the driving system. </p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="kw">glimpse</span>(mtcars)</code></pre></div>
+<pre><code>## Observations: 32
+## Variables: 11
+## $ mpg  &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19....
+## $ cyl  &lt;dbl&gt; 6, 6, 4, 6, 8, 6, 8, 4, 4, 6, 6, 8, 8, 8, 8, 8, 8, 4, 4, ...
+## $ disp &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 1...
+## $ hp   &lt;dbl&gt; 110, 110, 93, 110, 175, 105, 245, 62, 95, 123, 123, 180, ...
+## $ drat &lt;dbl&gt; 3.90, 3.90, 3.85, 3.08, 3.15, 2.76, 3.21, 3.69, 3.92, 3.9...
+## $ wt   &lt;dbl&gt; 2.620, 2.875, 2.320, 3.215, 3.440, 3.460, 3.570, 3.190, 3...
+## $ qsec &lt;dbl&gt; 16.46, 17.02, 18.61, 19.44, 17.02, 20.22, 15.84, 20.00, 2...
+## $ vs   &lt;dbl&gt; 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, ...
+## $ am   &lt;dbl&gt; 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, ...
+## $ gear &lt;dbl&gt; 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, ...
+## $ carb &lt;dbl&gt; 4, 4, 1, 1, 2, 1, 4, 2, 2, 4, 4, 3, 3, 3, 4, 4, 4, 1, 2, ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span>mtcars
+df<span class="op">$</span>am &lt;-<span class="st"> </span><span class="kw">factor</span>(df<span class="op">$</span>am, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))
+df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(mpg, am)
+<span class="kw">glimpse</span>(df2)</code></pre></div>
+<pre><code>## Observations: 32
+## Variables: 2
+## $ mpg &lt;dbl&gt; 21.0, 21.0, 22.8, 21.4, 18.7, 18.1, 14.3, 24.4, 22.8, 19.2...
+## $ am  &lt;fctr&gt; manual, manual, manual, automatic, automatic, automatic, ...</code></pre>
+<p>Generate descriptive statistic for each group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(mpg), <span class="dt">minimum =</span> <span class="kw">min</span>(mpg), <span class="dt">maximum =</span> <span class="kw">max</span>(mpg))</code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##          am     mean minimum maximum
+##      &lt;fctr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 automatic 17.14737    10.4    24.4
+## 2    manual 24.39231    15.0    33.9</code></pre>
+<p>Generate boxplot for each group</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df2, <span class="kw">aes</span>(<span class="dt">x =</span> am, <span class="dt">y =</span> mpg)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">fill =</span> <span class="kw">c</span>(<span class="st">&quot;dodgerblue3&quot;</span>, <span class="st">&quot;goldenrod2&quot;</span>)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Achieved milage for Automatic / Manual cars&quot;</span>, 
+       <span class="dt">x =</span> <span class="st">&quot;Type of car&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/intro03_boxplot-1.png" width="672" /></p>
+<p>Test the normality of the data.<br />
+To do so, we can use the <strong>Shapiro Wilk Normality Test</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(am) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">shaprio_test =</span> <span class="kw">shapiro.test</span>(mpg)<span class="op">$</span>p.value)</code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##          am shaprio_test
+##      &lt;fctr&gt;        &lt;dbl&gt;
+## 1 automatic    0.8987358
+## 2    manual    0.5362729</code></pre>
+<p>There is no evidence of departure from normality.</p>
+<p>Test the equal variance in each group.<br />
+To do so, we use the <code>levene.test</code> from the <code>car</code> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">car<span class="op">::</span><span class="kw">leveneTest</span>(mpg <span class="op">~</span><span class="st"> </span>am, <span class="dt">center =</span> mean, <span class="dt">data =</span> df2)</code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
+##       Df F value  Pr(&gt;F)  
+## group  1   5.921 0.02113 *
+##       30                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Because the variance in the 2 groups is not equal, we have to transform the data.</p>
+<p>Apply a log transformation to stabilize the variance.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log_transformed_mpg =<span class="st"> </span><span class="kw">log</span>(df2<span class="op">$</span>mpg)</code></pre></div>
+<p>Now we can finally apply the t test to our data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(log_transformed_mpg <span class="op">~</span><span class="st"> </span>df2<span class="op">$</span>am, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  log_transformed_mpg by df2$am
+## t = -3.9087, df = 30, p-value = 0.0004905
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.5277597 -0.1655209
+## sample estimates:
+## mean in group automatic    mean in group manual 
+##                2.816692                3.163332</code></pre>
+<p>Interpret the results.</p>
+<ul>
+<li>Manual cars have on average a higher mileage per Gallon (24 mpg) compared to Automatic (17 mpg).<br />
+</li>
+<li>The box plot did not reveal the presence of outliers</li>
+<li>The Shapiro-Wilk normality test did not show any deviation from normality in the data<br />
+</li>
+<li>The Levene Test showed difference in the variance in the 2 group. We addressed that by log transforming the data<br />
+</li>
+<li>The t test show a significant difference in the mean of miles per gallon from automatic and manual cars.</li>
+</ul>
 
 </div>
 </div>
@@ -267,8 +343,8 @@ The second part of the book is about various case studies. Most of them come eit
           </div>
         </div>
       </div>
-
-<a href="testinference.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mlr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -297,7 +373,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/index.Rmd",
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/01-intro.Rmd",
 "text": "Suggest edit to this page"
 },
 "download": ["machinelearningwithR.pdf"],

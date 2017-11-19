@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -25,15 +25,15 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-10-30">
+<meta name="date" content="2017-11-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="trees-and-classification.html">
-<link rel="next" href="case-study-mushrooms-classification.html">
+<link rel="prev" href="knnchapter.html">
+<link rel="next" href="trees-random-forests-and-classification.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -103,9 +103,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong><a href="./">Machine Learning with R</a></strong></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#t-tests"><i class="fa fa-check"></i><b>2.1</b> T-tests</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-requisite-and-conventions"><i class="fa fa-check"></i><b>1.1</b> Pre-requisite and conventions</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.2</b> Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="testinference.html"><a href="testinference.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
+<li class="chapter" data-level="2.1" data-path="testinference.html"><a href="testinference.html#normality"><i class="fa fa-check"></i><b>2.1</b> Assumption of normality</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="testinference.html"><a href="testinference.html#visual-check-of-normality"><i class="fa fa-check"></i><b>2.1.1</b> Visual check of normality</a></li>
+<li class="chapter" data-level="2.1.2" data-path="testinference.html"><a href="testinference.html#normality-tests"><i class="fa fa-check"></i><b>2.1.2</b> Normality tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="testinference.html"><a href="testinference.html#ttest"><i class="fa fa-check"></i><b>2.2</b> T-tests</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a><ul>
@@ -115,77 +122,81 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price-1"><i class="fa fa-check"></i><b>3.2.1</b> First example. Predicting wine price</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
-<li class="chapter" data-level="4.1" data-path="logistic-regression.html"><a href="logistic-regression.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="logistic-regression.html"><a href="logistic-regression.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
-<li class="chapter" data-level="4.3" data-path="logistic-regression.html"><a href="logistic-regression.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
-<li class="chapter" data-level="4.4" data-path="logistic-regression.html"><a href="logistic-regression.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
-<li class="chapter" data-level="4.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
-<li class="chapter" data-level="4.6" data-path="logistic-regression.html"><a href="logistic-regression.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
-<li class="chapter" data-level="4.6.2" data-path="logistic-regression.html"><a href="logistic-regression.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
-<li class="chapter" data-level="4.6.3" data-path="logistic-regression.html"><a href="logistic-regression.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+<li class="chapter" data-level="4" data-path="logistic.html"><a href="logistic.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="logistic.html"><a href="logistic.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic.html"><a href="logistic.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic.html"><a href="logistic.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
+<li class="chapter" data-level="4.4" data-path="logistic.html"><a href="logistic.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic.html"><a href="logistic.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic.html"><a href="logistic.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="logistic.html"><a href="logistic.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
+<li class="chapter" data-level="4.6.2" data-path="logistic.html"><a href="logistic.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
+<li class="chapter" data-level="4.6.3" data-path="logistic.html"><a href="logistic.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="logistic-regression.html"><a href="logistic-regression.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic.html"><a href="logistic.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html"><i class="fa fa-check"></i><b>5</b> KNN - K Nearest Neighbour</a><ul>
-<li class="chapter" data-level="5.1" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>5.1</b> Example 1. Prostate Cancer dataset</a></li>
-<li class="chapter" data-level="5.2" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>5.2</b> Example 2. Wine dataset</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#understand-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Understand the data</a></li>
+<li class="chapter" data-level="5" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html"><i class="fa fa-check"></i><b>5</b> Softmax and multinomial regressions</a><ul>
+<li class="chapter" data-level="5.1" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.1</b> Multinomial Logistic Regression</a></li>
+<li class="chapter" data-level="5.2" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#references-1"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#references-1"><i class="fa fa-check"></i><b>5.3</b> References</a></li>
+<li class="chapter" data-level="6" data-path="knnchapter.html"><a href="knnchapter.html"><i class="fa fa-check"></i><b>6</b> KNN - K Nearest Neighbour</a><ul>
+<li class="chapter" data-level="6.1" data-path="knnchapter.html"><a href="knnchapter.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>6.1</b> Example 1. Prostate Cancer dataset</a></li>
+<li class="chapter" data-level="6.2" data-path="knnchapter.html"><a href="knnchapter.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>6.2</b> Example 2. Wine dataset</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="knnchapter.html"><a href="knnchapter.html#understand-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Understand the data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>6</b> Trees and Classification</a><ul>
-<li class="chapter" data-level="6.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="trees-and-classification.html"><a href="trees-and-classification.html#first-example."><i class="fa fa-check"></i><b>6.2</b> First example.</a></li>
-<li class="chapter" data-level="6.3" data-path="trees-and-classification.html"><a href="trees-and-classification.html#second-example."><i class="fa fa-check"></i><b>6.3</b> Second Example.</a></li>
-<li class="chapter" data-level="6.4" data-path="trees-and-classification.html"><a href="trees-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>6.4</b> How does a tree decide where to split?</a></li>
-<li class="chapter" data-level="6.5" data-path="trees-and-classification.html"><a href="trees-and-classification.html#third-example."><i class="fa fa-check"></i><b>6.5</b> Third example.</a></li>
-<li class="chapter" data-level="6.6" data-path="trees-and-classification.html"><a href="trees-and-classification.html#references-2"><i class="fa fa-check"></i><b>6.6</b> References</a></li>
+<li class="chapter" data-level="6.3" data-path="knnchapter.html"><a href="knnchapter.html#references-2"><i class="fa fa-check"></i><b>6.3</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>7</b> Principal Component Analysis</a><ul>
 <li class="chapter" data-level="7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>7.1</b> PCA on an easy example.</a></li>
-<li class="chapter" data-level="7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#attempt-of-pca-on-technical-indicators."><i class="fa fa-check"></i><b>7.2</b> Attempt of PCA on technical indicators.</a></li>
-<li class="chapter" data-level="7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#doing-pca-and-pcr-with-the-pls-package"><i class="fa fa-check"></i><b>7.3</b> Doing PCA and PCR with the PLS package</a></li>
-<li class="chapter" data-level="7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>7.4</b> References.</a></li>
+<li class="chapter" data-level="7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>7.2</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html"><i class="fa fa-check"></i><b>8</b> Case Study - Mushrooms Classification</a><ul>
-<li class="chapter" data-level="8.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>8.1</b> Import the data</a></li>
-<li class="chapter" data-level="8.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data"><i class="fa fa-check"></i><b>8.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="8.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data-1"><i class="fa fa-check"></i><b>8.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>8.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="8.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>8.3.2</b> Visualize the data</a></li>
-<li class="chapter" data-level="8.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>8.3.3</b> Modeling</a></li>
+<li class="chapter" data-level="8" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>8</b> Trees, Random forests and Classification</a><ul>
+<li class="chapter" data-level="8.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>8.2</b> First example.</a></li>
+<li class="chapter" data-level="8.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>8.3</b> Second Example.</a></li>
+<li class="chapter" data-level="8.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>8.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="8.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>8.5</b> Third example.</a></li>
+<li class="chapter" data-level="8.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-3"><i class="fa fa-check"></i><b>8.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>8.4</b> Communication</a></li>
+<li class="chapter" data-level="9" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>9</b> Model Evaluation</a><ul>
+<li class="chapter" data-level="9.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Biais variance tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>9.2</b> Bagging</a></li>
+<li class="chapter" data-level="9.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>9.3</b> Cross Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>9</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
-<li class="chapter" data-level="9.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>9.1</b> Import the data.</a></li>
-<li class="chapter" data-level="9.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data-1"><i class="fa fa-check"></i><b>9.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="9.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-2"><i class="fa fa-check"></i><b>9.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="9.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>9.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="9.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>9.3.2</b> A. Vizualize with families.</a></li>
+<li class="chapter" data-level="10" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>10</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
+<li class="chapter" data-level="10.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>10.1</b> Import the data.</a></li>
+<li class="chapter" data-level="10.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>10.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="10.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>10.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>10.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="10.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>10.3.2</b> A. Vizualize with families.</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>9.4</b> A. Visualize with cabins.</a></li>
-<li class="chapter" data-level="9.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>9.5</b> B. Transform Dealing with missing data.</a><ul>
-<li class="chapter" data-level="9.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>9.5.1</b> Overview.</a></li>
-<li class="chapter" data-level="9.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>9.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+<li class="chapter" data-level="10.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>10.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="10.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>10.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>10.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="10.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>10.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>9.6</b> References.</a></li>
+<li class="chapter" data-level="10.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>10.6</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="case-study-text-classification-spam-and-ham-.html"><a href="case-study-text-classification-spam-and-ham-.html"><i class="fa fa-check"></i><b>10</b> Case Study - Text classification: Spam and Ham.</a></li>
-<li class="chapter" data-level="11" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html"><i class="fa fa-check"></i><b>11</b> Case Study - Wisconsin Breast Cancer</a><ul>
-<li class="chapter" data-level="11.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#import-the-data-1"><i class="fa fa-check"></i><b>11.1</b> Import the data</a></li>
-<li class="chapter" data-level="11.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="11.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>11.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="11.3.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>11.3.2</b> Pre-process the data</a></li>
-<li class="chapter" data-level="11.3.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#model-the-data-1"><i class="fa fa-check"></i><b>11.3.3</b> Model the data</a></li>
+<li class="chapter" data-level="11" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html"><i class="fa fa-check"></i><b>11</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="11.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>11.1</b> Import the data</a></li>
+<li class="chapter" data-level="11.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data-1"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="11.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data-2"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>11.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="11.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>11.3.3</b> Modeling</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#references-3"><i class="fa fa-check"></i><b>11.4</b> References</a></li>
+<li class="chapter" data-level="11.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>11.4</b> Communication</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>12</b> Final Words</a></li>
-<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="12" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html"><i class="fa fa-check"></i><b>12</b> Case Study - Wisconsin Breast Cancer</a><ul>
+<li class="chapter" data-level="12.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#import-the-data-1"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
+<li class="chapter" data-level="12.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="12.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Pre-process the data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#model-the-data-1"><i class="fa fa-check"></i><b>12.3.3</b> Model the data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#references-4"><i class="fa fa-check"></i><b>12.4</b> References</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -251,8 +262,6 @@ buy_computer &lt;-<span class="st"> </span><span class="kw">tibble</span>(Price,
 ## Aesthetics  0.5965260 0.13369503 -0.2950727  0.73431229
 ## Brand       0.5825287 0.16735905 -0.4229212 -0.67363855</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(pca_buycomputer, <span class="dt">loadings =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## Warning: In summary.prcomp(pca_buycomputer, loadings = TRUE) :
-##  extra argument &#39;loadings&#39; will be disregarded</code></pre>
 <pre><code>## Importance of components:
 ##                           PC1    PC2    PC3     PC4
 ## Standard deviation     1.5589 0.9804 0.6817 0.37926
@@ -310,269 +319,8 @@ model1 &lt;-<span class="st"> </span><span class="kw">glm</span>(OS <span class=
 <p>I have tried to do the same with scaling the data using <code>scale(x)</code> and it changed absolutely nothing.</p>
 <p>In general, the data will tend to follow the 80/20 rule. Most of the variance (interesting part of data) will be explained by a very small number of principal components. You might be able to explain 95% of the variance in your dataset using only 10% of the original number of attributes. However, this is entirely dependent on the dataset. Often, a good rule of thumb is to identify the principal components that explain 99% of the variance in the data.</p>
 </div>
-<div id="attempt-of-pca-on-technical-indicators." class="section level2">
-<h2><span class="header-section-number">7.2</span> Attempt of PCA on technical indicators.</h2>
-<p>For this purpose, we have taken a random stock, added a lots of variables and have one dependent variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Read the file</span>
-<span class="kw">library</span>(readr)
-stock_data &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;AugmentedStockData/CVX.csv&quot;</span>)</code></pre></div>
-<p>Now onto create our dependent variable and stipping down the data frame to just the columns that interest us, and only get rows and columns without NA.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-binary =<span class="st"> </span><span class="kw">if_else</span>(stock_data<span class="op">$</span>ret3days[<span class="dv">25</span><span class="op">:</span><span class="dv">4150</span>] <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.03</span>, <span class="dv">1</span>, <span class="dv">0</span>)
-depend_var &lt;-<span class="st"> </span>stock_data[<span class="dv">25</span><span class="op">:</span><span class="dv">4150</span>,<span class="dv">8</span><span class="op">:</span><span class="dv">34</span>]</code></pre></div>
-<p>The base R function <code>prcomp()</code> is used to perform PCA. PCA only works with normalized data. So we need to center the variable to have mean equals to zero. With parameter <code>scale. = T</code>, we normalize the variables to have standard deviation equals to 1. <strong>Normalized predictors have mean equals to zero and standard deviation equals to one.</strong></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prin_comp &lt;-<span class="st"> </span><span class="kw">prcomp</span>(depend_var, <span class="dt">scale. =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p>Let’s have a closer look at that ‘prcomp’ function.</p>
-<p><code>Center</code> and <code>scale</code> refers to respective mean and standard deviation of the variables that are used for normalization prior to implementing PCA.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(prin_comp)</code></pre></div>
-<pre><code>## [1] &quot;sdev&quot;     &quot;rotation&quot; &quot;center&quot;   &quot;scale&quot;    &quot;x&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(prin_comp)</code></pre></div>
-<pre><code>## Importance of components:
-##                           PC1    PC2    PC3     PC4     PC5     PC6
-## Standard deviation     3.3007 2.5311 1.6647 1.58184 1.12216 0.89194
-## Proportion of Variance 0.4035 0.2373 0.1026 0.09268 0.04664 0.02947
-## Cumulative Proportion  0.4035 0.6408 0.7434 0.83609 0.88273 0.91220
-##                            PC7     PC8     PC9    PC10    PC11    PC12
-## Standard deviation     0.80601 0.63478 0.59745 0.53196 0.42057 0.39748
-## Proportion of Variance 0.02406 0.01492 0.01322 0.01048 0.00655 0.00585
-## Cumulative Proportion  0.93626 0.95118 0.96440 0.97488 0.98143 0.98728
-##                           PC13    PC14    PC15    PC16    PC17    PC18
-## Standard deviation     0.36869 0.33376 0.18342 0.17136 0.14502 0.08488
-## Proportion of Variance 0.00503 0.00413 0.00125 0.00109 0.00078 0.00027
-## Cumulative Proportion  0.99232 0.99644 0.99769 0.99878 0.99956 0.99982
-##                           PC19    PC20    PC21    PC22     PC23     PC24
-## Standard deviation     0.05953 0.02347 0.01988 0.01569 0.003083 0.002066
-## Proportion of Variance 0.00013 0.00002 0.00001 0.00001 0.000000 0.000000
-## Cumulative Proportion  0.99996 0.99998 0.99999 1.00000 1.000000 1.000000
-##                             PC25      PC26      PC27
-## Standard deviation     2.065e-15 1.629e-15 1.194e-15
-## Proportion of Variance 0.000e+00 0.000e+00 0.000e+00
-## Cumulative Proportion  1.000e+00 1.000e+00 1.000e+00</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#outputs the mean of variables</span>
-prin_comp<span class="op">$</span>center</code></pre></div>
-<pre><code>##         wma3         wma5         wma7         wma9        wma11 
-## 2.621433e-05 7.849430e-05 1.321253e-04 1.852866e-04 2.367136e-04 
-##     rsi_3val     rsi_3dir     rsi_5val     rsi_5dir     rsi_7val 
-## 5.249290e-01 2.259665e-01 5.219632e-01 5.112341e-02 5.198979e-01 
-##     rsi_7dir     rsi_9val     rsi_9dir    rsi_11val    rsi_11dir 
-## 2.280991e-02 5.183530e-01 1.295840e-02 5.171323e-01 8.388109e-03 
-##       11arup      11ardow     11arosci       19arup      19ardow 
-## 5.318600e-01 4.556251e-01 7.623496e-02 5.355895e-01 4.540398e-01 
-##     19arosci       23arup      23ardow     23arosci ave_vol3days 
-## 8.154961e-02 5.418344e-01 4.505785e-01 9.125587e-02 1.393280e-03 
-## ave_vol5days ave_vol7days 
-## 3.236529e-03 4.388667e-03</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#outputs the standard deviation of variables</span>
-prin_comp<span class="op">$</span>scale</code></pre></div>
-<pre><code>##         wma3         wma5         wma7         wma9        wma11 
-##   0.01014433   0.01488609   0.01842084   0.02129883   0.02378999 
-##     rsi_3val     rsi_3dir     rsi_5val     rsi_5dir     rsi_7val 
-##   0.25196379   1.55382629   0.19466505   0.40810579   0.16395437 
-##     rsi_7dir     rsi_9val     rsi_9dir    rsi_11val    rsi_11dir 
-##   0.23886699   0.14412998   0.17015563   0.13002831   0.13287362 
-##       11arup      11ardow     11arosci       19arup      19ardow 
-##   0.37456507   0.36908431   0.65809034   0.36982907   0.36010315 
-##     19arosci       23arup      23ardow     23arosci ave_vol3days 
-##   0.64812635   0.36425219   0.35741487   0.63505784   0.18659298 
-## ave_vol5days ave_vol7days 
-##   0.22564569   0.24793982</code></pre>
-<p>The rotation measure provides the principal component loading. Each column of rotation matrix contains the principal component loading vector. This is the most important measure we should be interested in.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#because it can be a huge matrix, let&#39;s only check the first few rows and columns.</span>
-prin_comp<span class="op">$</span>rotation[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
-<pre><code>##             PC1       PC2         PC3         PC4       PC5
-## wma3  0.1788016 0.2543854 -0.00981180 -0.08087736 0.2431686
-## wma5  0.2086344 0.2209183  0.02753808 -0.18315739 0.2465858
-## wma7  0.2252186 0.1839885  0.04507260 -0.23309018 0.2168579
-## wma9  0.2360512 0.1499467  0.05369872 -0.25316224 0.1770487
-## wma11 0.2437448 0.1198431  0.05604151 -0.25599437 0.1376221</code></pre>
-<p>Let’s plot the resultant principal components.</p>
-<p>The prcomp() function also provides the facility to compute standard deviation of each principal component. sdev refers to the standard deviation of principal components.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#compute standard deviation of each principal component</span>
-std_dev &lt;-<span class="st"> </span>prin_comp<span class="op">$</span>sdev
-
-<span class="co">#compute variance</span>
-pr_var &lt;-<span class="st"> </span>std_dev<span class="op">^</span><span class="dv">2</span>
-
-<span class="co">#check variance of first 10 components</span>
-pr_var[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</code></pre></div>
-<pre><code>##  [1] 10.8943784  6.4065586  2.7713407  2.5022255  1.2592331  0.7955608
-##  [7]  0.6496465  0.4029457  0.3569417  0.2829776</code></pre>
-<p>We aim to find the components which explain the maximum variance. This is because, we want to retain as much information as possible using these components. So, higher is the explained variance, higher will be the information contained in those components.</p>
-<p>To compute the proportion of variance explained by each component, we simply divide the variance by sum of total variance. This results in:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#proportion of variance explained</span>
-prop_varex &lt;-<span class="st"> </span>pr_var<span class="op">/</span><span class="kw">sum</span>(pr_var)
-prop_varex[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>]</code></pre></div>
-<pre><code>##  [1] 4.034955e-01 2.372799e-01 1.026422e-01 9.267502e-02 4.663826e-02
-##  [6] 2.946522e-02 2.406098e-02 1.492391e-02 1.322006e-02 1.048065e-02
-## [11] 6.550995e-03 5.851611e-03 5.034607e-03 4.125722e-03 1.246026e-03
-## [16] 1.087586e-03 7.789197e-04 2.668137e-04 1.312590e-04 2.039572e-05</code></pre>
-<p>This shows that first principal component explains 41.7% variance. Second component explains 23.8% variance. Third component explains 10.4% variance and so on. So, how do we decide how many components should we select for modeling stage ?</p>
-<p>The answer to this question is provided by a scree plot. A scree plot is used to access components or factors which explains the most of variability in the data. It represents values in descending order.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#scree plot</span>
-<span class="kw">plot</span>(prop_varex, <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,
-             <span class="dt">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>,
-             <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/pca_screeplot1-1.png" width="672" /> Or we can do a cumulative scree plot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#cumulative scree plot</span>
-<span class="kw">plot</span>(<span class="kw">cumsum</span>(prop_varex), <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>,
-              <span class="dt">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>,
-              <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/pca_cumscreeplot1-1.png" width="672" /> Hence in this case the first 6 Principal Components explain over 90% of the variance of the data. That is we can use these first 6 PC as predictor in our next model.</p>
-<p>Let’s apply this now on a logisitc regression model. For this, we need to create our binary dependent variable. So we’ll put a 1 for every ret3days &gt; 3%, 0 otherwise.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">cbind</span>(binary, prin_comp<span class="op">$</span>x)
-mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mydata)
-model1 &lt;-<span class="st"> </span><span class="kw">glm</span>(binary <span class="op">~</span><span class="st"> </span>PC1 <span class="op">+</span><span class="st"> </span>PC2 <span class="op">+</span><span class="st"> </span>PC5 <span class="op">+</span><span class="st"> </span>PC6 <span class="op">+</span><span class="st"> </span>PC7, <span class="dt">data =</span> mydata, <span class="dt">family=</span>binomial)
-<span class="kw">summary</span>(model1)</code></pre></div>
-<pre><code>## 
-## Call:
-## glm(formula = binary ~ PC1 + PC2 + PC5 + PC6 + PC7, family = binomial, 
-##     data = mydata)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -1.5159  -0.5197  -0.4511  -0.3740   2.4644  
-## 
-## Coefficients:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -2.15924    0.05268 -40.989  &lt; 2e-16 ***
-## PC1         -0.11636    0.01514  -7.685 1.53e-14 ***
-## PC2          0.03253    0.01815   1.793   0.0731 .  
-## PC5         -0.05541    0.04094  -1.353   0.1760    
-## PC6         -0.08353    0.05546  -1.506   0.1320    
-## PC7         -0.04292    0.05665  -0.758   0.4486    
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 2851.7  on 4125  degrees of freedom
-## Residual deviance: 2784.3  on 4120  degrees of freedom
-## AIC: 2796.3
-## 
-## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mydata &lt;-<span class="st"> </span><span class="kw">cbind</span>(binary, prin_comp<span class="op">$</span>x)
-mydata &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mydata)
-checkit &lt;-<span class="st"> </span><span class="kw">fitted</span>(model1)
-checkit &lt;-<span class="st"> </span><span class="kw">cbind</span>(binary, checkit)
-checkit &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(checkit)
-<span class="kw">head</span>(checkit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(binary <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="dv">20</span>)</code></pre></div>
-<pre><code>##    binary    checkit
-## 1       1 0.18260120
-## 2       1 0.18252003
-## 3       1 0.21606180
-## 4       1 0.21251118
-## 5       1 0.11869114
-## 6       1 0.14243678
-## 7       1 0.15250266
-## 8       1 0.08137055
-## 9       1 0.09081918
-## 10      1 0.07178808
-## 11      1 0.08675686
-## 12      1 0.08601504
-## 13      1 0.05538413
-## 14      1 0.13325771
-## 15      1 0.11428528
-## 16      1 0.13216528
-## 17      1 0.08095967
-## 18      1 0.07966423
-## 19      1 0.09559465
-## 20      1 0.16822463</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(checkit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(checkit <span class="op">&gt;</span><span class="st"> </span><span class="fl">0.2</span>), <span class="dv">20</span>)</code></pre></div>
-<pre><code>##    binary   checkit
-## 1       0 0.2199392
-## 2       1 0.2160618
-## 3       1 0.2125112
-## 4       0 0.2136409
-## 5       1 0.2187997
-## 6       1 0.2116685
-## 7       0 0.2070526
-## 8       0 0.2038604
-## 9       0 0.2097841
-## 10      0 0.2034205
-## 11      0 0.2187273
-## 12      1 0.2275500
-## 13      1 0.2281150
-## 14      0 0.2183669
-## 15      0 0.2060439
-## 16      0 0.2201554
-## 17      0 0.2692442
-## 18      1 0.2772148
-## 19      1 0.2574167
-## 20      1 0.2005783</code></pre>
-<p>Really not very successful model.</p>
-</div>
-<div id="doing-pca-and-pcr-with-the-pls-package" class="section level2">
-<h2><span class="header-section-number">7.3</span> Doing PCA and PCR with the PLS package</h2>
-<p>Same as before we can not have NA data in our set.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(pls)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;pls&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:caret&#39;:
-## 
-##     R2</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats&#39;:
-## 
-##     loadings</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">depend_var &lt;-<span class="st"> </span>stock_data[<span class="dv">25</span><span class="op">:</span><span class="dv">4150</span>,<span class="dv">8</span><span class="op">:</span><span class="dv">35</span>]
-pcr_model &lt;-<span class="st"> </span><span class="kw">pcr</span>(ret3days<span class="op">~</span>., <span class="dt">data =</span> depend_var, <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">validation =</span> <span class="st">&quot;CV&quot;</span>)</code></pre></div>
-<p>In oder to print out the results, simply use the summary function as below</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(pcr_model)</code></pre></div>
-<pre><code>## Data:    X dimension: 4126 27 
-##  Y dimension: 4126 1
-## Fit method: svdpc
-## Number of components considered: 27
-## 
-## VALIDATION: RMSEP
-## Cross-validated using 10 random segments.
-##        (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
-## CV         0.02651   0.0265  0.02651  0.02652  0.02653  0.02646  0.02646
-## adjCV      0.02651   0.0265  0.02651  0.02652  0.02653  0.02646  0.02645
-##        7 comps  8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
-## CV     0.02649  0.02648  0.02646   0.02647   0.02647   0.02647   0.02647
-## adjCV  0.02648  0.02648  0.02645   0.02646   0.02646   0.02646   0.02646
-##        14 comps  15 comps  16 comps  17 comps  18 comps  19 comps
-## CV      0.02647   0.02649   0.02648   0.02651   0.02651   0.02652
-## adjCV   0.02646   0.02648   0.02647   0.02650   0.02650   0.02651
-##        20 comps  21 comps  22 comps  23 comps  24 comps  25 comps
-## CV      0.02653   0.02653   0.02654   0.02652   0.02651   0.02650
-## adjCV   0.02651   0.02652   0.02652   0.02650   0.02650   0.02646
-##        26 comps  27 comps
-## CV      0.02655   0.02660
-## adjCV   0.02645   0.02648
-## 
-## TRAINING: % variance explained
-##           1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps
-## X         40.3495  64.0775  74.3418   83.609  88.2731    91.22   93.626
-## ret3days   0.2797   0.3122   0.3381    0.359   0.9058     1.09    1.103
-##           8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
-## X          95.118   96.440    97.488     98.14    98.728    99.232
-## ret3days    1.122    1.521     1.523      1.56     1.685     1.738
-##           14 comps  15 comps  16 comps  17 comps  18 comps  19 comps
-## X           99.644    99.769    99.878    99.956    99.982    99.996
-## ret3days     1.745     1.746     1.796     1.797     1.847     1.865
-##           20 comps  21 comps  22 comps  23 comps  24 comps  25 comps
-## X            100.0    99.999   100.000   100.000   100.000   100.000
-## ret3days       1.9     1.997     2.017     2.166     2.215     2.268
-##           26 comps  27 comps
-## X          100.000   100.000
-## ret3days     2.594     2.632</code></pre>
-<p>As you can see, two main results are printed, namely the <strong>validation error</strong> and the <strong>cumulative percentage of variance</strong> explained using n components. The cross validation results are computed for each number of components used so that you can easily check the score with a particular number of components without trying each combination on your own. The pls package provides also a set of methods to plot the results of PCR. For example you can plot the results of cross validation using the <code>validationplot</code> function. By default, the pcr function computes the <strong>root mean squared error</strong> and the <code>validationplot</code> function plots this statistic, however you can choose to plot the usual mean squared error or the R2 by setting the val.type argument equal to “MSEP” or “R2” respectively</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot the root mean squared error</span>
-<span class="kw">validationplot</span>(pcr_model)</code></pre></div>
-<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-65-1.png" width="672" /> What you would like to see is a low cross validation error with a lower number of components than the number of variables in your dataset. If this is not the case or if the smalles cross validation error occurs with a number of components close to the number of variables in the original data, then no dimensionality reduction occurs. In the example above, it looks like 3 components are enough to explain more than 90% of the variability in the data. Now you can try to use PCR on a traning-test set and evaluate its performance using, for example, using only 6 components</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Train-test split</span>
-train &lt;-<span class="st"> </span>stock_data[<span class="dv">25</span><span class="op">:</span><span class="dv">3000</span>,<span class="dv">8</span><span class="op">:</span><span class="dv">35</span>]
-y_test &lt;-<span class="st"> </span>stock_data[<span class="dv">3001</span><span class="op">:</span><span class="dv">4150</span>,<span class="dv">35</span>]
-test &lt;-<span class="st"> </span>stock_data[<span class="dv">3001</span><span class="op">:</span><span class="dv">4150</span>,<span class="dv">8</span><span class="op">:</span><span class="dv">34</span>]
-    
-pcr_model &lt;-<span class="st"> </span><span class="kw">pcr</span>(ret3days<span class="op">~</span>., <span class="dt">data =</span> train,<span class="dt">scale =</span><span class="ot">TRUE</span>, <span class="dt">validation =</span> <span class="st">&quot;CV&quot;</span>)
- 
-pcr_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(pcr_model, test, <span class="dt">ncomp =</span> <span class="dv">6</span>)
-<span class="kw">mean</span>((pcr_pred <span class="op">-</span><span class="st"> </span>y_test)<span class="op">^</span><span class="dv">2</span>)</code></pre></div>
-<pre><code>## [1] 0.0005600123</code></pre>
-</div>
 <div id="references." class="section level2">
-<h2><span class="header-section-number">7.4</span> References.</h2>
+<h2><span class="header-section-number">7.2</span> References.</h2>
 <p>Here are the articles I have consulted for this research.</p>
 <ul>
 <li><p><a href="http://yatani.jp/teaching/doku.php?id=hcistats:pca">Principal Component Analysis (PCA)</a></p></li>
@@ -592,8 +340,8 @@ pcr_pred &lt;-<span class="st"> </span><span class="kw">predict</span>(pcr_model
           </div>
         </div>
       </div>
-<a href="trees-and-classification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="case-study-mushrooms-classification.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="knnchapter.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="trees-random-forests-and-classification.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -622,10 +370,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/bookdown-demo/edit/master/09-pca.Rmd",
-"text": "Edit"
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/08-PCA.Rmd",
+"text": "Suggest edit to this page"
 },
-"download": null,
+"download": ["machinelearningwithR.pdf"],
 "toc": {
 "collapse": "section"
 }

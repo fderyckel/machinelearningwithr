@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="testinference.html">
+<link rel="prev" href="logistic.html">
+<link rel="next" href="knnchapter.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -214,51 +214,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Machine Learning with R</h1>
-<h4 class="author"><em>François de Ryckel</em></h4>
-<h4 class="date"><em>2017-11-19</em></h4>
+<div id="softmax-and-multinomial-regressions" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Softmax and multinomial regressions</h1>
+<div id="multinomial-logistic-regression" class="section level2">
+<h2><span class="header-section-number">5.1</span> Multinomial Logistic Regression</h2>
 </div>
-<div id="prerequisites" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>Welcome to my reference book in machine learning. I have tried to put in it all the tricks, tips, how-to, must-know, etc. I consult it almost everytime I embark on data science project. It is impossible to remember all the coding practices, hence this my data science in R bible.<br />
-This book is basically a record of my journey in data analysis. So often, I spend time reading articles, blog posts, etc. and wish I could put all the things I’m learning in a central location. It is a living document with constant additions.</p>
-<p>So this book is a compilation of the techniques I’ve learned along the way. Most of what I have learned is through blog posts, stack overflow questions, etc. I am not taking any credit for all the great ideas, examples, graphs, etc. in this web book. I do take responsibility for all mistakes, typos, unclear explanations, poor labeling / presentation of graphs. If you find anything that require improvement, I would be grateful if you would let me know: <a href="mailto:f.deryckel@gmail.com">f.deryckel@gmail.com</a> or even better post an issue on github <a href="https://github.com/fderyckel/machinelearningwithr">here</a>.</p>
-<p>I am assuming that you are already somehow familiar with:</p>
-<ul>
-<li>the math behind most algorithms. This is not a math book.<br />
-</li>
-<li>the basics of how to use R. This is not a computer science book nor an introductory R book.</li>
-</ul>
-<p>I wish you loads of fun in your data science journey, and I hope that this book can contribute positively to your experience.</p>
-<div id="pre-requisite-and-conventions" class="section level2">
-<h2><span class="header-section-number">1.1</span> Pre-requisite and conventions</h2>
-<p>As much as it makes sense, we will use the tidyverse and the conventions of tidy data throughout our journey.<br />
-Besides the hype surrounding the tidyverse, there is a couple reasons for us to stick with it:</p>
-<ul>
-<li>learning a language is hard on itself. If we can be proficient and creative with one, it will be much better. All the packages from the tidyverse, might not always be the best ones (more efficient, more elegant), but I’m happy to learn inside out one opinionated framework in order to be able to apply it effortlessly and creatively.<br />
-</li>
-<li>Because many of the tidyverse packages do their background work in C++, they are usually pretty efficient in the way they work.</li>
-</ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
-<p>Here are some conventions we will be using throughout the book.</p>
-<ul>
-<li><code>df</code> denotes a data frame. Usually the data frame from a raw set of data<br />
-</li>
-<li>We’ll use <code>df2</code>, <code>df3</code>, etc. for other, “cleaner” versions of that raw data set<br />
-</li>
-<li><code>model_pca_xxxx</code>, <code>model_lr_xxxx</code> denotes models. The second part denotes the algorithm.<br />
-</li>
-<li><code>predict_svm_xxxx</code> or <code>predict_mlr_xxxx</code> denotes the outcome of applying a model on a set of independent variables.</li>
-</ul>
-</div>
-<div id="organization" class="section level2">
-<h2><span class="header-section-number">1.2</span> Organization</h2>
-<p>The first part of the book is more about the nitty-gritty of each machine learning algorithm. We do not really go into the depth of how they work and why they work the way they do. Instead it is really on how to leveraged R and various R libraries to use the ML algorithms.<br />
-The second part of the book is about various case studies. Most of them come either from the <a href="http://archive.ics.uci.edu/ml/index.php">UCI Machine learning</a> repository or <a href="http://kaggle.com">Kaggle</a>.</p>
-<p>The two parts can (and maybe should?) be read concommitenly. We use machine learning to model real-life situation, so I see it as essential to go from the algortihms and theory to the case study and practical applications.</p>
-<p>So in the first part, we start by talking about inference and tests with the Chapter <a href="testinference.html#testinference">2</a>. We then go onto the various linear regression technique with the Chapter <a href="mlr.html#mlr">3</a>. Chapter <a href="logistic.html#logistic">4</a> is about logisitic regression and the various way to evaluate a logisitic model. We then go onto the K Nearest Neighbour with <a href="knnchapter.html#knnchapter">6</a>.</p>
-<p>The case studies have been put by order of skills required to approach the practical situation.</p>
+<div id="references-1" class="section level2">
+<h2><span class="header-section-number">5.2</span> References</h2>
+<p>If</p>
 
 </div>
 </div>
@@ -267,8 +230,8 @@ The second part of the book is about various case studies. Most of them come eit
           </div>
         </div>
       </div>
-
-<a href="testinference.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="knnchapter.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -297,7 +260,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/index.Rmd",
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/06-softmax_multinomial.Rmd",
 "text": "Suggest edit to this page"
 },
 "download": ["machinelearningwithR.pdf"],

@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown 0.5.4 and GitBook 2.6.7">
 
   <meta property="og:title" content="Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -25,15 +25,15 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-10-30">
+<meta name="date" content="2017-11-19">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="intro.html">
-<link rel="next" href="logistic-regression.html">
+<link rel="prev" href="testinference.html">
+<link rel="next" href="logistic.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -103,9 +103,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><strong><a href="./">Machine Learning with R</a></strong></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
-<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#t-tests"><i class="fa fa-check"></i><b>2.1</b> T-tests</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-requisite-and-conventions"><i class="fa fa-check"></i><b>1.1</b> Pre-requisite and conventions</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.2</b> Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="testinference.html"><a href="testinference.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
+<li class="chapter" data-level="2.1" data-path="testinference.html"><a href="testinference.html#normality"><i class="fa fa-check"></i><b>2.1</b> Assumption of normality</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="testinference.html"><a href="testinference.html#visual-check-of-normality"><i class="fa fa-check"></i><b>2.1.1</b> Visual check of normality</a></li>
+<li class="chapter" data-level="2.1.2" data-path="testinference.html"><a href="testinference.html#normality-tests"><i class="fa fa-check"></i><b>2.1.2</b> Normality tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="testinference.html"><a href="testinference.html#ttest"><i class="fa fa-check"></i><b>2.2</b> T-tests</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a><ul>
@@ -115,77 +122,81 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price-1"><i class="fa fa-check"></i><b>3.2.1</b> First example. Predicting wine price</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
-<li class="chapter" data-level="4.1" data-path="logistic-regression.html"><a href="logistic-regression.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="logistic-regression.html"><a href="logistic-regression.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
-<li class="chapter" data-level="4.3" data-path="logistic-regression.html"><a href="logistic-regression.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
-<li class="chapter" data-level="4.4" data-path="logistic-regression.html"><a href="logistic-regression.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
-<li class="chapter" data-level="4.5" data-path="logistic-regression.html"><a href="logistic-regression.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
-<li class="chapter" data-level="4.6" data-path="logistic-regression.html"><a href="logistic-regression.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
-<li class="chapter" data-level="4.6.1" data-path="logistic-regression.html"><a href="logistic-regression.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
-<li class="chapter" data-level="4.6.2" data-path="logistic-regression.html"><a href="logistic-regression.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
-<li class="chapter" data-level="4.6.3" data-path="logistic-regression.html"><a href="logistic-regression.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+<li class="chapter" data-level="4" data-path="logistic.html"><a href="logistic.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="logistic.html"><a href="logistic.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic.html"><a href="logistic.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic.html"><a href="logistic.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
+<li class="chapter" data-level="4.4" data-path="logistic.html"><a href="logistic.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic.html"><a href="logistic.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic.html"><a href="logistic.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="logistic.html"><a href="logistic.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
+<li class="chapter" data-level="4.6.2" data-path="logistic.html"><a href="logistic.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
+<li class="chapter" data-level="4.6.3" data-path="logistic.html"><a href="logistic.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="logistic-regression.html"><a href="logistic-regression.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic.html"><a href="logistic.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html"><i class="fa fa-check"></i><b>5</b> KNN - K Nearest Neighbour</a><ul>
-<li class="chapter" data-level="5.1" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>5.1</b> Example 1. Prostate Cancer dataset</a></li>
-<li class="chapter" data-level="5.2" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>5.2</b> Example 2. Wine dataset</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#understand-the-data"><i class="fa fa-check"></i><b>5.2.1</b> Understand the data</a></li>
+<li class="chapter" data-level="5" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html"><i class="fa fa-check"></i><b>5</b> Softmax and multinomial regressions</a><ul>
+<li class="chapter" data-level="5.1" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.1</b> Multinomial Logistic Regression</a></li>
+<li class="chapter" data-level="5.2" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#references-1"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="knn-k-nearest-neighbour.html"><a href="knn-k-nearest-neighbour.html#references-1"><i class="fa fa-check"></i><b>5.3</b> References</a></li>
+<li class="chapter" data-level="6" data-path="knnchapter.html"><a href="knnchapter.html"><i class="fa fa-check"></i><b>6</b> KNN - K Nearest Neighbour</a><ul>
+<li class="chapter" data-level="6.1" data-path="knnchapter.html"><a href="knnchapter.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>6.1</b> Example 1. Prostate Cancer dataset</a></li>
+<li class="chapter" data-level="6.2" data-path="knnchapter.html"><a href="knnchapter.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>6.2</b> Example 2. Wine dataset</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="knnchapter.html"><a href="knnchapter.html#understand-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Understand the data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>6</b> Trees and Classification</a><ul>
-<li class="chapter" data-level="6.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="trees-and-classification.html"><a href="trees-and-classification.html#first-example."><i class="fa fa-check"></i><b>6.2</b> First example.</a></li>
-<li class="chapter" data-level="6.3" data-path="trees-and-classification.html"><a href="trees-and-classification.html#second-example."><i class="fa fa-check"></i><b>6.3</b> Second Example.</a></li>
-<li class="chapter" data-level="6.4" data-path="trees-and-classification.html"><a href="trees-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>6.4</b> How does a tree decide where to split?</a></li>
-<li class="chapter" data-level="6.5" data-path="trees-and-classification.html"><a href="trees-and-classification.html#third-example."><i class="fa fa-check"></i><b>6.5</b> Third example.</a></li>
-<li class="chapter" data-level="6.6" data-path="trees-and-classification.html"><a href="trees-and-classification.html#references-2"><i class="fa fa-check"></i><b>6.6</b> References</a></li>
+<li class="chapter" data-level="6.3" data-path="knnchapter.html"><a href="knnchapter.html#references-2"><i class="fa fa-check"></i><b>6.3</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>7</b> Principal Component Analysis</a><ul>
 <li class="chapter" data-level="7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>7.1</b> PCA on an easy example.</a></li>
-<li class="chapter" data-level="7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#attempt-of-pca-on-technical-indicators."><i class="fa fa-check"></i><b>7.2</b> Attempt of PCA on technical indicators.</a></li>
-<li class="chapter" data-level="7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#doing-pca-and-pcr-with-the-pls-package"><i class="fa fa-check"></i><b>7.3</b> Doing PCA and PCR with the PLS package</a></li>
-<li class="chapter" data-level="7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>7.4</b> References.</a></li>
+<li class="chapter" data-level="7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>7.2</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html"><i class="fa fa-check"></i><b>8</b> Case Study - Mushrooms Classification</a><ul>
-<li class="chapter" data-level="8.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>8.1</b> Import the data</a></li>
-<li class="chapter" data-level="8.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data"><i class="fa fa-check"></i><b>8.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="8.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data-1"><i class="fa fa-check"></i><b>8.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>8.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="8.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>8.3.2</b> Visualize the data</a></li>
-<li class="chapter" data-level="8.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>8.3.3</b> Modeling</a></li>
+<li class="chapter" data-level="8" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>8</b> Trees, Random forests and Classification</a><ul>
+<li class="chapter" data-level="8.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>8.2</b> First example.</a></li>
+<li class="chapter" data-level="8.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>8.3</b> Second Example.</a></li>
+<li class="chapter" data-level="8.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>8.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="8.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>8.5</b> Third example.</a></li>
+<li class="chapter" data-level="8.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-3"><i class="fa fa-check"></i><b>8.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>8.4</b> Communication</a></li>
+<li class="chapter" data-level="9" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>9</b> Model Evaluation</a><ul>
+<li class="chapter" data-level="9.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Biais variance tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>9.2</b> Bagging</a></li>
+<li class="chapter" data-level="9.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>9.3</b> Cross Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>9</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
-<li class="chapter" data-level="9.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>9.1</b> Import the data.</a></li>
-<li class="chapter" data-level="9.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data-1"><i class="fa fa-check"></i><b>9.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="9.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-2"><i class="fa fa-check"></i><b>9.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="9.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>9.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="9.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>9.3.2</b> A. Vizualize with families.</a></li>
+<li class="chapter" data-level="10" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>10</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
+<li class="chapter" data-level="10.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>10.1</b> Import the data.</a></li>
+<li class="chapter" data-level="10.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>10.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="10.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>10.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>10.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="10.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>10.3.2</b> A. Vizualize with families.</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>9.4</b> A. Visualize with cabins.</a></li>
-<li class="chapter" data-level="9.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>9.5</b> B. Transform Dealing with missing data.</a><ul>
-<li class="chapter" data-level="9.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>9.5.1</b> Overview.</a></li>
-<li class="chapter" data-level="9.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>9.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+<li class="chapter" data-level="10.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>10.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="10.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>10.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="10.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>10.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="10.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>10.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>9.6</b> References.</a></li>
+<li class="chapter" data-level="10.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>10.6</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="case-study-text-classification-spam-and-ham-.html"><a href="case-study-text-classification-spam-and-ham-.html"><i class="fa fa-check"></i><b>10</b> Case Study - Text classification: Spam and Ham.</a></li>
-<li class="chapter" data-level="11" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html"><i class="fa fa-check"></i><b>11</b> Case Study - Wisconsin Breast Cancer</a><ul>
-<li class="chapter" data-level="11.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#import-the-data-1"><i class="fa fa-check"></i><b>11.1</b> Import the data</a></li>
-<li class="chapter" data-level="11.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="11.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>11.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="11.3.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>11.3.2</b> Pre-process the data</a></li>
-<li class="chapter" data-level="11.3.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#model-the-data-1"><i class="fa fa-check"></i><b>11.3.3</b> Model the data</a></li>
+<li class="chapter" data-level="11" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html"><i class="fa fa-check"></i><b>11</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="11.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>11.1</b> Import the data</a></li>
+<li class="chapter" data-level="11.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data-1"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="11.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data-2"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>11.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="11.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>11.3.3</b> Modeling</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#references-3"><i class="fa fa-check"></i><b>11.4</b> References</a></li>
+<li class="chapter" data-level="11.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>11.4</b> Communication</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>12</b> Final Words</a></li>
-<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="12" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html"><i class="fa fa-check"></i><b>12</b> Case Study - Wisconsin Breast Cancer</a><ul>
+<li class="chapter" data-level="12.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#import-the-data-1"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
+<li class="chapter" data-level="12.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="12.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Pre-process the data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#model-the-data-1"><i class="fa fa-check"></i><b>12.3.3</b> Model the data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#references-4"><i class="fa fa-check"></i><b>12.4</b> References</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -247,37 +258,39 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Let’s load it and then have a quick look at its structure.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(skimr)
-wine =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;../datasets/Wine.csv&quot;</span>)
-<span class="kw">glimpse</span>(wine)</code></pre></div>
-<pre><code>## Observations: 25
-## Variables: 7
-## $ Year        &lt;int&gt; 1952, 1953, 1955, 1957, 1958, 1959, 1960, 1961, 19...
-## $ Price       &lt;dbl&gt; 7.4950, 8.0393, 7.6858, 6.9845, 6.7772, 8.0757, 6....
-## $ WinterRain  &lt;int&gt; 600, 690, 502, 420, 582, 485, 763, 830, 697, 608, ...
-## $ AGST        &lt;dbl&gt; 17.1167, 16.7333, 17.1500, 16.1333, 16.4167, 17.48...
-## $ HarvestRain &lt;int&gt; 160, 80, 130, 110, 187, 187, 290, 38, 52, 155, 96,...
-## $ Age         &lt;int&gt; 31, 30, 28, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17...
-## $ FrancePop   &lt;dbl&gt; 43183.57, 43495.03, 44217.86, 45152.25, 45653.81, ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">skim</span>(wine)</code></pre></div>
-<pre><code>## Numeric Variables
-## # A tibble: 7 x 13
-##           var    type missing complete     n         mean           sd
-##         &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;
-## 1         Age integer       0       25    25    17.200000    7.6919872
-## 2        AGST numeric       0       25    25    16.509336    0.6753968
-## 3   FrancePop numeric       0       25    25 49694.436760 3665.2702426
-## 4 HarvestRain integer       0       25    25   148.560000   74.4194643
-## 5       Price numeric       0       25    25     7.067224    0.6503409
-## 6  WinterRain integer       0       25    25   605.280000  132.2779649
-## 7        Year integer       0       25    25  1965.800000    7.6919872
-## # ... with 6 more variables: min &lt;dbl&gt;, `25% quantile` &lt;dbl&gt;,
-## #   median &lt;dbl&gt;, `75% quantile` &lt;dbl&gt;, max &lt;dbl&gt;, hist &lt;chr&gt;</code></pre>
+df =<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/Wine.csv&quot;</span>)
+<span class="kw">skim</span>(df)</code></pre></div>
+<pre><code>## Skim summary statistics
+##  n obs: 25 
+##  n variables: 7 
+## 
+## Variable type: integer 
+##           var missing complete  n    mean     sd  min  p25 median  p75
+## 1         Age       0       25 25   17.2    7.69    5   11     17   23
+## 2 HarvestRain       0       25 25  148.56  74.42   38   89    130  187
+## 3  WinterRain       0       25 25  605.28 132.28  376  536    600  697
+## 4        Year       0       25 25 1965.8    7.69 1952 1960   1966 1972
+##    max     hist
+## 1   31 ▇▆▆▇▆▆▃▆
+## 2  292 ▅▇▇▅▆▁▃▅
+## 3  830 ▅▁▂▇▃▃▂▃
+## 4 1978 ▆▃▆▇▆▆▆▇
+## 
+## Variable type: numeric 
+##         var missing complete  n     mean      sd      min      p25
+## 1      AGST       0       25 25    16.51    0.68    14.98    16.2 
+## 2 FrancePop       0       25 25 49694.44 3665.27 43183.57 46584   
+## 3     Price       0       25 25     7.07    0.65     6.2      6.52
+##     median      p75      max     hist
+## 1    16.53    17.07    17.65 ▂▃▃▇▆▆▆▅
+## 2 50254.97 52894.18 54602.19 ▃▂▃▂▃▃▃▇
+## 3     7.12     7.5      8.49 ▇▃▃▇▃▂▂▁</code></pre>
 <p>We use the <code>lm</code> function to find our linear regression model. We use <em>AGST</em> as the independent variable while the <em>price</em> is the dependent variable.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 =<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>AGST, <span class="dt">data =</span> wine)
-<span class="kw">summary</span>(model1)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_lm_df =<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>AGST, <span class="dt">data =</span> df)
+<span class="kw">summary</span>(model_lm_df)</code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = Price ~ AGST, data = wine)
+## lm(formula = Price ~ AGST, data = df)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -299,20 +312,19 @@ wine =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st"
 <li>it also gives us the value of the R coefficient</li>
 </ul>
 <p>We could have calculated the R value ourselves:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SSE =<span class="st"> </span><span class="kw">sum</span>(model1<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)
-SST =<span class="st"> </span><span class="kw">sum</span>((wine<span class="op">$</span>Price <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(wine<span class="op">$</span>Price))<span class="op">^</span><span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SSE =<span class="st"> </span><span class="kw">sum</span>(model_lm_df<span class="op">$</span>residuals<span class="op">^</span><span class="dv">2</span>)
+SST =<span class="st"> </span><span class="kw">sum</span>((df<span class="op">$</span>Price <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>Price))<span class="op">^</span><span class="dv">2</span>)
 r_squared =<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>SSE<span class="op">/</span>SST
 r_squared</code></pre></div>
 <pre><code>## [1] 0.4350232</code></pre>
 <p>We can now plot the observations and the line of regression; and see how the linear model fits the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-<span class="kw">ggplot</span>(wine, <span class="kw">aes</span>(AGST, Price)) <span class="op">+</span><span class="st"> </span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(AGST, Price)) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/linreg04_graph-1.png" width="672" /> By default, the <code>geom_smooth()</code> will use a 95% confidence interval (which is the grey-er area on the graph). There are 95% chance the line of regression will be within that zone for the whole population.</p>
 <p>It is always nice to see how our residuals are distributed.<br />
 We use the <code>ggplot2</code> library and the <code>fortify</code> function which transform the <code>summary(model1)</code> into a data frame usable for plotting.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span><span class="kw">fortify</span>(model1)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model1 &lt;-<span class="st"> </span><span class="kw">fortify</span>(model_lm_df)
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(model1, <span class="kw">aes</span>(.fitted, .resid)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>() 
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) 
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Residuals&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Plot of the residuals in function of the fitted values&quot;</span>)
@@ -334,7 +346,7 @@ p</code></pre></div>
 <h3><span class="header-section-number">3.2.1</span> First example. Predicting wine price</h3>
 <p>We continue here with the same dataset, <em>wine.csv</em>.<br />
 First, we can see how each variable is correlated with each other ones, using</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(wine)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(df)</code></pre></div>
 <pre><code>##                    Year      Price   WinterRain        AGST HarvestRain
 ## Year         1.00000000 -0.4477679  0.016970024 -0.24691585  0.02800907
 ## Price       -0.44776786  1.0000000  0.136650547  0.65956286 -0.56332190
@@ -353,12 +365,12 @@ First, we can see how each variable is correlated with each other ones, using</p
 ## FrancePop   -0.99448510  1.000000000</code></pre>
 <p>by default, R uses the Pearson coefficient of correlation.<br />
 So let’s start by using all variables.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Year <span class="op">+</span><span class="st"> </span>WinterRain <span class="op">+</span><span class="st"> </span>AGST <span class="op">+</span><span class="st"> </span>HarvestRain <span class="op">+</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>FrancePop, <span class="dt">data =</span> wine)
-<span class="kw">summary</span>(model2)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2_lm_df &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Year <span class="op">+</span><span class="st"> </span>WinterRain <span class="op">+</span><span class="st"> </span>AGST <span class="op">+</span><span class="st"> </span>HarvestRain <span class="op">+</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>FrancePop, <span class="dt">data =</span> df)
+<span class="kw">summary</span>(model2_lm_df)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Price ~ Year + WinterRain + AGST + HarvestRain + 
-##     Age + FrancePop, data = wine)
+##     Age + FrancePop, data = df)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -380,12 +392,12 @@ So let’s start by using all variables.</p>
 ## Multiple R-squared:  0.8294, Adjusted R-squared:  0.7845 
 ## F-statistic: 18.47 on 5 and 19 DF,  p-value: 1.044e-06</code></pre>
 <p>While doing so, we notice that the variable <em>Age</em> has NA (issues with missing data?) and that the variable <em>FrancePop</em> isn’t very predictive of the price of wine. So we can refine our models, by taking out these 2 variables, and as we’ll see, it won’t affect much our <span class="math inline">\(R^2\)</span> value. Note that with multiple variables regression, it is important to look at the <strong>Adjusted R-squared</strong> as it take into consideration the amount of variables in the model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Year <span class="op">+</span><span class="st"> </span>WinterRain <span class="op">+</span><span class="st"> </span>AGST <span class="op">+</span><span class="st"> </span>HarvestRain, <span class="dt">data =</span> wine)
-<span class="kw">summary</span>(model3)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3_lm_df &lt;-<span class="st"> </span><span class="kw">lm</span>(Price <span class="op">~</span><span class="st"> </span>Year <span class="op">+</span><span class="st"> </span>WinterRain <span class="op">+</span><span class="st"> </span>AGST <span class="op">+</span><span class="st"> </span>HarvestRain, <span class="dt">data =</span> df)
+<span class="kw">summary</span>(model3_lm_df)</code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Price ~ Year + WinterRain + AGST + HarvestRain, 
-##     data = wine)
+##     data = df)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
@@ -405,7 +417,7 @@ So let’s start by using all variables.</p>
 ## Multiple R-squared:  0.8286, Adjusted R-squared:  0.7943 
 ## F-statistic: 24.17 on 4 and 20 DF,  p-value: 2.036e-07</code></pre>
 <p>Although it isn’t now feasible to graph in 2D the <em>Price</em> in function of the other variables, we can still graph our residuals.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3 &lt;-<span class="st"> </span><span class="kw">fortify</span>(model3)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model3 &lt;-<span class="st"> </span><span class="kw">fortify</span>(model3_lm_df)
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(model3, <span class="kw">aes</span>(.fitted, .resid)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Fitted values&quot;</span>)
 p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Residuals&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Plot of the residuals in function of the fitted values (multiple variables)&quot;</span>)</code></pre></div>
@@ -424,8 +436,8 @@ p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </s
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="testinference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -454,10 +466,10 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/bookdown-demo/edit/master/04-linear_regressions.Rmd",
-"text": "Edit"
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/04-linear_regressions.Rmd",
+"text": "Suggest edit to this page"
 },
-"download": null,
+"download": ["machinelearningwithR.pdf"],
 "toc": {
 "collapse": "section"
 }

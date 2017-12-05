@@ -1,4 +1,4 @@
-# Case Study - Predicting Survivalship on the Titanic
+# Case Study - Predicting Survivalship on the Titanic {#titanic}
 
 This chapter demonstrates another example of classification with machine learning.  Kaggle made this exercise quite popular.  
 

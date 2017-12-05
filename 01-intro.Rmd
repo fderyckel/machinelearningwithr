@@ -1,9 +1,7 @@
 # Tests and inferences {#testinference}
 
-Definitely the first thing to be familiar with while doing machine learning works is the basic of statistical inferences.  
-In this chapter, we go over some of these important concepts and the r-ways to do them.  
-
-Let's get started.  
+One of the first thing to be familiar with while doing machine learning works is the basic of statistical inferences.  
+In this chapter, we go over some of these important concepts and the "R-ways" to do them.  
 
 ## Assumption of normality {#normality}
 Copied from [here](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3693611/)
@@ -40,66 +38,204 @@ The __independent t test__ is used to test if there is any statistically *signif
 
 When these assumptions are satisfied the results of the t test are valid. Otherwise they are invalid and you need to use a non-parametric test. When data is not normally distributed you can apply transformations to make it normally distributed.
 
-Using the `mtcars` data set, we check if there are any difference in mile per gallon (mpg) for each of the automatic and manual group.  
+Using the `mtcars` data set, we check if there are any difference in mile per gallon (mpg) for each of the automatic and manual group.   
 
-Check the data and mark as factor the driving system. 
-\index{mtcars}
-```{r intro01, message=FALSE}
-library(tidyverse)
+First things, first, let's check the data.  
+\index{mtcars dataset}
+```{r intro01}
 glimpse(mtcars)
+```
+
+For this t-test, we focus on mpg and the kind of gearbox.  Once done, let's check how it looks like.  
+```{r intro01c}
 df <- mtcars
 df$am <- factor(df$am, labels = c("automatic", "manual"))
 df2 <- df %>% select(mpg, am)
-glimpse(df2)
 ```
 
-Generate descriptive statistic for each group.  
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+kable(head(df2), format = "html") %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                full_width = F)
 
-```{r intr02}
-df2 %>% group_by(am) %>% 
-  summarise(mean = mean(mpg), minimum = min(mpg), maximum = max(mpg))
 ```
 
-Generate boxplot for each group
-```{r intro03_boxplot}
+Next step, we can generate descriptive statistic for each of the `am` group.   
+
+```{r intr02, echo=FALSE}
+yo <- df2 %>% group_by(am) %>% 
+  summarise(mean = mean(mpg), minimum = min(mpg), 
+            maximum = max(mpg), n = n())
+kable(yo, digits = 2, format = 'html') %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                full_width = F)
+
+```
+
+There is a difference between the mean of the automatic vs the manual cars.  Now, is that difference significant?  
+
+Vizualising that difference by generating a boxplot for each group can help us better understand it.  
+\index{ggplot geom-boxplot}
+```{r intro03boxplot}
 ggplot(df2, aes(x = am, y = mpg)) + 
   geom_boxplot(fill = c("dodgerblue3", "goldenrod2")) + 
-  labs(title = "Achieved milage for Automatic / Manual cars", 
-       x = "Type of car")
+  labs(x = "Type of car", title = "Achieved milage for Automatic / Manual cars")
 ```
 
-Test the normality of the data.  
+Before we go on to our t-test, we must test the normality of the data.  
 To do so, we can use the __Shapiro Wilk Normality Test__
-```{r intro04_summary}
-df2 %>% group_by(am) %>% 
+\index{Shapiro-Wilk test}
+```{r intro04summary}
+test_shapiro_df2 <- df2 %>% group_by(am) %>% 
   summarise(shaprio_test = shapiro.test(mpg)$p.value)
+```
 
+```{r intro04summaryb, echo=FALSE}
+kable(test_shapiro_df2, digit = 2, format = 'html') %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
 ```
 
 There is no evidence of departure from normality.  
 
-Test the equal variance in each group.  
-To do so, we use the `levene.test` from the `car` package.  
-```{r intro05_leveneTest}
-car::leveneTest(mpg ~ am, center = mean, data = df2)
+To test the equal variance in each group, we use the `levene.test` for homogeneity of Variance (center = mean) from the `car` package.   
+\index {Levene test}
+```{r intro05leveneTest}
+test_levene_df2 <- car::leveneTest(mpg ~ am, center = mean, data = df2)
+```
+
+```{r intro05leveneTestB, echo=FALSE}
+kable(test_levene_df2, format = 'html', digit= 3) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), 
+                full_width = FALSE)
 ```
 
 Because the variance in the 2 groups is not equal, we have to transform the data.  
 
 Apply a log transformation to stabilize the variance.  
-```{r intro06_logtransformed}
+```{r intro06logtransformed}
 log_transformed_mpg = log(df2$mpg)
 ```
 
 Now we can finally apply the t test to our data.  
-```{r intro07_ttest}
+\index{t-test}
+```{r intro07ttest}
 t.test(log_transformed_mpg ~ df2$am, var.equal = TRUE)
+
+
+yo <- t.test(log_transformed_mpg ~ df2$am, var.equal = TRUE)
+kable(broom::glance(yo), format = 'html') %>% 
+  kable_styling()
+
 ```
 
-Interpret the results.  
+Interpretation of the results.  
 
 * Manual cars have on average a higher mileage per Gallon (24 mpg)  compared to Automatic (17 mpg).  
 * The box plot did not reveal the presence of outliers
 * The Shapiro-Wilk normality test did not show any deviation from normality in the data  
 * The Levene Test showed difference in the variance in the 2 group.  We addressed that by log transforming the data  
 * The t test show a significant difference in the mean of miles per gallon from automatic and manual cars.  
+
+## ANOVA - Analyse of variance.
+
+ANOVA is an extension of the t-test.  While the t-test is checking for the difference between 2 means, ANOVA is checking for the difference in more than 2 means.  
+
+As with the t-test, we need to have our 3 assumptions to be verified.  
+
+1.  The variables are continuous and independent
+2.  The variables are normally distributed
+3.  The variances in each group are equal
+
+We'll do ANOVA on another Kaggle dataset called `cereals` .  In this dataset, we'll check if the place on the shelf (at the supermarket) of a cereal box is dependent of the amount of sugars in a cereal box.  
+\index{group-by}
+\index{summarize}
+```{r intro8, message=FALSE}
+df <- read_csv("dataset/cereal.csv")
+
+df2 <- df %>% select(shelf, sugars) %>% 
+  group_by(shelf) %>% 
+  summarize(mean = mean(sugars), 
+            sd = sd(sugars), 
+            n = n()) %>% 
+  ungroup()
+```
+
+```{r echo=FALSE}
+kable(df2, caption = "Statistics on sugars based on shelving", format = 'html', digit = 2) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover"), full_width = FALSE)
+```
+
+Clearly there is a difference.  Let's visualize that.  
+\index{ggplot geom-jitter}
+\index{ggplot geom-boxplot}
+\index{ggplot theme}
+```{r intro9}
+df$type <- factor(df$type, labels = c("cold", "hot"))
+df$mfr <- factor(df$mfr, labels = c("American Home \n Food Products", "General Mills", 
+                                           "Kelloggs", "Nabisco", "Post", "Quaker Oats", 
+                                           "Ralston Purina"))
+df$shelf <- factor(df$shelf)
+
+ggplot(df, aes(x = shelf, y = sugars)) + 
+  geom_boxplot() + 
+  geom_jitter(aes(color = mfr)) + 
+  labs(y = "Amount of sugars", x = "Shelf level", 
+       title = "Amount of sugars based on the shelf level") + 
+  theme(legend.position = "bottom")
+```
+
+We can see that shelf 2 tends to have cereals boxes that contains more sugars.  Can we show this statistically?
+
+We are in the situation to compare 3 different means and see if there is a difference between them. 
+
+* The Null Hypothesis: Mean of Sugar Shlef 1 = Mean of Sugar Shlef 2 = Mean of Sugar Shlef 3 
+* Alternative Hypothesis: There is a difference in between one of these means  
+
+\index{ANOVA}
+```{r intro11}
+model_aov_df <- aov(sugars ~ shelf, data = df)
+summary(model_aov_df)
+```
+We get a high F-value on our test with a p-value of 0.001. Hence we can reject the null hypothesis and say that there is a difference between the mean of sugars in each of the shelf.
+
+\index{confidence intervals}
+```{r intro12}
+confint(model_aov_df)
+```
+
+All we could conclude is that there is a significant difference between one (or more) of the pairs. As the ANOVA is significant, further ‘post hoc’ tests have to be carried out to confirm where those differences are. The post hoc tests are mostly t-tests with an adjustment to account for the multiple testing. Tukey’s is the most commonly used post hoc test but check if your discipline uses something else.
+\index{Tukey HSD}
+```{r intro13}
+TukeyHSD(model_aov_df)
+```
+
+The residuals versus fits plot can be used to check the homogeneity of variances.
+In the plot below, there is no evident relationships between residuals and fitted values (the mean of each groups), which is good. So, we can assume the homogeneity of variances.
+```{r intro14}
+library(ggfortify)
+autoplot(model_aov_df, label.size = 3)[[1]]
+```
+
+Statistically, we would use the `Levene's test` to check the homogeneity of variance.  
+\index{Levene Test}
+```{r intro15}
+car::leveneTest(sugars ~ shelf, data = df)
+```
+
+From the output above we can see that the p-value is not less than the significance level of 0.05. This means that there is no evidence to suggest that the variance across groups is statistically significantly different. Therefore, we can assume the homogeneity of variances in the different treatment groups.
+
+To check the normality assumption, we can use the Q-Q plot. 
+Normality plot of residuals. In the plot below, the quantiles of the residuals are plotted against the quantiles of the normal distribution. A 45-degree reference line is also plotted.
+The normal probability plot of residuals is used to check the assumption that the residuals are normally distributed. It should approximately follow a straight line.
+```{r intro16}
+autoplot(model_aov_df, label.size = 3)[[2]]
+```
+
+As all the points fall approximately along this reference line, we can assume normality.
+
+The conclusion above, can be supported by the Shapiro-Wilk test on the ANOVA residuals.
+```{r intro17}
+shapiro.test(residuals(model_aov_df))
+```
+
+Again the p-value indicate no violation from normality.  

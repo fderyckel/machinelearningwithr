@@ -1,4 +1,4 @@
-# Case Study - Mushrooms Classification  
+# Case Study - Mushrooms Classification  {#mushroom}
 
 This example demonstrates how to classify muhsrooms as edible or not.  It also answer the question: what are the main characteristics of an edible mushroom?
 
@@ -263,6 +263,7 @@ library(randomForest)
 model_rf <- randomForest(edibility ~ ., ntree = 50, data = train_mushroom)
 plot(model_rf)
 ```
+
 The default number of trees for the random forest is 500; we just use 50 here.   As we can see on the plot, above 20 trees, the error isn't decreasing anymore.  And actually, the error seems to be 0 or almost 0.  
 The next step can tell us this more accurately.  
 

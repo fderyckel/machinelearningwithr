@@ -1,4 +1,4 @@
-# Case Study - Wisconsin Breast Cancer
+# Case Study - Wisconsin Breast Cancer {#breastcancer}
 
 This is another classification example.  We have to classify breast tumors as malign or benign.  
 
@@ -51,6 +51,7 @@ The response variable is slightly unbalanced.
 Let's look for correlation in the variables.  Most ML algorithms assumed that the predictor variables are  independent from each others.  
 
 Let's check for correlations.  For an anlysis to be robust it is good to remove mutlicollinearity (aka remove highly correlated predictors)  
+\index{Correlation plot}
 ```{r correlation_plot, fig.height=9, fig.width=9}
 df_corr <- cor(df %>% select(-id, -diagnosis))
 corrplot::corrplot(df_corr, order = "hclust", tl.cex = 1, addrect = 8)

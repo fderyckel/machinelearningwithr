@@ -1,0 +1,76 @@
+--- 
+title: "Machine Learning with R"
+author: "François de Ryckel"
+date: "`r Sys.Date()`"
+knit: "bookdown::render_book"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+colorlinks: yes
+lot: yes
+lof: yes
+fontsize: 12pt
+monofontoptions: "Scale=0.7"
+link-citations: yes
+github-repo: "fderyckel/machinelearningwithr"
+description: "This book is about using R for machine learning purposes."
+---
+
+# Prerequisites
+Welcome to my reference book in machine learning.  I have tried to put in it all the tricks, tips, how-to, must-know, etc.  I consult it almost everytime I embark on data science project.  It is impossible to remember all the coding practices, hence this my data science in R bible.  
+This book is basically a record of my journey in data analysis.  So often, I spend time reading articles, blog posts, etc.  and wish I could put all the things I'm learning in a central location.  It is a living document with constant additions.  
+
+So this book is a compilation of the techniques I've learned along the way.  Most of what I have learned is through blog posts, stack overflow questions, etc.  I am not taking any credit for all the great ideas, examples, graphs, etc. found in this web book.  Most of what you'll find here has been directly taken from blogs, Kaggle kernels, etc. I have tried as much as I could remember to reference the origins of the ideas. I do take responsibility for all mistakes, typos, unclear explanations, poor labeling / presentation of graphs.  If you find anything that require improvement, I would be grateful if you would let me know: f.deryckel@gmail.com or even better post an issue on github [here](https://github.com/fderyckel/machinelearningwithr).  
+
+I am assuming that you are already somehow familiar with: 
+
+* The math behind most algorithms.  This is not a math book.  
+* The basics of how to use R.  This is not an introductory R book.  
+
+I wish you loads of fun in your data science journey, and I hope that this book can contribute positively to your experience.  
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+## Pre-requisite and conventions
+
+As much as it makes sense, we will use the tidyverse and the conventions of tidy data throughout our journey.   
+Besides the hype surrounding the tidyverse, there is a couple reasons for us to stick with it: 
+
+* learning a language is hard on itself.  If we can be proficient and creative with one, it will be much better.  All the packages from the tidyverse, might not always be the best ones (more efficient, more elegant), but I'm happy to learn inside out one opinionated framework in order to be able to apply it effortlessly and creatively.  
+* Because many of the tidyverse packages do their background work in C++, they are usually pretty efficient in the way they work.  
+```{r}
+library(broom)
+library(skimr)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+```
+
+Here are some conventions we will be using throughout the book.   
+
+* `df` denotes a data frame.  Usually the data frame from a raw set of data    
+* We'll use `df2`, `df3`, etc. for other, "cleaner" versions of that raw data set   
+* `model_pca_xxxx`, `model_lr_xxxx` denotes models. The second part denotes the algorithm.  
+* `predict_svm_xxxx` or `predict_mlr_xxxx` denotes the outcome of applying a model on a set of independent variables.  
+
+## Organization
+The first part of the book is more about the nitty-gritty of each machine learning algorithm.  We do not really go into the depth of how they work and why they work the way they do.  Instead it is really on how to leveraged R and various R libraries to use the ML algorithms.  
+The second part of the book is about various case studies.  Most of them come either from the [UCI Machine learning](http://archive.ics.uci.edu/ml/index.php) repository or [Kaggle](http://kaggle.com).  
+
+The two parts can (and maybe should?) be read concommitenly.  We use machine learning to model real-life situation, so I see it as essential to go from the algortihms and theory to the case study and practical applications.  
+
+So in the first part, we start by talking about inference and tests with the Chapter \@ref(testinference).   We then go onto the various linear regression technique with the Chapter \@ref(mlr).  Chapter \@ref(logistic) is about logisitic regression and the various way to evaluate a logisitic model.  We then go onto the K Nearest Neighbour with \@ref(knnchapter).  
+
+The case studies have been put by order of skills required to approach the practical situation.  
+The chapter \@ref(titanic) is on the Titanic dataset from the very famous Kaggle competition.  This case studies is really about exploratory data analysis and feature engineering.  The Chapter \@ref(mushroom) is based on the mushroom dataset.  We delve into data partition, confusion matrix, and a first go on various algorithms such as decision trees, random forest, SVM.  
+The chapter \@ref(breastcancer) is on the Breast Cancer dataset.  We really focus here on model comparison.  We also use the LDA and Neural Net algorithms.  
+
+
+

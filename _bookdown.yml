@@ -1,0 +1,5 @@
+book_filename: "machinelearningwithR"
+output_dir: "book"
+language:
+  ui:
+    chapter_name: "Chapter "

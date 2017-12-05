@@ -1,0 +1,18 @@
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+  df_print: kable
+  latex_engine: xelatex
+  citation_package: natbib
+  keep_tex: yes
+bookdown::epub_book: default
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><strong><a href="./">Machine Learning with R</a></strong></li>
+    edit:
+      link: https://github.com/fderyckel/machinelearningwithr/edit/master/%s
+      text: "Suggest edit to this page"

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Machine Learning with R</title>
+  <meta name="description" content="This book is about using R for machine learning purposes.">
+  <meta name="generator" content="bookdown 0.5.4 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Machine Learning with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book is about using R for machine learning purposes." />
+  <meta name="github-repo" content="fderyckel/machinelearningwithr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Machine Learning with R" />
+  
+  <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
+  
+
+<meta name="author" content="François de Ryckel">
+
+
+<meta name="date" content="2017-12-05">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="mushroom.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><strong><a href="./">Machine Learning with R</a></strong></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-requisite-and-conventions"><i class="fa fa-check"></i><b>1.1</b> Pre-requisite and conventions</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.2</b> Organization</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="testinference.html"><a href="testinference.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
+<li class="chapter" data-level="2.1" data-path="testinference.html"><a href="testinference.html#normality"><i class="fa fa-check"></i><b>2.1</b> Assumption of normality</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="testinference.html"><a href="testinference.html#visual-check-of-normality"><i class="fa fa-check"></i><b>2.1.1</b> Visual check of normality</a></li>
+<li class="chapter" data-level="2.1.2" data-path="testinference.html"><a href="testinference.html#normality-tests"><i class="fa fa-check"></i><b>2.1.2</b> Normality tests</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="testinference.html"><a href="testinference.html#ttest"><i class="fa fa-check"></i><b>2.2</b> T-tests</a></li>
+<li class="chapter" data-level="2.3" data-path="testinference.html"><a href="testinference.html#anova---analyse-of-variance."><i class="fa fa-check"></i><b>2.3</b> ANOVA - Analyse of variance.</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Single &amp; Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a></li>
+<li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#multi-variables-regression"><i class="fa fa-check"></i><b>3.2</b> Multi-variables regression</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#predicting-wine-price-again"><i class="fa fa-check"></i><b>3.2.1</b> Predicting wine price (again!)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#model-diagnostic-and-evaluation"><i class="fa fa-check"></i><b>3.3</b> Model diagnostic and evaluation</a></li>
+<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#final-example---boston-dataset---with-backward-elimination"><i class="fa fa-check"></i><b>3.4</b> Final example - Boston dataset - with backward elimination</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-diagmostic"><i class="fa fa-check"></i><b>3.4.1</b> Model diagmostic</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="mlr.html"><a href="mlr.html#references"><i class="fa fa-check"></i><b>3.5</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="logistic.html"><a href="logistic.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="4.1" data-path="logistic.html"><a href="logistic.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="logistic.html"><a href="logistic.html#the-logistic-equation."><i class="fa fa-check"></i><b>4.2</b> The logistic equation.</a></li>
+<li class="chapter" data-level="4.3" data-path="logistic.html"><a href="logistic.html#performance-of-logistic-regression-model"><i class="fa fa-check"></i><b>4.3</b> Performance of Logistic Regression Model</a></li>
+<li class="chapter" data-level="4.4" data-path="logistic.html"><a href="logistic.html#setting-up"><i class="fa fa-check"></i><b>4.4</b> Setting up</a></li>
+<li class="chapter" data-level="4.5" data-path="logistic.html"><a href="logistic.html#example-1---graduate-admission"><i class="fa fa-check"></i><b>4.5</b> Example 1 - Graduate Admission</a></li>
+<li class="chapter" data-level="4.6" data-path="logistic.html"><a href="logistic.html#example-2---diabetes"><i class="fa fa-check"></i><b>4.6</b> Example 2 - Diabetes</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="logistic.html"><a href="logistic.html#accounting-for-missing-values"><i class="fa fa-check"></i><b>4.6.1</b> Accounting for missing values</a></li>
+<li class="chapter" data-level="4.6.2" data-path="logistic.html"><a href="logistic.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
+<li class="chapter" data-level="4.6.3" data-path="logistic.html"><a href="logistic.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="logistic.html"><a href="logistic.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html"><i class="fa fa-check"></i><b>5</b> Softmax and multinomial regressions</a><ul>
+<li class="chapter" data-level="5.1" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.1</b> Multinomial Logistic Regression</a></li>
+<li class="chapter" data-level="5.2" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#references-2"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="gradient-descent.html"><a href="gradient-descent.html"><i class="fa fa-check"></i><b>6</b> Gradient Descent</a><ul>
+<li class="chapter" data-level="6.1" data-path="gradient-descent.html"><a href="gradient-descent.html#example-on-functions"><i class="fa fa-check"></i><b>6.1</b> Example on functions</a></li>
+<li class="chapter" data-level="6.2" data-path="gradient-descent.html"><a href="gradient-descent.html#example-on-regressions"><i class="fa fa-check"></i><b>6.2</b> Example on regressions</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="knnchapter.html"><a href="knnchapter.html"><i class="fa fa-check"></i><b>7</b> KNN - K Nearest Neighbour</a><ul>
+<li class="chapter" data-level="7.1" data-path="knnchapter.html"><a href="knnchapter.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>7.1</b> Example 1. Prostate Cancer dataset</a></li>
+<li class="chapter" data-level="7.2" data-path="knnchapter.html"><a href="knnchapter.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>7.2</b> Example 2. Wine dataset</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="knnchapter.html"><a href="knnchapter.html#understand-the-data"><i class="fa fa-check"></i><b>7.2.1</b> Understand the data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="knnchapter.html"><a href="knnchapter.html#references-3"><i class="fa fa-check"></i><b>7.3</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>8.1</b> PCA on an easy example.</a></li>
+<li class="chapter" data-level="8.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>8.2</b> References.</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>9</b> Trees, Random forests and Classification</a><ul>
+<li class="chapter" data-level="9.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>9.2</b> First example.</a></li>
+<li class="chapter" data-level="9.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>9.3</b> Second Example.</a></li>
+<li class="chapter" data-level="9.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>9.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="9.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>9.5</b> Third example.</a></li>
+<li class="chapter" data-level="9.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-4"><i class="fa fa-check"></i><b>9.6</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>10</b> Model Evaluation</a><ul>
+<li class="chapter" data-level="10.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>10.1</b> Biais variance tradeoff</a></li>
+<li class="chapter" data-level="10.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>10.2</b> Bagging</a></li>
+<li class="chapter" data-level="10.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>10.3</b> Cross Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="titanic.html"><a href="titanic.html"><i class="fa fa-check"></i><b>11</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
+<li class="chapter" data-level="11.1" data-path="titanic.html"><a href="titanic.html#import-the-data."><i class="fa fa-check"></i><b>11.1</b> Import the data.</a></li>
+<li class="chapter" data-level="11.2" data-path="titanic.html"><a href="titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="11.3" data-path="titanic.html"><a href="titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="titanic.html"><a href="titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="titanic.html"><a href="titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>11.3.2</b> A. Vizualize with families.</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="titanic.html"><a href="titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>11.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="11.5" data-path="titanic.html"><a href="titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>11.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="titanic.html"><a href="titanic.html#overview."><i class="fa fa-check"></i><b>11.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="11.5.2" data-path="titanic.html"><a href="titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>11.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="titanic.html"><a href="titanic.html#references.-1"><i class="fa fa-check"></i><b>11.6</b> References.</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="mushroom.html"><a href="mushroom.html"><i class="fa fa-check"></i><b>12</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="12.1" data-path="mushroom.html"><a href="mushroom.html#import-the-data"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
+<li class="chapter" data-level="12.2" data-path="mushroom.html"><a href="mushroom.html#tidy-the-data-1"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="12.3" data-path="mushroom.html"><a href="mushroom.html#understand-the-data-2"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="mushroom.html"><a href="mushroom.html#transform-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="mushroom.html"><a href="mushroom.html#visualize-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="mushroom.html"><a href="mushroom.html#modeling"><i class="fa fa-check"></i><b>12.3.3</b> Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="mushroom.html"><a href="mushroom.html#communication"><i class="fa fa-check"></i><b>12.4</b> Communication</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="breastcancer.html"><a href="breastcancer.html"><i class="fa fa-check"></i><b>13</b> Case Study - Wisconsin Breast Cancer</a><ul>
+<li class="chapter" data-level="13.1" data-path="breastcancer.html"><a href="breastcancer.html#import-the-data-1"><i class="fa fa-check"></i><b>13.1</b> Import the data</a></li>
+<li class="chapter" data-level="13.2" data-path="breastcancer.html"><a href="breastcancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>13.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="13.3" data-path="breastcancer.html"><a href="breastcancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>13.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="breastcancer.html"><a href="breastcancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>13.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="13.3.2" data-path="breastcancer.html"><a href="breastcancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>13.3.2</b> Pre-process the data</a></li>
+<li class="chapter" data-level="13.3.3" data-path="breastcancer.html"><a href="breastcancer.html#model-the-data-1"><i class="fa fa-check"></i><b>13.3.3</b> Model the data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="breastcancer.html"><a href="breastcancer.html#references-5"><i class="fa fa-check"></i><b>13.4</b> References</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Machine Learning with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="breastcancer" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Case Study - Wisconsin Breast Cancer</h1>
+<p>This is another classification example. We have to classify breast tumors as malign or benign.</p>
+<p>The dataset is available on the <a href="https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic)">UCI Machine learning website</a> as well as on [Kaggle](<a href="https://www.kaggle.com/uciml/breast-cancer-wisconsin-data" class="uri">https://www.kaggle.com/uciml/breast-cancer-wisconsin-data</a>.</p>
+<p>We have taken ideas from several blogs listed below in the reference section.</p>
+<div id="import-the-data-1" class="section level2">
+<h2><span class="header-section-number">13.1</span> Import the data</h2>
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/BreastCancer.csv&quot;</span>)
+
+<span class="co"># This is defintely an most important step:  </span>
+<span class="co"># Check for appropriate class on each of the variable.  </span>
+<span class="kw">glimpse</span>(df)</code></pre></div>
+<pre><code>## Observations: 569
+## Variables: 32
+## $ id                      &lt;int&gt; 842302, 842517, 84300903, 84348301, 84...
+## $ diagnosis               &lt;chr&gt; &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;, &quot;M&quot;...
+## $ radius_mean             &lt;dbl&gt; 17.990, 20.570, 19.690, 11.420, 20.290...
+## $ texture_mean            &lt;dbl&gt; 10.38, 17.77, 21.25, 20.38, 14.34, 15....
+## $ perimeter_mean          &lt;dbl&gt; 122.80, 132.90, 130.00, 77.58, 135.10,...
+## $ area_mean               &lt;dbl&gt; 1001.0, 1326.0, 1203.0, 386.1, 1297.0,...
+## $ smoothness_mean         &lt;dbl&gt; 0.11840, 0.08474, 0.10960, 0.14250, 0....
+## $ compactness_mean        &lt;dbl&gt; 0.27760, 0.07864, 0.15990, 0.28390, 0....
+## $ concavity_mean          &lt;dbl&gt; 0.30010, 0.08690, 0.19740, 0.24140, 0....
+## $ concave_points_mean     &lt;dbl&gt; 0.14710, 0.07017, 0.12790, 0.10520, 0....
+## $ symmetry_mean           &lt;dbl&gt; 0.2419, 0.1812, 0.2069, 0.2597, 0.1809...
+## $ fractal_dimension_mean  &lt;dbl&gt; 0.07871, 0.05667, 0.05999, 0.09744, 0....
+## $ radius_se               &lt;dbl&gt; 1.0950, 0.5435, 0.7456, 0.4956, 0.7572...
+## $ texture_se              &lt;dbl&gt; 0.9053, 0.7339, 0.7869, 1.1560, 0.7813...
+## $ perimeter_se            &lt;dbl&gt; 8.589, 3.398, 4.585, 3.445, 5.438, 2.2...
+## $ area_se                 &lt;dbl&gt; 153.40, 74.08, 94.03, 27.23, 94.44, 27...
+## $ smoothness_se           &lt;dbl&gt; 0.006399, 0.005225, 0.006150, 0.009110...
+## $ compactness_se          &lt;dbl&gt; 0.049040, 0.013080, 0.040060, 0.074580...
+## $ concavity_se            &lt;dbl&gt; 0.05373, 0.01860, 0.03832, 0.05661, 0....
+## $ concave_points_se       &lt;dbl&gt; 0.015870, 0.013400, 0.020580, 0.018670...
+## $ symmetry_se             &lt;dbl&gt; 0.03003, 0.01389, 0.02250, 0.05963, 0....
+## $ fractal_dimension_se    &lt;dbl&gt; 0.006193, 0.003532, 0.004571, 0.009208...
+## $ radius_worst            &lt;dbl&gt; 25.38, 24.99, 23.57, 14.91, 22.54, 15....
+## $ texture_worst           &lt;dbl&gt; 17.33, 23.41, 25.53, 26.50, 16.67, 23....
+## $ perimeter_worst         &lt;dbl&gt; 184.60, 158.80, 152.50, 98.87, 152.20,...
+## $ area_worst              &lt;dbl&gt; 2019.0, 1956.0, 1709.0, 567.7, 1575.0,...
+## $ smoothness_worst        &lt;dbl&gt; 0.1622, 0.1238, 0.1444, 0.2098, 0.1374...
+## $ compactness_worst       &lt;dbl&gt; 0.6656, 0.1866, 0.4245, 0.8663, 0.2050...
+## $ concavity_worst         &lt;dbl&gt; 0.71190, 0.24160, 0.45040, 0.68690, 0....
+## $ concave_points_worst    &lt;dbl&gt; 0.26540, 0.18600, 0.24300, 0.25750, 0....
+## $ symmetry_worst          &lt;dbl&gt; 0.4601, 0.2750, 0.3613, 0.6638, 0.2364...
+## $ fractal_dimension_worst &lt;dbl&gt; 0.11890, 0.08902, 0.08758, 0.17300, 0....</code></pre>
+<p>So we have 569 observations with 32 variables. Ideally for so many variables, it would be appropriate to get a few more observations.</p>
+</div>
+<div id="tidy-the-data-2" class="section level2">
+<h2><span class="header-section-number">13.2</span> Tidy the data</h2>
+<p>Basics change of variable type for the outcome variable and renaming of variables badly encoded</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df<span class="op">$</span>diagnosis &lt;-<span class="st"> </span><span class="kw">as.factor</span>(df<span class="op">$</span>diagnosis)
+
+<span class="co">#df &lt;- df %&gt;% rename(concave_points_mean = `concave points_mean`, </span>
+<span class="co">#                    concave_points_se = `concave points_se`, </span>
+<span class="co">#                    concave_points_worst = `concave points_worst`)</span></code></pre></div>
+<p>As you might have noticed, in this case and the precedent we had very little to do here. This is not usually the case.</p>
+</div>
+<div id="understand-the-data-3" class="section level2">
+<h2><span class="header-section-number">13.3</span> Understand the data</h2>
+<p>This is the circular phase of our dealing with data. This is where each of the transforming, visualizing and modeling stage reinforce each other to create a better understanding.</p>
+<p>Check for missing values</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_int</span>(df, <span class="cf">function</span>(.x) <span class="kw">sum</span>(<span class="kw">is.na</span>(.x)))</code></pre></div>
+<pre><code>##                      id               diagnosis             radius_mean 
+##                       0                       0                       0 
+##            texture_mean          perimeter_mean               area_mean 
+##                       0                       0                       0 
+##         smoothness_mean        compactness_mean          concavity_mean 
+##                       0                       0                       0 
+##     concave_points_mean           symmetry_mean  fractal_dimension_mean 
+##                       0                       0                       0 
+##               radius_se              texture_se            perimeter_se 
+##                       0                       0                       0 
+##                 area_se           smoothness_se          compactness_se 
+##                       0                       0                       0 
+##            concavity_se       concave_points_se             symmetry_se 
+##                       0                       0                       0 
+##    fractal_dimension_se            radius_worst           texture_worst 
+##                       0                       0                       0 
+##         perimeter_worst              area_worst        smoothness_worst 
+##                       0                       0                       0 
+##       compactness_worst         concavity_worst    concave_points_worst 
+##                       0                       0                       0 
+##          symmetry_worst fractal_dimension_worst 
+##                       0                       0</code></pre>
+<p>Good news, there are no missing values.</p>
+<p>In the case that there would be many missing values, we would go on the transforming data for some appropriate imputation.</p>
+<p>Let’s check how balanced is our response variable</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df<span class="op">$</span>diagnosis)), <span class="dv">2</span>)</code></pre></div>
+<pre><code>## 
+##    B    M 
+## 0.63 0.37</code></pre>
+<p>The response variable is slightly unbalanced.</p>
+<p>Let’s look for correlation in the variables. Most ML algorithms assumed that the predictor variables are independent from each others.</p>
+<p>Let’s check for correlations. For an anlysis to be robust it is good to remove mutlicollinearity (aka remove highly correlated predictors)<br />
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_corr &lt;-<span class="st"> </span><span class="kw">cor</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>id, <span class="op">-</span>diagnosis))
+corrplot<span class="op">::</span><span class="kw">corrplot</span>(df_corr, <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.cex =</span> <span class="dv">1</span>, <span class="dt">addrect =</span> <span class="dv">8</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/correlation_plot-1.png" width="864" /></p>
+<p>Indeed there are quite a few variables that are correlated. On the next step, we will remove the highly correlated ones using the <code>caret</code> package.</p>
+<div id="transform-the-data-1" class="section level3">
+<h3><span class="header-section-number">13.3.1</span> Transform the data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caret)
+<span class="co"># The findcorrelation() function from caret package remove highly correlated predictors</span>
+<span class="co"># based on whose correlation is above 0.9. This function uses a heuristic algorithm </span>
+<span class="co"># to determine which variable should be removed instead of selecting blindly</span>
+df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">findCorrelation</span>(df_corr, <span class="dt">cutoff =</span> <span class="fl">0.9</span>))
+
+<span class="co">#Number of columns for our new data frame</span>
+<span class="kw">ncol</span>(df2)</code></pre></div>
+<pre><code>## [1] 22</code></pre>
+<p>So our new data frame <code>df2</code> is 10 variables shorter.</p>
+</div>
+<div id="pre-process-the-data" class="section level3">
+<h3><span class="header-section-number">13.3.2</span> Pre-process the data</h3>
+<div id="using-pca" class="section level4">
+<h4><span class="header-section-number">13.3.2.1</span> Using PCA</h4>
+<p>Let’s first go on an unsupervised analysis with a PCA analysis.<br />
+To do so, we will remove the <code>id</code> and <code>diagnosis</code> variable, then we will also scale and ceter the variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_pca_df &lt;-<span class="st"> </span><span class="kw">prcomp</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>id, <span class="op">-</span>diagnosis), <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>)
+<span class="kw">summary</span>(preproc_pca_df)</code></pre></div>
+<pre><code>## Importance of components:
+##                           PC1    PC2     PC3     PC4     PC5     PC6
+## Standard deviation     3.6444 2.3857 1.67867 1.40735 1.28403 1.09880
+## Proportion of Variance 0.4427 0.1897 0.09393 0.06602 0.05496 0.04025
+## Cumulative Proportion  0.4427 0.6324 0.72636 0.79239 0.84734 0.88759
+##                            PC7     PC8    PC9    PC10   PC11    PC12
+## Standard deviation     0.82172 0.69037 0.6457 0.59219 0.5421 0.51104
+## Proportion of Variance 0.02251 0.01589 0.0139 0.01169 0.0098 0.00871
+## Cumulative Proportion  0.91010 0.92598 0.9399 0.95157 0.9614 0.97007
+##                           PC13    PC14    PC15    PC16    PC17    PC18
+## Standard deviation     0.49128 0.39624 0.30681 0.28260 0.24372 0.22939
+## Proportion of Variance 0.00805 0.00523 0.00314 0.00266 0.00198 0.00175
+## Cumulative Proportion  0.97812 0.98335 0.98649 0.98915 0.99113 0.99288
+##                           PC19    PC20   PC21    PC22    PC23   PC24
+## Standard deviation     0.22244 0.17652 0.1731 0.16565 0.15602 0.1344
+## Proportion of Variance 0.00165 0.00104 0.0010 0.00091 0.00081 0.0006
+## Cumulative Proportion  0.99453 0.99557 0.9966 0.99749 0.99830 0.9989
+##                           PC25    PC26    PC27    PC28    PC29    PC30
+## Standard deviation     0.12442 0.09043 0.08307 0.03987 0.02736 0.01153
+## Proportion of Variance 0.00052 0.00027 0.00023 0.00005 0.00002 0.00000
+## Cumulative Proportion  0.99942 0.99969 0.99992 0.99997 1.00000 1.00000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the proportion of variance explained</span>
+pca_df_var &lt;-<span class="st"> </span>preproc_pca_df<span class="op">$</span>sdev<span class="op">^</span><span class="dv">2</span>
+pve_df &lt;-<span class="st"> </span>pca_df_var <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pca_df_var)
+cum_pve &lt;-<span class="st"> </span><span class="kw">cumsum</span>(pve_df)
+pve_table &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">comp =</span> <span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>id, <span class="op">-</span>diagnosis))), pve_df, cum_pve)
+
+<span class="kw">ggplot</span>(pve_table, <span class="kw">aes</span>(<span class="dt">x =</span> comp, <span class="dt">y =</span> cum_pve)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">0.95</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">slope =</span> <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Number of components&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cumulative Variance&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/cumulative_variance-1.png" width="672" /></p>
+<p>With the original dataset, 95% of the variance is explained with 10 PC’s.</p>
+<p>Let’s check on the most influential variables for the first 2 components</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_df &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(preproc_pca_df<span class="op">$</span>x)
+
+<span class="kw">ggplot</span>(pca_df, <span class="kw">aes</span>(<span class="dt">x =</span> PC1, <span class="dt">y =</span> PC2, <span class="dt">col =</span> df<span class="op">$</span>diagnosis)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/breastcancer06-1.png" width="672" /></p>
+<p>It does look like the first 2 components managed to separate the diagnosis quite well. Lots of potential here.</p>
+<p>If we want to get a more detailled analysis of what variables are the most influential in the first 2 components, we can use the <code>ggfortify</code> library.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggfortify)
+<span class="kw">autoplot</span>(preproc_pca_df, <span class="dt">data =</span> df,  <span class="dt">colour =</span> <span class="st">&#39;diagnosis&#39;</span>,
+                    <span class="dt">loadings =</span> <span class="ot">FALSE</span>, <span class="dt">loadings.label =</span> <span class="ot">TRUE</span>, <span class="dt">loadings.colour =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/pc1vspc2-1.png" width="672" /></p>
+<p>Let’s visuzalize the first 3 components.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_pcs &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">as_tibble</span>(df<span class="op">$</span>diagnosis), <span class="kw">as_tibble</span>(preproc_pca_df<span class="op">$</span>x))
+GGally<span class="op">::</span><span class="kw">ggpairs</span>(df_pcs, <span class="dt">columns =</span> <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>, ggplot2<span class="op">::</span><span class="kw">aes</span>(<span class="dt">color =</span> value))</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/pc123_in_pairs-1.png" width="672" /></p>
+<p>Let’s do the same exercise with our second df, the one where we removed the highly correlated predictors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_pca_df2 &lt;-<span class="st"> </span><span class="kw">prcomp</span>(df2, <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>)
+<span class="kw">summary</span>(preproc_pca_df2)</code></pre></div>
+<pre><code>## Importance of components:
+##                           PC1    PC2     PC3     PC4     PC5     PC6
+## Standard deviation     3.2051 2.1175 1.46634 1.09037 0.95215 0.90087
+## Proportion of Variance 0.4669 0.2038 0.09773 0.05404 0.04121 0.03689
+## Cumulative Proportion  0.4669 0.6707 0.76847 0.82251 0.86372 0.90061
+##                            PC7     PC8    PC9    PC10    PC11    PC12
+## Standard deviation     0.77121 0.56374 0.5530 0.51130 0.45605 0.36602
+## Proportion of Variance 0.02703 0.01445 0.0139 0.01188 0.00945 0.00609
+## Cumulative Proportion  0.92764 0.94209 0.9560 0.96787 0.97732 0.98341
+##                           PC13    PC14   PC15   PC16    PC17   PC18   PC19
+## Standard deviation     0.31602 0.28856 0.2152 0.2098 0.16346 0.1558 0.1486
+## Proportion of Variance 0.00454 0.00378 0.0021 0.0020 0.00121 0.0011 0.0010
+## Cumulative Proportion  0.98795 0.99174 0.9938 0.9958 0.99706 0.9982 0.9992
+##                           PC20    PC21    PC22
+## Standard deviation     0.09768 0.08667 0.03692
+## Proportion of Variance 0.00043 0.00034 0.00006
+## Cumulative Proportion  0.99960 0.99994 1.00000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_df2_var &lt;-<span class="st"> </span>preproc_pca_df2<span class="op">$</span>sdev<span class="op">^</span><span class="dv">2</span>
+
+<span class="co"># proportion of variance explained</span>
+pve_df2 &lt;-<span class="st"> </span>pca_df2_var <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(pca_df2_var)
+cum_pve_df2 &lt;-<span class="st"> </span><span class="kw">cumsum</span>(pve_df2)
+pve_table_df2 &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">comp =</span> <span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(df2)), pve_df2, cum_pve_df2)
+
+<span class="kw">ggplot</span>(pve_table_df2, <span class="kw">aes</span>(<span class="dt">x =</span> comp, <span class="dt">y =</span> cum_pve_df2)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">0.95</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">slope =</span> <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Number of components&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Cumulative Variance&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/cumulative_variance2-1.png" width="672" /></p>
+<p>In this case, around 8 PC’s explained 95% of the variance.</p>
+</div>
+<div id="using-lda" class="section level4">
+<h4><span class="header-section-number">13.3.2.2</span> Using LDA</h4>
+<p>The advantage of using LDA is that it takes into consideration the different class.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">preproc_lda_df &lt;-<span class="st"> </span>MASS<span class="op">::</span><span class="kw">lda</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df, <span class="dt">center =</span> <span class="ot">TRUE</span>, <span class="dt">scale =</span> <span class="ot">TRUE</span>)
+preproc_lda_df</code></pre></div>
+<pre><code>## Call:
+## lda(diagnosis ~ ., data = df, center = TRUE, scale = TRUE)
+## 
+## Prior probabilities of groups:
+##         B         M 
+## 0.6274165 0.3725835 
+## 
+## Group means:
+##         id radius_mean texture_mean perimeter_mean area_mean
+## B 26543825    12.14652     17.91476       78.07541  462.7902
+## M 36818050    17.46283     21.60491      115.36538  978.3764
+##   smoothness_mean compactness_mean concavity_mean concave_points_mean
+## B      0.09247765       0.08008462     0.04605762          0.02571741
+## M      0.10289849       0.14518778     0.16077472          0.08799000
+##   symmetry_mean fractal_dimension_mean radius_se texture_se perimeter_se
+## B      0.174186             0.06286739 0.2840824   1.220380     2.000321
+## M      0.192909             0.06268009 0.6090825   1.210915     4.323929
+##    area_se smoothness_se compactness_se concavity_se concave_points_se
+## B 21.13515   0.007195902     0.02143825   0.02599674       0.009857653
+## M 72.67241   0.006780094     0.03228117   0.04182401       0.015060472
+##   symmetry_se fractal_dimension_se radius_worst texture_worst
+## B  0.02058381          0.003636051     13.37980      23.51507
+## M  0.02047240          0.004062406     21.13481      29.31821
+##   perimeter_worst area_worst smoothness_worst compactness_worst
+## B        87.00594   558.8994        0.1249595         0.1826725
+## M       141.37033  1422.2863        0.1448452         0.3748241
+##   concavity_worst concave_points_worst symmetry_worst
+## B       0.1662377           0.07444434      0.2702459
+## M       0.4506056           0.18223731      0.3234679
+##   fractal_dimension_worst
+## B              0.07944207
+## M              0.09152995
+## 
+## Coefficients of linear discriminants:
+##                                   LD1
+## id                      -2.512117e-10
+## radius_mean             -1.080876e+00
+## texture_mean             2.338408e-02
+## perimeter_mean           1.172707e-01
+## area_mean                1.595690e-03
+## smoothness_mean          5.251575e-01
+## compactness_mean        -2.094197e+01
+## concavity_mean           6.955923e+00
+## concave_points_mean      1.047567e+01
+## symmetry_mean            4.938898e-01
+## fractal_dimension_mean  -5.937663e-02
+## radius_se                2.101503e+00
+## texture_se              -3.979869e-02
+## perimeter_se            -1.121814e-01
+## area_se                 -4.083504e-03
+## smoothness_se            7.987663e+01
+## compactness_se           1.387026e-01
+## concavity_se            -1.768261e+01
+## concave_points_se        5.350520e+01
+## symmetry_se              8.143611e+00
+## fractal_dimension_se    -3.431356e+01
+## radius_worst             9.677207e-01
+## texture_worst            3.540591e-02
+## perimeter_worst         -1.204507e-02
+## area_worst              -5.012127e-03
+## smoothness_worst         2.612258e+00
+## compactness_worst        3.636892e-01
+## concavity_worst          1.880699e+00
+## concave_points_worst     2.218189e+00
+## symmetry_worst           2.783102e+00
+## fractal_dimension_worst  2.117830e+01</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Making a df out of the LDA for visualization purpose.</span>
+predict_lda_df &lt;-<span class="st"> </span><span class="kw">predict</span>(preproc_lda_df, df)<span class="op">$</span>x <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as_data_frame</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df<span class="op">$</span>diagnosis)
+
+<span class="kw">glimpse</span>(predict_lda_df)</code></pre></div>
+<pre><code>## Observations: 569
+## Variables: 2
+## $ LD1       &lt;dbl&gt; 3.3257395, 2.3298023, 3.7416859, 4.0209903, 2.275428...
+## $ diagnosis &lt;fctr&gt; M, M, M, M, M, M, M, M, M, M, M, M, M, M, M, M, M, ...</code></pre>
+</div>
+</div>
+<div id="model-the-data-1" class="section level3">
+<h3><span class="header-section-number">13.3.3</span> Model the data</h3>
+<p>Let’s first create a testing and training set using <code>caret</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1815</span>)
+df3 &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">diagnosis =</span> df<span class="op">$</span>diagnosis, df2)
+df_sampling_index &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df3<span class="op">$</span>diagnosis, <span class="dt">times =</span> <span class="dv">1</span>, <span class="dt">p =</span> <span class="fl">0.8</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
+df_training &lt;-<span class="st"> </span>df3[df_sampling_index, ]
+df_testing &lt;-<span class="st">  </span>df3[<span class="op">-</span>df_sampling_index, ]
+df_control &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,
+                           <span class="dt">number =</span> <span class="dv">15</span>,
+                           <span class="dt">classProbs =</span> <span class="ot">TRUE</span>,
+                           <span class="dt">summaryFunction =</span> twoClassSummary)</code></pre></div>
+<div id="logistic-regression" class="section level4">
+<h4><span class="header-section-number">13.3.3.1</span> Logistic regression</h4>
+<p>Our first model is doing logistic regression on <code>df2</code>, the data frame where we took away the highly correlated variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_logreg_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training, <span class="dt">method =</span> <span class="st">&quot;glm&quot;</span>, 
+                         <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>), 
+                         <span class="dt">trControl =</span> df_control)
+
+prediction_logreg_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_logreg_df, df_testing)
+cm_logreg_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_logreg_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_logreg_df</code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  B  M
+##          B 71  2
+##          M  0 40
+##                                           
+##                Accuracy : 0.9823          
+##                  95% CI : (0.9375, 0.9978)
+##     No Information Rate : 0.6283          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.9617          
+##  Mcnemar&#39;s Test P-Value : 0.4795          
+##                                           
+##             Sensitivity : 0.9524          
+##             Specificity : 1.0000          
+##          Pos Pred Value : 1.0000          
+##          Neg Pred Value : 0.9726          
+##              Prevalence : 0.3717          
+##          Detection Rate : 0.3540          
+##    Detection Prevalence : 0.3540          
+##       Balanced Accuracy : 0.9762          
+##                                           
+##        &#39;Positive&#39; Class : M               
+## </code></pre>
+</div>
+<div id="random-forest" class="section level4">
+<h4><span class="header-section-number">13.3.3.2</span> Random Forest</h4>
+<p>Our second model uses random forest. Similarly, we using the <code>df2</code> data frame, the one where we took away the highly correlated variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_rf_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training,
+                     <span class="dt">method =</span> <span class="st">&quot;rf&quot;</span>, 
+                     <span class="dt">metric =</span> <span class="st">&#39;ROC&#39;</span>, 
+                     <span class="dt">trControl =</span> df_control)
+
+prediction_rf_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_rf_df, df_testing)
+cm_rf_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_rf_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_rf_df</code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  B  M
+##          B 71  3
+##          M  0 39
+##                                           
+##                Accuracy : 0.9735          
+##                  95% CI : (0.9244, 0.9945)
+##     No Information Rate : 0.6283          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.9423          
+##  Mcnemar&#39;s Test P-Value : 0.2482          
+##                                           
+##             Sensitivity : 0.9286          
+##             Specificity : 1.0000          
+##          Pos Pred Value : 1.0000          
+##          Neg Pred Value : 0.9595          
+##              Prevalence : 0.3717          
+##          Detection Rate : 0.3451          
+##    Detection Prevalence : 0.3451          
+##       Balanced Accuracy : 0.9643          
+##                                           
+##        &#39;Positive&#39; Class : M               
+## </code></pre>
+<p>Let’s make some diagnostic plots.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_rf_df)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/randomforest_model_plot-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_rf_df<span class="op">$</span>finalModel)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/randomforest_model_plot-2.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">varImpPlot</span>(model_rf_df<span class="op">$</span>finalModel, <span class="dt">sort =</span> <span class="ot">TRUE</span>, 
+           <span class="dt">n.var =</span> <span class="dv">10</span>, <span class="dt">main =</span> <span class="st">&quot;The 10 variables with the most predictive power&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/randomforest_model_plot-3.png" width="672" /></p>
+</div>
+<div id="knn" class="section level4">
+<h4><span class="header-section-number">13.3.3.3</span> KNN</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_knn_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training, 
+                      <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>, 
+                      <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
+                      <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>), 
+                      <span class="dt">trControl =</span> df_control, 
+                      <span class="dt">tuneLength =</span><span class="dv">31</span>)
+
+<span class="kw">plot</span>(model_knn_df)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/breastcancer11-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction_knn_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_knn_df, df_testing)
+cm_knn_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_knn_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_knn_df</code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  B  M
+##          B 70  6
+##          M  1 36
+##                                           
+##                Accuracy : 0.9381          
+##                  95% CI : (0.8765, 0.9747)
+##     No Information Rate : 0.6283          
+##     P-Value [Acc &gt; NIR] : 1.718e-14       
+##                                           
+##                   Kappa : 0.8641          
+##  Mcnemar&#39;s Test P-Value : 0.1306          
+##                                           
+##             Sensitivity : 0.8571          
+##             Specificity : 0.9859          
+##          Pos Pred Value : 0.9730          
+##          Neg Pred Value : 0.9211          
+##              Prevalence : 0.3717          
+##          Detection Rate : 0.3186          
+##    Detection Prevalence : 0.3274          
+##       Balanced Accuracy : 0.9215          
+##                                           
+##        &#39;Positive&#39; Class : M               
+## </code></pre>
+</div>
+<div id="support-vector-machine" class="section level4">
+<h4><span class="header-section-number">13.3.3.4</span> Support Vector Machine</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1815</span>)
+model_svm_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> df_training, <span class="dt">method =</span> <span class="st">&quot;svmLinear&quot;</span>, 
+                      <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
+                      <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;scale&quot;</span>, <span class="st">&quot;center&quot;</span>), 
+                      <span class="dt">trace =</span> <span class="ot">FALSE</span>, 
+                      <span class="dt">trControl =</span> df_control)
+
+prediction_svm_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_svm_df, df_testing)
+cm_svm_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_svm_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_svm_df</code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  B  M
+##          B 71  2
+##          M  0 40
+##                                           
+##                Accuracy : 0.9823          
+##                  95% CI : (0.9375, 0.9978)
+##     No Information Rate : 0.6283          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.9617          
+##  Mcnemar&#39;s Test P-Value : 0.4795          
+##                                           
+##             Sensitivity : 0.9524          
+##             Specificity : 1.0000          
+##          Pos Pred Value : 1.0000          
+##          Neg Pred Value : 0.9726          
+##              Prevalence : 0.3717          
+##          Detection Rate : 0.3540          
+##    Detection Prevalence : 0.3540          
+##       Balanced Accuracy : 0.9762          
+##                                           
+##        &#39;Positive&#39; Class : M               
+## </code></pre>
+<p>This is is an OK model.<br />
+I am wondering though if we could achieve better results with SVM when doing it on the PCA data set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1815</span>)
+df_control_pca &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method=</span><span class="st">&quot;cv&quot;</span>,
+                              <span class="dt">number =</span> <span class="dv">15</span>,
+                              <span class="dt">preProcOptions =</span> <span class="kw">list</span>(<span class="dt">thresh =</span> <span class="fl">0.9</span>), <span class="co"># threshold for pca preprocess</span>
+                              <span class="dt">classProbs =</span> <span class="ot">TRUE</span>,
+                              <span class="dt">summaryFunction =</span> twoClassSummary)
+
+model_svm_pca_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis<span class="op">~</span>.,
+                          df_training, <span class="dt">method =</span> <span class="st">&quot;svmLinear&quot;</span>, <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
+                          <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&#39;center&#39;</span>, <span class="st">&#39;scale&#39;</span>, <span class="st">&quot;pca&quot;</span>), 
+                          <span class="dt">trControl =</span> df_control_pca)
+
+prediction_svm_pca_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_svm_pca_df, df_testing)
+cm_svm_pca_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_svm_pca_df, df_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_svm_pca_df</code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  B  M
+##          B 70  2
+##          M  1 40
+##                                           
+##                Accuracy : 0.9735          
+##                  95% CI : (0.9244, 0.9945)
+##     No Information Rate : 0.6283          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.9429          
+##  Mcnemar&#39;s Test P-Value : 1               
+##                                           
+##             Sensitivity : 0.9524          
+##             Specificity : 0.9859          
+##          Pos Pred Value : 0.9756          
+##          Neg Pred Value : 0.9722          
+##              Prevalence : 0.3717          
+##          Detection Rate : 0.3540          
+##    Detection Prevalence : 0.3628          
+##       Balanced Accuracy : 0.9691          
+##                                           
+##        &#39;Positive&#39; Class : M               
+## </code></pre>
+<p>That’s already better. The treshold parameter is what we needed to play with.</p>
+</div>
+<div id="neural-network-with-lda" class="section level4">
+<h4><span class="header-section-number">13.3.3.5</span> Neural Network with LDA</h4>
+<p>To use the LDA pre-processing step, we need to also create the same training and testing set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lda_training &lt;-<span class="st"> </span>predict_lda_df[df_sampling_index, ]
+lda_testing &lt;-<span class="st"> </span>predict_lda_df[<span class="op">-</span>df_sampling_index, ]
+model_nnetlda_df &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., lda_training, 
+                          <span class="dt">method =</span> <span class="st">&quot;nnet&quot;</span>, 
+                          <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>, 
+                          <span class="dt">preProcess =</span> <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>), 
+                          <span class="dt">tuneLength =</span> <span class="dv">10</span>, 
+                          <span class="dt">trace =</span> <span class="ot">FALSE</span>, 
+                          <span class="dt">trControl =</span> df_control)
+
+prediction_nnetlda_df &lt;-<span class="st"> </span><span class="kw">predict</span>(model_nnetlda_df, lda_testing)
+cm_nnetlda_df &lt;-<span class="st"> </span><span class="kw">confusionMatrix</span>(prediction_nnetlda_df, lda_testing<span class="op">$</span>diagnosis, <span class="dt">positive =</span> <span class="st">&quot;M&quot;</span>)
+cm_nnetlda_df</code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  B  M
+##          B 71  1
+##          M  0 41
+##                                           
+##                Accuracy : 0.9912          
+##                  95% CI : (0.9517, 0.9998)
+##     No Information Rate : 0.6283          
+##     P-Value [Acc &gt; NIR] : &lt;2e-16          
+##                                           
+##                   Kappa : 0.981           
+##  Mcnemar&#39;s Test P-Value : 1               
+##                                           
+##             Sensitivity : 0.9762          
+##             Specificity : 1.0000          
+##          Pos Pred Value : 1.0000          
+##          Neg Pred Value : 0.9861          
+##              Prevalence : 0.3717          
+##          Detection Rate : 0.3628          
+##    Detection Prevalence : 0.3628          
+##       Balanced Accuracy : 0.9881          
+##                                           
+##        &#39;Positive&#39; Class : M               
+## </code></pre>
+</div>
+<div id="models-evaluation" class="section level4">
+<h4><span class="header-section-number">13.3.3.6</span> Models evaluation</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">logisic =</span> model_logreg_df, <span class="dt">rf =</span> model_rf_df, 
+                   <span class="dt">svm =</span> model_svm_df, <span class="dt">SVM_with_PCA =</span> model_svm_pca_df,  
+                   <span class="dt">Neural_with_LDA =</span> model_nnetlda_df)
+results &lt;-<span class="st"> </span><span class="kw">resamples</span>(model_list)
+
+<span class="kw">summary</span>(results)</code></pre></div>
+<pre><code>## 
+## Call:
+## summary.resamples(object = results)
+## 
+## Models: logisic, rf, svm, SVM_with_PCA, Neural_with_LDA 
+## Number of resamples: 15 
+## 
+## ROC 
+##                      Min.   1st Qu. Median      Mean 3rd Qu. Max. NA&#39;s
+## logisic         0.8827751 0.9660088      1 0.9744418       1    1    0
+## rf              0.9497608 0.9808612      1 0.9889952       1    1    0
+## svm             0.9545455 0.9884370      1 0.9928761       1    1    0
+## SVM_with_PCA    0.9409091 0.9952153      1 0.9932430       1    1    0
+## Neural_with_LDA 0.9692982 0.9976077      1 0.9954014       1    1    0
+## 
+## Sens 
+##                      Min.   1st Qu.    Median      Mean 3rd Qu. Max. NA&#39;s
+## logisic         0.8947368 0.9473684 0.9473684 0.9615789       1    1    0
+## rf              0.8947368 0.9473684 1.0000000 0.9721053       1    1    0
+## svm             0.9473684 1.0000000 1.0000000 0.9929825       1    1    0
+## SVM_with_PCA    0.9473684 1.0000000 1.0000000 0.9894737       1    1    0
+## Neural_with_LDA 0.8947368 1.0000000 1.0000000 0.9859649       1    1    0
+## 
+## Spec 
+##                      Min.   1st Qu.    Median      Mean 3rd Qu. Max. NA&#39;s
+## logisic         0.8181818 0.9128788 1.0000000 0.9530303       1    1    0
+## rf              0.6363636 0.9090909 0.9090909 0.9095960       1    1    0
+## svm             0.8181818 0.9090909 0.9166667 0.9343434       1    1    0
+## SVM_with_PCA    0.8181818 0.9090909 1.0000000 0.9580808       1    1    0
+## Neural_with_LDA 0.8181818 0.9128788 1.0000000 0.9525253       1    1    0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">bwplot</span>(results, <span class="dt">metric =</span> <span class="st">&quot;ROC&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/model_evaluation_plot-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#dotplot(results)</span></code></pre></div>
+<p>The logistic has to much variability for it to be reliable. The Random Forest and Neural Network with LDA pre-processing are giving the best results. The ROC metric measure the auc of the roc curve of each model. This metric is independent of any threshold. Let’s remember how these models result with the testing dataset. Prediction classes are obtained by default with a threshold of 0.5 which could not be the best with an unbalanced dataset like this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cm_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">cm_rf =</span> cm_rf_df, <span class="dt">cm_svm =</span> cm_svm_df, 
+                   <span class="dt">cm_logisic =</span> cm_logreg_df, <span class="dt">cm_nnet_LDA =</span> cm_nnetlda_df)
+results &lt;-<span class="st"> </span><span class="kw">map_df</span>(cm_list, <span class="cf">function</span>(x) x<span class="op">$</span>byClass) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">stat =</span> <span class="kw">names</span>(cm_rf_df<span class="op">$</span>byClass))
+
+results</code></pre></div>
+<pre><code>## # A tibble: 11 x 5
+##        cm_rf    cm_svm cm_logisic cm_nnet_LDA                 stat
+##        &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;                &lt;chr&gt;
+##  1 0.9285714 0.9523810  0.9523810   0.9761905          Sensitivity
+##  2 1.0000000 1.0000000  1.0000000   1.0000000          Specificity
+##  3 1.0000000 1.0000000  1.0000000   1.0000000       Pos Pred Value
+##  4 0.9594595 0.9726027  0.9726027   0.9861111       Neg Pred Value
+##  5 1.0000000 1.0000000  1.0000000   1.0000000            Precision
+##  6 0.9285714 0.9523810  0.9523810   0.9761905               Recall
+##  7 0.9629630 0.9756098  0.9756098   0.9879518                   F1
+##  8 0.3716814 0.3716814  0.3716814   0.3716814           Prevalence
+##  9 0.3451327 0.3539823  0.3539823   0.3628319       Detection Rate
+## 10 0.3451327 0.3539823  0.3539823   0.3628319 Detection Prevalence
+## 11 0.9642857 0.9761905  0.9761905   0.9880952    Balanced Accuracy</code></pre>
+<p>The best results for sensitivity (detection of breast cases) is LDA_NNET which also has a great F1 score.</p>
+</div>
+</div>
+</div>
+<div id="references-5" class="section level2">
+<h2><span class="header-section-number">13.4</span> References</h2>
+<p>A useful popular kernel on this dataset on <a href="https://www.kaggle.com/lbronchal/breast-cancer-dataset-analysis">Kaggle</a> Another one, also on <a href="https://www.kaggle.com/sonicboom8/breast-cancer-data-with-logistic-randomforest">Kaggle</a> And <a href="https://www.kaggle.com/murnix/cluster-rf-boosting-svm-accuracy-97-auc-0-96/notebook">another one</a>, especially nice to compare models.</p>
+
+
+</div>
+</div>
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mushroom.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/22-breast_cancer.Rmd",
+"text": "Suggest edit to this page"
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

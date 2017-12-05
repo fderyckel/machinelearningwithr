@@ -25,14 +25,14 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-11-19">
+<meta name="date" content="2017-12-05">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="softmax-and-multinomial-regressions.html">
+<link rel="prev" href="gradient-descent.html">
 <link rel="next" href="principal-component-analysis.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -113,14 +113,18 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="2.1.2" data-path="testinference.html"><a href="testinference.html#normality-tests"><i class="fa fa-check"></i><b>2.1.2</b> Normality tests</a></li>
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="testinference.html"><a href="testinference.html#ttest"><i class="fa fa-check"></i><b>2.2</b> T-tests</a></li>
+<li class="chapter" data-level="2.3" data-path="testinference.html"><a href="testinference.html#anova---analyse-of-variance."><i class="fa fa-check"></i><b>2.3</b> ANOVA - Analyse of variance.</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Multiple Linear Regression</a><ul>
-<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price"><i class="fa fa-check"></i><b>3.1.1</b> First example. Predicting wine price</a></li>
-</ul></li>
+<li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Single &amp; Multiple Linear Regression</a><ul>
+<li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a></li>
 <li class="chapter" data-level="3.2" data-path="mlr.html"><a href="mlr.html#multi-variables-regression"><i class="fa fa-check"></i><b>3.2</b> Multi-variables regression</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#first-example.-predicting-wine-price-1"><i class="fa fa-check"></i><b>3.2.1</b> First example. Predicting wine price</a></li>
+<li class="chapter" data-level="3.2.1" data-path="mlr.html"><a href="mlr.html#predicting-wine-price-again"><i class="fa fa-check"></i><b>3.2.1</b> Predicting wine price (again!)</a></li>
 </ul></li>
+<li class="chapter" data-level="3.3" data-path="mlr.html"><a href="mlr.html#model-diagnostic-and-evaluation"><i class="fa fa-check"></i><b>3.3</b> Model diagnostic and evaluation</a></li>
+<li class="chapter" data-level="3.4" data-path="mlr.html"><a href="mlr.html#final-example---boston-dataset---with-backward-elimination"><i class="fa fa-check"></i><b>3.4</b> Final example - Boston dataset - with backward elimination</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="mlr.html"><a href="mlr.html#model-diagmostic"><i class="fa fa-check"></i><b>3.4.1</b> Model diagmostic</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="mlr.html"><a href="mlr.html#references"><i class="fa fa-check"></i><b>3.5</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="logistic.html"><a href="logistic.html"><i class="fa fa-check"></i><b>4</b> Logistic Regression</a><ul>
 <li class="chapter" data-level="4.1" data-path="logistic.html"><a href="logistic.html#introduction"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
@@ -133,69 +137,73 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="4.6.2" data-path="logistic.html"><a href="logistic.html#imputting-missing-values"><i class="fa fa-check"></i><b>4.6.2</b> Imputting Missing Values</a></li>
 <li class="chapter" data-level="4.6.3" data-path="logistic.html"><a href="logistic.html#roc-and-auc"><i class="fa fa-check"></i><b>4.6.3</b> ROC and AUC</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="logistic.html"><a href="logistic.html#references"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
+<li class="chapter" data-level="4.7" data-path="logistic.html"><a href="logistic.html#references-1"><i class="fa fa-check"></i><b>4.7</b> References</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html"><i class="fa fa-check"></i><b>5</b> Softmax and multinomial regressions</a><ul>
 <li class="chapter" data-level="5.1" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#multinomial-logistic-regression"><i class="fa fa-check"></i><b>5.1</b> Multinomial Logistic Regression</a></li>
-<li class="chapter" data-level="5.2" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#references-1"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
+<li class="chapter" data-level="5.2" data-path="softmax-and-multinomial-regressions.html"><a href="softmax-and-multinomial-regressions.html#references-2"><i class="fa fa-check"></i><b>5.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="knnchapter.html"><a href="knnchapter.html"><i class="fa fa-check"></i><b>6</b> KNN - K Nearest Neighbour</a><ul>
-<li class="chapter" data-level="6.1" data-path="knnchapter.html"><a href="knnchapter.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>6.1</b> Example 1. Prostate Cancer dataset</a></li>
-<li class="chapter" data-level="6.2" data-path="knnchapter.html"><a href="knnchapter.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>6.2</b> Example 2. Wine dataset</a><ul>
-<li class="chapter" data-level="6.2.1" data-path="knnchapter.html"><a href="knnchapter.html#understand-the-data"><i class="fa fa-check"></i><b>6.2.1</b> Understand the data</a></li>
+<li class="chapter" data-level="6" data-path="gradient-descent.html"><a href="gradient-descent.html"><i class="fa fa-check"></i><b>6</b> Gradient Descent</a><ul>
+<li class="chapter" data-level="6.1" data-path="gradient-descent.html"><a href="gradient-descent.html#example-on-functions"><i class="fa fa-check"></i><b>6.1</b> Example on functions</a></li>
+<li class="chapter" data-level="6.2" data-path="gradient-descent.html"><a href="gradient-descent.html#example-on-regressions"><i class="fa fa-check"></i><b>6.2</b> Example on regressions</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="knnchapter.html"><a href="knnchapter.html#references-2"><i class="fa fa-check"></i><b>6.3</b> References</a></li>
+<li class="chapter" data-level="7" data-path="knnchapter.html"><a href="knnchapter.html"><i class="fa fa-check"></i><b>7</b> KNN - K Nearest Neighbour</a><ul>
+<li class="chapter" data-level="7.1" data-path="knnchapter.html"><a href="knnchapter.html#example-1.-prostate-cancer-dataset"><i class="fa fa-check"></i><b>7.1</b> Example 1. Prostate Cancer dataset</a></li>
+<li class="chapter" data-level="7.2" data-path="knnchapter.html"><a href="knnchapter.html#example-2.-wine-dataset"><i class="fa fa-check"></i><b>7.2</b> Example 2. Wine dataset</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="knnchapter.html"><a href="knnchapter.html#understand-the-data"><i class="fa fa-check"></i><b>7.2.1</b> Understand the data</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>7</b> Principal Component Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>7.1</b> PCA on an easy example.</a></li>
-<li class="chapter" data-level="7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>7.2</b> References.</a></li>
+<li class="chapter" data-level="7.3" data-path="knnchapter.html"><a href="knnchapter.html#references-3"><i class="fa fa-check"></i><b>7.3</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>8</b> Trees, Random forests and Classification</a><ul>
-<li class="chapter" data-level="8.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
-<li class="chapter" data-level="8.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>8.2</b> First example.</a></li>
-<li class="chapter" data-level="8.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>8.3</b> Second Example.</a></li>
-<li class="chapter" data-level="8.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>8.4</b> How does a tree decide where to split?</a></li>
-<li class="chapter" data-level="8.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>8.5</b> Third example.</a></li>
-<li class="chapter" data-level="8.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-3"><i class="fa fa-check"></i><b>8.6</b> References</a></li>
+<li class="chapter" data-level="8" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>8.1</b> PCA on an easy example.</a></li>
+<li class="chapter" data-level="8.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>8.2</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>9</b> Model Evaluation</a><ul>
-<li class="chapter" data-level="9.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Biais variance tradeoff</a></li>
-<li class="chapter" data-level="9.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>9.2</b> Bagging</a></li>
-<li class="chapter" data-level="9.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>9.3</b> Cross Validation</a></li>
+<li class="chapter" data-level="9" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>9</b> Trees, Random forests and Classification</a><ul>
+<li class="chapter" data-level="9.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>9.2</b> First example.</a></li>
+<li class="chapter" data-level="9.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>9.3</b> Second Example.</a></li>
+<li class="chapter" data-level="9.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>9.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="9.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>9.5</b> Third example.</a></li>
+<li class="chapter" data-level="9.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-4"><i class="fa fa-check"></i><b>9.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html"><i class="fa fa-check"></i><b>10</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
-<li class="chapter" data-level="10.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#import-the-data."><i class="fa fa-check"></i><b>10.1</b> Import the data.</a></li>
-<li class="chapter" data-level="10.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>10.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="10.3" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>10.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="10.3.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>10.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="10.3.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>10.3.2</b> A. Vizualize with families.</a></li>
+<li class="chapter" data-level="10" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>10</b> Model Evaluation</a><ul>
+<li class="chapter" data-level="10.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>10.1</b> Biais variance tradeoff</a></li>
+<li class="chapter" data-level="10.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>10.2</b> Bagging</a></li>
+<li class="chapter" data-level="10.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>10.3</b> Cross Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>10.4</b> A. Visualize with cabins.</a></li>
-<li class="chapter" data-level="10.5" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>10.5</b> B. Transform Dealing with missing data.</a><ul>
-<li class="chapter" data-level="10.5.1" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#overview."><i class="fa fa-check"></i><b>10.5.1</b> Overview.</a></li>
-<li class="chapter" data-level="10.5.2" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>10.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+<li class="chapter" data-level="11" data-path="titanic.html"><a href="titanic.html"><i class="fa fa-check"></i><b>11</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
+<li class="chapter" data-level="11.1" data-path="titanic.html"><a href="titanic.html#import-the-data."><i class="fa fa-check"></i><b>11.1</b> Import the data.</a></li>
+<li class="chapter" data-level="11.2" data-path="titanic.html"><a href="titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="11.3" data-path="titanic.html"><a href="titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="11.3.1" data-path="titanic.html"><a href="titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> A. Transform the data</a></li>
+<li class="chapter" data-level="11.3.2" data-path="titanic.html"><a href="titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>11.3.2</b> A. Vizualize with families.</a></li>
 </ul></li>
-<li class="chapter" data-level="10.6" data-path="case-study-predicting-survivalship-on-the-titanic.html"><a href="case-study-predicting-survivalship-on-the-titanic.html#references.-1"><i class="fa fa-check"></i><b>10.6</b> References.</a></li>
+<li class="chapter" data-level="11.4" data-path="titanic.html"><a href="titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>11.4</b> A. Visualize with cabins.</a></li>
+<li class="chapter" data-level="11.5" data-path="titanic.html"><a href="titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>11.5</b> B. Transform Dealing with missing data.</a><ul>
+<li class="chapter" data-level="11.5.1" data-path="titanic.html"><a href="titanic.html#overview."><i class="fa fa-check"></i><b>11.5.1</b> Overview.</a></li>
+<li class="chapter" data-level="11.5.2" data-path="titanic.html"><a href="titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>11.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html"><i class="fa fa-check"></i><b>11</b> Case Study - Mushrooms Classification</a><ul>
-<li class="chapter" data-level="11.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#import-the-data"><i class="fa fa-check"></i><b>11.1</b> Import the data</a></li>
-<li class="chapter" data-level="11.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#tidy-the-data-1"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="11.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#understand-the-data-2"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="11.3.2" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#visualize-the-data"><i class="fa fa-check"></i><b>11.3.2</b> Visualize the data</a></li>
-<li class="chapter" data-level="11.3.3" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#modeling"><i class="fa fa-check"></i><b>11.3.3</b> Modeling</a></li>
+<li class="chapter" data-level="11.6" data-path="titanic.html"><a href="titanic.html#references.-1"><i class="fa fa-check"></i><b>11.6</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="case-study-mushrooms-classification.html"><a href="case-study-mushrooms-classification.html#communication"><i class="fa fa-check"></i><b>11.4</b> Communication</a></li>
+<li class="chapter" data-level="12" data-path="mushroom.html"><a href="mushroom.html"><i class="fa fa-check"></i><b>12</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="12.1" data-path="mushroom.html"><a href="mushroom.html#import-the-data"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
+<li class="chapter" data-level="12.2" data-path="mushroom.html"><a href="mushroom.html#tidy-the-data-1"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="12.3" data-path="mushroom.html"><a href="mushroom.html#understand-the-data-2"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="12.3.1" data-path="mushroom.html"><a href="mushroom.html#transform-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="12.3.2" data-path="mushroom.html"><a href="mushroom.html#visualize-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="12.3.3" data-path="mushroom.html"><a href="mushroom.html#modeling"><i class="fa fa-check"></i><b>12.3.3</b> Modeling</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html"><i class="fa fa-check"></i><b>12</b> Case Study - Wisconsin Breast Cancer</a><ul>
-<li class="chapter" data-level="12.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#import-the-data-1"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
-<li class="chapter" data-level="12.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="12.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="12.3.2" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Pre-process the data</a></li>
-<li class="chapter" data-level="12.3.3" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#model-the-data-1"><i class="fa fa-check"></i><b>12.3.3</b> Model the data</a></li>
+<li class="chapter" data-level="12.4" data-path="mushroom.html"><a href="mushroom.html#communication"><i class="fa fa-check"></i><b>12.4</b> Communication</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="case-study-wisconsin-breast-cancer.html"><a href="case-study-wisconsin-breast-cancer.html#references-4"><i class="fa fa-check"></i><b>12.4</b> References</a></li>
+<li class="chapter" data-level="13" data-path="breastcancer.html"><a href="breastcancer.html"><i class="fa fa-check"></i><b>13</b> Case Study - Wisconsin Breast Cancer</a><ul>
+<li class="chapter" data-level="13.1" data-path="breastcancer.html"><a href="breastcancer.html#import-the-data-1"><i class="fa fa-check"></i><b>13.1</b> Import the data</a></li>
+<li class="chapter" data-level="13.2" data-path="breastcancer.html"><a href="breastcancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>13.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="13.3" data-path="breastcancer.html"><a href="breastcancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>13.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="13.3.1" data-path="breastcancer.html"><a href="breastcancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>13.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="13.3.2" data-path="breastcancer.html"><a href="breastcancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>13.3.2</b> Pre-process the data</a></li>
+<li class="chapter" data-level="13.3.3" data-path="breastcancer.html"><a href="breastcancer.html#model-the-data-1"><i class="fa fa-check"></i><b>13.3.3</b> Model the data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="breastcancer.html"><a href="breastcancer.html#references-5"><i class="fa fa-check"></i><b>13.4</b> References</a></li>
 </ul></li>
 </ul>
 
@@ -215,17 +223,26 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="knnchapter" class="section level1">
-<h1><span class="header-section-number">Chapter 6</span> KNN - K Nearest Neighbour</h1>
+<h1><span class="header-section-number">Chapter 7</span> KNN - K Nearest Neighbour</h1>
 <p>The KNN algorithm is a robust and versatile classifier that is often used as a benchmark for more complex classifiers such as Artificial Neural Networks (ANN) and Support Vector Machines (SVM). Despite its simplicity, KNN can outperform more powerful classifiers and is used in a variety of applications.</p>
 <p>The KNN classifier is also a non parametric and instance-based learning algorithm.</p>
 <p><strong>Non-parametric</strong> means it makes no explicit assumptions about the functional form of h, avoiding the dangers of mismodeling the underlying distribution of the data. For example, suppose our data is highly non-Gaussian but the learning model we choose assumes a Gaussian form. In that case, our algorithm would make extremely poor predictions.</p>
 <p><strong>Instance-based</strong> learning means that our algorithm doesn’t explicitly learn a model (lazy learner). Instead, it chooses to memorize the training instances which are subsequently used as “knowledge” for the prediction phase. Concretely, this means that only when a query to our database is made (i.e. when we ask it to predict a label given an input), will the algorithm use the training instances to spit out an answer.</p>
 <p>It is worth noting that the minimal training phase of KNN comes both at a memory cost, since we must store a potentially huge data set, as well as a computational cost during test time since classifying a given observation requires a run down of the whole data set. Practically speaking, this is undesirable since we usually want fast responses.</p>
 <p>The principle behind KNN classifier (K-Nearest Neighbor) algorithm is to find K predefined number of training samples that are closest in the distance to a new point &amp; predict a label for our new point using these samples.</p>
-<p>When K is small, we are restraining the region of a given prediction and forcing our classifier to be “more blind” to the overall distribution. A small value for K provides the most flexible fit, which will have low bias but high variance. Graphically, our decision boundary will be more jagged. <img src="otherpics/knn01.png" alt="KNN with k = 1" /></p>
-<p>On the other hand, a higher K averages more voters in each prediction and hence is more resilient to outliers. Larger values of K will have smoother decision boundaries which means lower variance but increased bias. <img src="otherpics/knn20.png" alt="KNN with k = 20" /></p>
+<p>When K is small, we are restraining the region of a given prediction and forcing our classifier to be “more blind” to the overall distribution. A small value for K provides the most flexible fit, which will have low bias but high variance. Graphically, our decision boundary will be more jagged.</p>
+<div class="figure">
+<img src="otherpics/knn01.png" alt="KNN with k = 1" />
+<p class="caption">KNN with k = 1</p>
+</div>
+<p>On the other hand, a higher K averages more voters in each prediction and hence is more resilient to outliers. Larger values of K will have smoother decision boundaries which means lower variance but increased bias.</p>
+<div class="figure">
+<img src="otherpics/knn20.png" alt="KNN with k = 20" />
+<p class="caption">KNN with k = 20</p>
+</div>
+<p>What we are observing here is that increasing k will decrease variance and increase bias. While decreasing k will increase variance and decrease bias. Take a look at how variable the predictions are for different data sets at low k. As k increases this variability is reduced. But if we increase k too much, then we no longer follow the true boundary line and we observe high bias. This is the nature of the Bias-Variance Tradeoff.</p>
 <div id="example-1.-prostate-cancer-dataset" class="section level2">
-<h2><span class="header-section-number">6.1</span> Example 1. Prostate Cancer dataset</h2>
+<h2><span class="header-section-number">7.1</span> Example 1. Prostate Cancer dataset</h2>
 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
 df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/prostate_cancer.csv&quot;</span>)
@@ -289,7 +306,7 @@ test_df3 &lt;-<span class="st"> </span>df3_stdize[<span class="op">-</span>param
 ##    Benign Malignant 
 ##  0.382716  0.617284</code></pre>
 <p>Nice to see that the proportion of <em>Malign</em> vs <em>Benin</em> has been conserved.<br />
-  We use KNN with cross-validation (discussed in more details in this section <a href="model-evaluation.html#crossvalidation">9.3</a> to train our model.</p>
+  We use KNN with cross-validation (discussed in more details in this section <a href="model-evaluation.html#crossvalidation">10.3</a> to train our model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trnctrl_df3 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;cv&quot;</span>, <span class="dt">number =</span> <span class="dv">10</span>)
 model_knn_df3 &lt;-<span class="st"> </span><span class="kw">train</span>(diagnosis <span class="op">~</span>., <span class="dt">data =</span> train_df3, <span class="dt">method =</span> <span class="st">&quot;knn&quot;</span>, 
                        <span class="dt">trControl =</span> trnctrl_df3, 
@@ -304,23 +321,23 @@ model_knn_df3</code></pre></div>
 ## 
 ## No pre-processing
 ## Resampling: Cross-Validated (10 fold) 
-## Summary of sample sizes: 73, 73, 73, 73, 73, 72, ... 
+## Summary of sample sizes: 73, 72, 73, 73, 73, 73, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   k   Accuracy   Kappa    
-##    5  0.8041667  0.5579304
-##    7  0.8166667  0.5739011
-##    9  0.8041667  0.5436447
-##   11  0.8041667  0.5436447
-##   13  0.8166667  0.5640110
-##   15  0.7777778  0.4699026
-##   17  0.7916667  0.5075215
-##   19  0.7902778  0.4946645
-##   21  0.7777778  0.4616975
-##   23  0.7652778  0.4369356
+##    5  0.8402778  0.6306169
+##    7  0.8402778  0.6339503
+##    9  0.8527778  0.6724118
+##   11  0.8652778  0.7053788
+##   13  0.8277778  0.6257408
+##   15  0.8277778  0.6192282
+##   17  0.8277778  0.6192282
+##   19  0.8041667  0.5852645
+##   21  0.8041667  0.5688618
+##   23  0.8277778  0.6089503
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
-## The final value used for the model was k = 13.</code></pre>
+## The final value used for the model was k = 11.</code></pre>
 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_knn_df3)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/knn05-1.png" width="672" /></p>
@@ -330,31 +347,31 @@ model_knn_df3</code></pre></div>
 ## 
 ##            Reference
 ## Prediction  Benign Malignant
-##   Benign         5         0
-##   Malignant      2        12
-##                                          
-##                Accuracy : 0.8947         
-##                  95% CI : (0.6686, 0.987)
-##     No Information Rate : 0.6316         
-##     P-Value [Acc &gt; NIR] : 0.01135        
-##                                          
-##                   Kappa : 0.7595         
-##  Mcnemar&#39;s Test P-Value : 0.47950        
-##                                          
-##             Sensitivity : 1.0000         
-##             Specificity : 0.7143         
-##          Pos Pred Value : 0.8571         
-##          Neg Pred Value : 1.0000         
-##              Prevalence : 0.6316         
-##          Detection Rate : 0.6316         
-##    Detection Prevalence : 0.7368         
-##       Balanced Accuracy : 0.8571         
-##                                          
-##        &#39;Positive&#39; Class : Malignant      
+##   Benign         3         0
+##   Malignant      4        12
+##                                           
+##                Accuracy : 0.7895          
+##                  95% CI : (0.5443, 0.9395)
+##     No Information Rate : 0.6316          
+##     P-Value [Acc &gt; NIR] : 0.1149          
+##                                           
+##                   Kappa : 0.4865          
+##  Mcnemar&#39;s Test P-Value : 0.1336          
+##                                           
+##             Sensitivity : 1.0000          
+##             Specificity : 0.4286          
+##          Pos Pred Value : 0.7500          
+##          Neg Pred Value : 1.0000          
+##              Prevalence : 0.6316          
+##          Detection Rate : 0.6316          
+##    Detection Prevalence : 0.8421          
+##       Balanced Accuracy : 0.7143          
+##                                           
+##        &#39;Positive&#39; Class : Malignant       
 ## </code></pre>
 </div>
 <div id="example-2.-wine-dataset" class="section level2">
-<h2><span class="header-section-number">6.2</span> Example 2. Wine dataset</h2>
+<h2><span class="header-section-number">7.2</span> Example 2. Wine dataset</h2>
 <p> We load the dataset and do some quick cleaning</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/Wine_UCI.csv&quot;</span>, <span class="dt">col_names =</span> <span class="ot">FALSE</span>)
 <span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Origin&quot;</span>, <span class="st">&quot;Alcohol&quot;</span>, <span class="st">&quot;Malic_acid&quot;</span>, <span class="st">&quot;Ash&quot;</span>, <span class="st">&quot;Alkalinity_of_ash&quot;</span>, 
@@ -420,7 +437,7 @@ model_knn_df3</code></pre></div>
 ##  Max.   :4.000             Max.   :1680.0</code></pre>
 <p>Here we noticed that the range of values in our variable is quite wide. It means our data will need to be standardize. We also note that we no “NA” values. That’s quite a nice surprise!</p>
 <div id="understand-the-data" class="section level3">
-<h3><span class="header-section-number">6.2.1</span> Understand the data</h3>
+<h3><span class="header-section-number">7.2.1</span> Understand the data</h3>
 <p>We first slide our data in a training and testing set.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span>df
 param_split_df2 &lt;-<span class="st"> </span><span class="kw">createDataPartition</span>(df2<span class="op">$</span>Origin, <span class="dt">p =</span> <span class="fl">0.75</span>, <span class="dt">list =</span> <span class="ot">FALSE</span>)
@@ -429,7 +446,7 @@ train_df2 &lt;-<span class="st"> </span>df2[param_split_df2, ]
 test_df2 &lt;-<span class="st"> </span>df2[<span class="op">-</span>param_split_df2, ]</code></pre></div>
 <p>The great with caret is we can standardize our data in the the training phase.</p>
 <div id="model-the-data" class="section level4">
-<h4><span class="header-section-number">6.2.1.1</span> Model the data</h4>
+<h4><span class="header-section-number">7.2.1.1</span> Model the data</h4>
 <p>Let’s keep using <code>caret</code> for our training.<br />
 </p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trnctrl_df2 &lt;-<span class="st"> </span><span class="kw">trainControl</span>(<span class="dt">method =</span> <span class="st">&quot;repeatedcv&quot;</span>, <span class="dt">number =</span> <span class="dv">10</span>, <span class="dt">repeats =</span> <span class="dv">3</span>)
@@ -447,20 +464,20 @@ model_knn_df2 &lt;-<span class="st"> </span><span class="kw">train</span>(Origin
 ## 
 ## Pre-processing: centered (13), scaled (13) 
 ## Resampling: Cross-Validated (10 fold, repeated 3 times) 
-## Summary of sample sizes: 121, 120, 121, 121, 121, 122, ... 
+## Summary of sample sizes: 122, 120, 122, 121, 123, 120, ... 
 ## Resampling results across tuning parameters:
 ## 
 ##   k   Accuracy   Kappa    
-##    5  0.9568864  0.9351802
-##    7  0.9482723  0.9221412
-##    9  0.9680525  0.9518346
-##   11  0.9704029  0.9553983
-##   13  0.9634493  0.9446678
-##   15  0.9660134  0.9484699
-##   17  0.9686325  0.9526448
-##   19  0.9733944  0.9601286
-##   21  0.9655189  0.9481083
-##   23  0.9757753  0.9636909
+##    5  0.9707204  0.9557271
+##    7  0.9617521  0.9421631
+##    9  0.9582357  0.9369469
+##   11  0.9558852  0.9331935
+##   13  0.9602198  0.9397512
+##   15  0.9558303  0.9328821
+##   17  0.9711172  0.9563882
+##   19  0.9757204  0.9633610
+##   21  0.9759035  0.9635787
+##   23  0.9809035  0.9711285
 ## 
 ## Accuracy was used to select the optimal model using  the largest value.
 ## The final value used for the model was k = 23.</code></pre>
@@ -474,36 +491,36 @@ model_knn_df2 &lt;-<span class="st"> </span><span class="kw">train</span>(Origin
 ## 
 ##           Reference
 ## Prediction  1  2  3
-##          1 14  2  0
-##          2  0 15  0
+##          1 14  1  0
+##          2  0 16  0
 ##          3  0  0 12
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9535          
-##                  95% CI : (0.8419, 0.9943)
+##                Accuracy : 0.9767          
+##                  95% CI : (0.8771, 0.9994)
 ##     No Information Rate : 0.3953          
-##     P-Value [Acc &gt; NIR] : 1.02e-14        
+##     P-Value [Acc &gt; NIR] : 3.124e-16       
 ##                                           
-##                   Kappa : 0.9299          
+##                   Kappa : 0.9648          
 ##  Mcnemar&#39;s Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: 1 Class: 2 Class: 3
-## Sensitivity            1.0000   0.8824   1.0000
-## Specificity            0.9310   1.0000   1.0000
-## Pos Pred Value         0.8750   1.0000   1.0000
-## Neg Pred Value         1.0000   0.9286   1.0000
+## Sensitivity            1.0000   0.9412   1.0000
+## Specificity            0.9655   1.0000   1.0000
+## Pos Pred Value         0.9333   1.0000   1.0000
+## Neg Pred Value         1.0000   0.9630   1.0000
 ## Prevalence             0.3256   0.3953   0.2791
-## Detection Rate         0.3256   0.3488   0.2791
-## Detection Prevalence   0.3721   0.3488   0.2791
-## Balanced Accuracy      0.9655   0.9412   1.0000</code></pre>
+## Detection Rate         0.3256   0.3721   0.2791
+## Detection Prevalence   0.3488   0.3721   0.2791
+## Balanced Accuracy      0.9828   0.9706   1.0000</code></pre>
 </div>
 </div>
 </div>
-<div id="references-2" class="section level2">
-<h2><span class="header-section-number">6.3</span> References</h2>
+<div id="references-3" class="section level2">
+<h2><span class="header-section-number">7.3</span> References</h2>
 <ul>
 <li>KNN R, K-Nearest neighbor implementation in R using caret package. <a href="http://dataaspirant.com/2017/01/09/knn-implementation-r-using-caret-package/">Here</a></li>
 <li>A complete guide to KNN. <a href="https://kevinzakka.github.io/2016/07/13/k-nearest-neighbor/">Here</a></li>
@@ -516,7 +533,7 @@ model_knn_df2 &lt;-<span class="st"> </span><span class="kw">train</span>(Origin
           </div>
         </div>
       </div>
-<a href="softmax-and-multinomial-regressions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gradient-descent.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="principal-component-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -549,7 +566,7 @@ gitbook.start({
 "link": "https://github.com/fderyckel/machinelearningwithr/edit/master/07-KNN.Rmd",
 "text": "Suggest edit to this page"
 },
-"download": ["machinelearningwithR.pdf"],
+"download": null,
 "toc": {
 "collapse": "section"
 }

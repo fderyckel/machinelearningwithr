@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Softmax and multinomial regressions | Machine Learning with R</title>
+  <title>Chapter 15 Case Study - Text classification: Spam and Ham. | Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta property="og:title" content="Chapter 15 Case Study - Text classification: Spam and Ham. | Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="fderyckel/machinelearningwithr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 15 Case Study - Text classification: Spam and Ham. | Machine Learning with R" />
   
   <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="logistic.html">
-<link rel="next" href="gradient-descent.html">
+<link rel="prev" href="model-evaluation.html">
+<link rel="next" href="mushroom.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -241,24 +241,191 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="softmax-and-multinomial-regressions" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Softmax and multinomial regressions</h1>
-<div id="multinomial-logistic-regression" class="section level2">
-<h2><span class="header-section-number">5.1</span> Multinomial Logistic Regression</h2>
-</div>
-<div id="references-2" class="section level2">
-<h2><span class="header-section-number">5.2</span> References</h2>
-<p>If</p>
+<div id="case-study---text-classification-spam-and-ham." class="section level1">
+<h1><span class="header-section-number">Chapter 15</span> Case Study - Text classification: Spam and Ham.</h1>
+<p>This chapter has been inspired by the Coursera course on <a href="https://www.coursera.org/learn/ml-foundations/">Machine Learning Foundations: A Case Study Approach</a> given by Carlos Guestrin and by Emily Fox from Washington University. This course is part of the <a href="https://www.coursera.org/specializations/machine-learning">Machine Learning Specialization</a></p>
+<p>The task was to apply classfification on an Amazon review dataset. Given a review, we create a model that will decide if the review is <em>positive</em> (associated with a rating of 4 or 5) or <em>negative</em> (associate with a rating of 1 or 2). This is a supervised learning task as the grading associated with the reviews is used as the response variable.</p>
+<p>What we have done here is to create a subset of the dataset with only one product. The <em>Philips Avent Bottle</em>.</p>
+<p>As usual, let’s first load the libraries</p>
+<p>Let’s have a quick look at our data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/toyamazonPhilips.csv&quot;</span>)
+df &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(df)
+df2 &lt;-<span class="st"> </span>df[,<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>]
 
-</div>
+<span class="co">#Let&#39;s have a quick look at the reviews</span>
+<span class="kw">library</span>(pander)
+<span class="kw">pandoc.table</span>(df2[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,], 
+             <span class="dt">justify =</span> <span class="st">&#39;left&#39;</span>, <span class="dt">style =</span> <span class="st">&#39;grid&#39;</span>)</code></pre></div>
+<pre><code>## 
+## 
+## +--------------------------------+--------+
+## | review                         | rating |
+## +================================+========+
+## | I was recommended to use these | 5      |
+## | bottles by a girlfriend who    |        |
+## | had used them with her baby    |        |
+## | and sworn by them. I started   |        |
+## | with a set of 4oz bottles with |        |
+## | newborn nipples (#1) and have  |        |
+## | graduated now to the 9oz       |        |
+## | bottles with the next size up  |        |
+## | nipples (#2). I will simply    |        |
+## | buy new nipples when she&#39;s     |        |
+## | ready for the next step. I am  |        |
+## | absolutely thrilled with these |        |
+## | bottles.  I do have an         |        |
+## | occasional leak but it is      |        |
+## | always my own fault for not    |        |
+## | screwing the lid on tight      |        |
+## | enough!I have not had any      |        |
+## | problems with leaking when I   |        |
+## | have them put together         |        |
+## | correctly. They were           |        |
+## | especially good for going back |        |
+## | and forth between breast       |        |
+## | feeding and bottle feeding. My |        |
+## | now 4mos old baby never had    |        |
+## | any difficulties feeding       |        |
+## | either way and transitioned    |        |
+## | very smoothly. One reader      |        |
+## | referred to air being pushed   |        |
+## | into the bottle during feeding |        |
+## | and causing her baby to        |        |
+## | swallow air. The air wooshing  |        |
+## | in is a good thing! It         |        |
+## | prevents a vacuum from         |        |
+## | developing inside the bottle   |        |
+## | and allows the baby to         |        |
+## | continuously feed without      |        |
+## | having to stop to relieve the  |        |
+## | pressure inside the bottle.    |        |
+## | The only time I ever had any   |        |
+## | problems with mine swallowing  |        |
+## | air was when she had pretty    |        |
+## | much outgrown the newborn      |        |
+## | nipples and would try to suck  |        |
+## | too hard when she was very     |        |
+## | hungry. This was immediately   |        |
+## | corrected by buying the next   |        |
+## | size up. They&#39;re also very     |        |
+## | easy to clean and can be       |        |
+## | effectively washed in the      |        |
+## | dishwasher because of their    |        |
+## | wide neck. Regular bottles     |        |
+## | cannot. I, out of necessity,   |        |
+## | used another brand of bottle   |        |
+## | with her today at a relative&#39;s |        |
+## | house and was reminded why I   |        |
+## | like Avent bottles so much!    |        |
+## +--------------------------------+--------+
+## | If I had not been given a ton  | 2      |
+## | of Avent bottles, I would have |        |
+## | chosen some other system.  The |        |
+## | leaking is terrible!!!  You    |        |
+## | have to buy the disks          |        |
+## | separately, you should get     |        |
+## | them for free because they are |        |
+## | absolutely essential.  The     |        |
+## | only way to mix formula in the |        |
+## | bottle or transport liquid is  |        |
+## | to use the disks in the ring,  |        |
+## | then switch to the nipple when |        |
+## | you are ready to feed.  The    |        |
+## | only reason I give it a two is |        |
+## | because I do like that you can |        |
+## | pump directly into the bottle  |        |
+## | with the ISIS breast pump.     |        |
+## | And, I like the sippy cups.    |        |
+## +--------------------------------+--------+
+## | Leaks! Especially difficult to | 1      |
+## | get a tight seal if you use    |        |
+## | one hand (while holding baby). |        |
+## | A much better design is the    |        |
+## | Breast Flow Learning Curve     |        |
+## | First Years bottles. Instead   |        |
+## | buy The First Years 3pk.       |        |
+## | Breastflow 5oz. Bottles These  |        |
+## | worked much better for me.     |        |
+## +--------------------------------+--------+</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Let&#39;s see the table of ratings.  </span>
+<span class="kw">table</span>(df2<span class="op">$</span>rating)</code></pre></div>
+<pre><code>## 
+##  1  2  3  4  5 
+## 45 33 17 30 66</code></pre>
+<p>Interestingly the ratings on the Avent Bottles are quite spread on the extreme. It might be that people only write reviews if they are super excited or very frustrated with a product. Because we want this to be a binary classification exercise, we’ll do some transformation on these ratings. First we combine the positive reviews together (the 4 and 5 ratings) and the negative reviews together (the 1 and 2 ratings). Then we take out the neutral reviews.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We&#39;ll put a 1 for great reviews (4 or 5) or a 0 for bad reviews (1 or 2)</span>
+<span class="co"># We remove all the reviews that have a rating of 3</span>
+df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(rating <span class="op">!=</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">                    </span><span class="kw">mutate</span>(<span class="dt">rating_new =</span> <span class="kw">if_else</span>(rating <span class="op">&gt;=</span><span class="st"> </span><span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>))
+df_training &lt;-<span class="st">  </span>df2[<span class="dv">1</span><span class="op">:</span><span class="dv">150</span>, ]</code></pre></div>
+<p>Now we create our corpus, then tokenize it, then make it back to a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tm)
+corpus_toy &lt;-<span class="st"> </span><span class="kw">Corpus</span>(<span class="kw">VectorSource</span>(df_training<span class="op">$</span>review))
+tdm_toy &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(corpus_toy, <span class="kw">list</span>(<span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>, 
+                                               <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>))
+
+training_set_toy &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(tdm_toy)
+
+training_set_toy &lt;-<span class="st"> </span><span class="kw">cbind</span>(training_set_toy, df_training<span class="op">$</span>rating_new)
+
+<span class="kw">colnames</span>(training_set_toy)[<span class="kw">ncol</span>(training_set_toy)] &lt;-<span class="st"> &quot;y&quot;</span>
+
+training_set_toy &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(training_set_toy)
+training_set_toy<span class="op">$</span>y &lt;-<span class="st"> </span><span class="kw">as.factor</span>(training_set_toy<span class="op">$</span>y)</code></pre></div>
+<p>Now that we have our data frame ready, let’s create our model using the <code>svmLinear3</code> method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">review_toy_model &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">train</span>(y <span class="op">~</span>., <span class="dt">data =</span> training_set_toy, <span class="dt">method =</span> <span class="st">&#39;svmLinear3&#39;</span>)</code></pre></div>
+<p>Now we try our model on new review data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test_review_data &lt;-<span class="st"> </span>df2[<span class="dv">151</span><span class="op">:</span><span class="dv">174</span>, ]
+
+test_corpus &lt;-<span class="st"> </span><span class="kw">Corpus</span>(<span class="kw">VectorSource</span>(test_review_data<span class="op">$</span>review))
+test_tdm &lt;-<span class="st"> </span><span class="kw">DocumentTermMatrix</span>(test_corpus, <span class="dt">control=</span><span class="kw">list</span>(<span class="dt">dictionary =</span> <span class="kw">Terms</span>(tdm_toy)))
+test_tdm &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(test_tdm)
+
+<span class="co">#Build the prediction  </span>
+model_toy_result &lt;-<span class="st"> </span><span class="kw">predict</span>(review_toy_model, <span class="dt">newdata =</span> test_tdm)
+
+check_accuracy &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(<span class="dt">prediction =</span> model_toy_result, 
+                                      <span class="dt">rating =</span> test_review_data<span class="op">$</span>rating_new))
+
+check_accuracy &lt;-<span class="st"> </span>check_accuracy <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">prediction =</span> <span class="kw">as.integer</span>(prediction) <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+
+check_accuracy<span class="op">$</span>accuracy &lt;-<span class="st"> </span><span class="kw">if_else</span>(check_accuracy<span class="op">$</span>prediction <span class="op">==</span><span class="st"> </span>check_accuracy<span class="op">$</span>rating, <span class="dv">1</span>, <span class="dv">0</span>)
+<span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(check_accuracy<span class="op">$</span>accuracy)), <span class="dv">3</span>)</code></pre></div>
+<pre><code>## 
+##     0     1 
+## 0.208 0.792</code></pre>
+<p>Another way to deal with text classification is to use the <code>RtextTool</code> library.<br />
+We can use the same dataframe that we used in our previous method. Like before we “DocumentTermMatrix”, we create a matrix of terms</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RTextTools)
+product_review_matrix &lt;-<span class="st"> </span><span class="kw">create_matrix</span>(df2[,<span class="dv">2</span>], <span class="dt">language =</span> <span class="st">&quot;English&quot;</span>, 
+                                       <span class="dt">removeNumbers =</span> <span class="ot">TRUE</span>, 
+                                       <span class="dt">removePunctuation =</span> <span class="ot">TRUE</span>, 
+                                       <span class="dt">removeStopwords =</span> <span class="ot">FALSE</span>, <span class="dt">stemWords =</span> <span class="ot">FALSE</span>)
+
+product_review_container &lt;-<span class="st"> </span><span class="kw">create_container</span>(product_review_matrix,
+                                             df2<span class="op">$</span>rating_new, 
+                                             <span class="dt">trainSize =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">150</span>, <span class="dt">testSize =</span> <span class="dv">151</span><span class="op">:</span><span class="dv">174</span>, 
+                                             <span class="dt">virgin =</span> <span class="ot">FALSE</span>)
+
+product_review_model &lt;-<span class="st"> </span><span class="kw">train_model</span>(product_review_container, <span class="dt">algorithm =</span> <span class="st">&quot;SVM&quot;</span>)
+
+product_review_model_result &lt;-<span class="st"> </span><span class="kw">classify_model</span>(product_review_container, product_review_model)
+x &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(df2<span class="op">$</span>rating_new[<span class="dv">151</span><span class="op">:</span><span class="dv">174</span>], product_review_model_result<span class="op">$</span>SVM_LABEL))
+<span class="kw">colnames</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;actual_ratings&quot;</span>, <span class="st">&quot;predicted_ratings&quot;</span>)
+x &lt;-<span class="st"> </span>x <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">predicted_ratings =</span> predicted_ratings <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)
+<span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(x<span class="op">$</span>actual_ratings <span class="op">==</span><span class="st"> </span>x<span class="op">$</span>predicted_ratings)), <span class="dv">3</span>)</code></pre></div>
+<pre><code>## 
+## FALSE  TRUE 
+##  0.25  0.75</code></pre>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="gradient-descent.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="model-evaluation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mushroom.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -288,7 +455,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/05-softmax_multinomial.Rmd",
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/23-spam_and_ham.Rmd",
 "text": "Suggest edit to this page"
 },
 "history": {

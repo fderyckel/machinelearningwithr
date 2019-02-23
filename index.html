@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
-  <meta name="generator" content="bookdown 0.5.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
   <meta property="og:title" content="Machine Learning with R" />
   <meta property="og:type" content="book" />
@@ -25,7 +25,7 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2019-02-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="testinference.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,6 +48,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -106,6 +108,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-requisite-and-conventions"><i class="fa fa-check"></i><b>1.1</b> Pre-requisite and conventions</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.2</b> Organization</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.3</b> Packages</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="testinference.html"><a href="testinference.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
 <li class="chapter" data-level="2.1" data-path="testinference.html"><a href="testinference.html#normality"><i class="fa fa-check"></i><b>2.1</b> Assumption of normality</a><ul>
@@ -114,6 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="testinference.html"><a href="testinference.html#ttest"><i class="fa fa-check"></i><b>2.2</b> T-tests</a></li>
 <li class="chapter" data-level="2.3" data-path="testinference.html"><a href="testinference.html#anova---analyse-of-variance."><i class="fa fa-check"></i><b>2.3</b> ANOVA - Analyse of variance.</a></li>
+<li class="chapter" data-level="2.4" data-path="testinference.html"><a href="testinference.html#covariance"><i class="fa fa-check"></i><b>2.4</b> Covariance</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Single &amp; Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a></li>
@@ -154,57 +158,72 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="knnchapter.html"><a href="knnchapter.html#references-3"><i class="fa fa-check"></i><b>7.3</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principal Component Analysis</a><ul>
-<li class="chapter" data-level="8.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>8.1</b> PCA on an easy example.</a></li>
-<li class="chapter" data-level="8.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>8.2</b> References.</a></li>
+<li class="chapter" data-level="8" data-path="kmeans.html"><a href="kmeans.html"><i class="fa fa-check"></i><b>8</b> Kmeans clustering</a><ul>
+<li class="chapter" data-level="8.1" data-path="kmeans.html"><a href="kmeans.html#multinomial-logistic-regression-1"><i class="fa fa-check"></i><b>8.1</b> Multinomial Logistic Regression</a></li>
+<li class="chapter" data-level="8.2" data-path="kmeans.html"><a href="kmeans.html#references-4"><i class="fa fa-check"></i><b>8.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>9</b> Trees, Random forests and Classification</a><ul>
-<li class="chapter" data-level="9.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>9.2</b> First example.</a></li>
-<li class="chapter" data-level="9.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>9.3</b> Second Example.</a></li>
-<li class="chapter" data-level="9.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>9.4</b> How does a tree decide where to split?</a></li>
-<li class="chapter" data-level="9.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>9.5</b> Third example.</a></li>
-<li class="chapter" data-level="9.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-4"><i class="fa fa-check"></i><b>9.6</b> References</a></li>
+<li class="chapter" data-level="9" data-path="hierclust.html"><a href="hierclust.html"><i class="fa fa-check"></i><b>9</b> Hierarichal Clustering</a><ul>
+<li class="chapter" data-level="9.1" data-path="hierclust.html"><a href="hierclust.html#example-on-the-pokemon-dataset"><i class="fa fa-check"></i><b>9.1</b> Example on the Pokemon dataset</a></li>
+<li class="chapter" data-level="9.2" data-path="hierclust.html"><a href="hierclust.html#example-on-regressions-1"><i class="fa fa-check"></i><b>9.2</b> Example on regressions</a></li>
+<li class="chapter" data-level="9.3" data-path="hierclust.html"><a href="hierclust.html#references-5"><i class="fa fa-check"></i><b>9.3</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>10</b> Model Evaluation</a><ul>
-<li class="chapter" data-level="10.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>10.1</b> Biais variance tradeoff</a></li>
-<li class="chapter" data-level="10.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>10.2</b> Bagging</a></li>
-<li class="chapter" data-level="10.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>10.3</b> Cross Validation</a></li>
+<li class="chapter" data-level="10" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>10</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="10.1" data-path="pca.html"><a href="pca.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>10.1</b> PCA on an easy example.</a></li>
+<li class="chapter" data-level="10.2" data-path="pca.html"><a href="pca.html#references."><i class="fa fa-check"></i><b>10.2</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="titanic.html"><a href="titanic.html"><i class="fa fa-check"></i><b>11</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
-<li class="chapter" data-level="11.1" data-path="titanic.html"><a href="titanic.html#import-the-data."><i class="fa fa-check"></i><b>11.1</b> Import the data.</a></li>
-<li class="chapter" data-level="11.2" data-path="titanic.html"><a href="titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="11.3" data-path="titanic.html"><a href="titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="titanic.html"><a href="titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="11.3.2" data-path="titanic.html"><a href="titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>11.3.2</b> A. Vizualize with families.</a></li>
+<li class="chapter" data-level="11" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>11</b> Trees and Classification</a><ul>
+<li class="chapter" data-level="11.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="trees-and-classification.html"><a href="trees-and-classification.html#first-example."><i class="fa fa-check"></i><b>11.2</b> First example.</a></li>
+<li class="chapter" data-level="11.3" data-path="trees-and-classification.html"><a href="trees-and-classification.html#second-example."><i class="fa fa-check"></i><b>11.3</b> Second Example.</a></li>
+<li class="chapter" data-level="11.4" data-path="trees-and-classification.html"><a href="trees-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>11.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="11.5" data-path="trees-and-classification.html"><a href="trees-and-classification.html#third-example."><i class="fa fa-check"></i><b>11.5</b> Third example.</a></li>
+<li class="chapter" data-level="11.6" data-path="trees-and-classification.html"><a href="trees-and-classification.html#references-6"><i class="fa fa-check"></i><b>11.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="titanic.html"><a href="titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>11.4</b> A. Visualize with cabins.</a></li>
-<li class="chapter" data-level="11.5" data-path="titanic.html"><a href="titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>11.5</b> B. Transform Dealing with missing data.</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="titanic.html"><a href="titanic.html#overview."><i class="fa fa-check"></i><b>11.5.1</b> Overview.</a></li>
-<li class="chapter" data-level="11.5.2" data-path="titanic.html"><a href="titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>11.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+<li class="chapter" data-level="12" data-path="random-forest.html"><a href="random-forest.html"><i class="fa fa-check"></i><b>12</b> Random Forest</a><ul>
+<li class="chapter" data-level="12.1" data-path="random-forest.html"><a href="random-forest.html#how-does-it-work"><i class="fa fa-check"></i><b>12.1</b> How does it work?</a></li>
+<li class="chapter" data-level="12.2" data-path="random-forest.html"><a href="random-forest.html#references-7"><i class="fa fa-check"></i><b>12.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11.6" data-path="titanic.html"><a href="titanic.html#references.-1"><i class="fa fa-check"></i><b>11.6</b> References.</a></li>
+<li class="chapter" data-level="13" data-path="svm.html"><a href="svm.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machine</a><ul>
+<li class="chapter" data-level="13.1" data-path="svm.html"><a href="svm.html#support-vecotr-regression"><i class="fa fa-check"></i><b>13.1</b> Support Vecotr Regression</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="svm.html"><a href="svm.html#create-data"><i class="fa fa-check"></i><b>13.1.1</b> Create data</a></li>
+<li class="chapter" data-level="13.1.2" data-path="svm.html"><a href="svm.html#tuning-a-svm-model"><i class="fa fa-check"></i><b>13.1.2</b> Tuning a SVM model</a></li>
+<li class="chapter" data-level="13.1.3" data-path="svm.html"><a href="svm.html#discussion-on-parameters"><i class="fa fa-check"></i><b>13.1.3</b> Discussion on parameters</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="mushroom.html"><a href="mushroom.html"><i class="fa fa-check"></i><b>12</b> Case Study - Mushrooms Classification</a><ul>
-<li class="chapter" data-level="12.1" data-path="mushroom.html"><a href="mushroom.html#import-the-data"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
-<li class="chapter" data-level="12.2" data-path="mushroom.html"><a href="mushroom.html#tidy-the-data-1"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="12.3" data-path="mushroom.html"><a href="mushroom.html#understand-the-data-2"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="mushroom.html"><a href="mushroom.html#transform-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="12.3.2" data-path="mushroom.html"><a href="mushroom.html#visualize-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Visualize the data</a></li>
-<li class="chapter" data-level="12.3.3" data-path="mushroom.html"><a href="mushroom.html#modeling"><i class="fa fa-check"></i><b>12.3.3</b> Modeling</a></li>
+<li class="chapter" data-level="13.2" data-path="svm.html"><a href="svm.html#references-8"><i class="fa fa-check"></i><b>13.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="mushroom.html"><a href="mushroom.html#communication"><i class="fa fa-check"></i><b>12.4</b> Communication</a></li>
+<li class="chapter" data-level="14" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>14</b> Model Evaluation</a><ul>
+<li class="chapter" data-level="14.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>14.1</b> Biais variance tradeoff</a></li>
+<li class="chapter" data-level="14.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>14.2</b> Bagging</a></li>
+<li class="chapter" data-level="14.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>14.3</b> Cross Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="breastcancer.html"><a href="breastcancer.html"><i class="fa fa-check"></i><b>13</b> Case Study - Wisconsin Breast Cancer</a><ul>
-<li class="chapter" data-level="13.1" data-path="breastcancer.html"><a href="breastcancer.html#import-the-data-1"><i class="fa fa-check"></i><b>13.1</b> Import the data</a></li>
-<li class="chapter" data-level="13.2" data-path="breastcancer.html"><a href="breastcancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>13.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="13.3" data-path="breastcancer.html"><a href="breastcancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>13.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="breastcancer.html"><a href="breastcancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>13.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="13.3.2" data-path="breastcancer.html"><a href="breastcancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>13.3.2</b> Pre-process the data</a></li>
-<li class="chapter" data-level="13.3.3" data-path="breastcancer.html"><a href="breastcancer.html#model-the-data-1"><i class="fa fa-check"></i><b>13.3.3</b> Model the data</a></li>
+<li class="chapter" data-level="15" data-path="case-study-text-classification-spam-and-ham-.html"><a href="case-study-text-classification-spam-and-ham-.html"><i class="fa fa-check"></i><b>15</b> Case Study - Text classification: Spam and Ham.</a></li>
+<li class="chapter" data-level="16" data-path="mushroom.html"><a href="mushroom.html"><i class="fa fa-check"></i><b>16</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="16.1" data-path="mushroom.html"><a href="mushroom.html#import-the-data"><i class="fa fa-check"></i><b>16.1</b> Import the data</a></li>
+<li class="chapter" data-level="16.2" data-path="mushroom.html"><a href="mushroom.html#tidy-the-data"><i class="fa fa-check"></i><b>16.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="16.3" data-path="mushroom.html"><a href="mushroom.html#understand-the-data-1"><i class="fa fa-check"></i><b>16.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="mushroom.html"><a href="mushroom.html#transform-the-data"><i class="fa fa-check"></i><b>16.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="mushroom.html"><a href="mushroom.html#visualize-the-data"><i class="fa fa-check"></i><b>16.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="16.3.3" data-path="mushroom.html"><a href="mushroom.html#modeling"><i class="fa fa-check"></i><b>16.3.3</b> Modeling</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="breastcancer.html"><a href="breastcancer.html#references-5"><i class="fa fa-check"></i><b>13.4</b> References</a></li>
+<li class="chapter" data-level="16.4" data-path="mushroom.html"><a href="mushroom.html#communication"><i class="fa fa-check"></i><b>16.4</b> Communication</a></li>
 </ul></li>
+<li class="chapter" data-level="17" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html"><i class="fa fa-check"></i><b>17</b> Case study - The adults dataset.</a><ul>
+<li class="chapter" data-level="17.1" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html#introduction-2"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html#import-the-data-1"><i class="fa fa-check"></i><b>17.2</b> Import the data</a></li>
+<li class="chapter" data-level="17.3" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html#tidy-the-data-1"><i class="fa fa-check"></i><b>17.3</b> Tidy the data</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="breastcancer.html"><a href="breastcancer.html"><i class="fa fa-check"></i><b>18</b> Case Study - Wisconsin Breast Cancer</a><ul>
+<li class="chapter" data-level="18.1" data-path="breastcancer.html"><a href="breastcancer.html#import-the-data-2"><i class="fa fa-check"></i><b>18.1</b> Import the data</a></li>
+<li class="chapter" data-level="18.2" data-path="breastcancer.html"><a href="breastcancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>18.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="18.3" data-path="breastcancer.html"><a href="breastcancer.html#understand-the-data-2"><i class="fa fa-check"></i><b>18.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="18.3.1" data-path="breastcancer.html"><a href="breastcancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>18.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="18.3.2" data-path="breastcancer.html"><a href="breastcancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>18.3.2</b> Pre-process the data</a></li>
+<li class="chapter" data-level="18.3.3" data-path="breastcancer.html"><a href="breastcancer.html#model-the-data-1"><i class="fa fa-check"></i><b>18.3.3</b> Model the data</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="breastcancer.html"><a href="breastcancer.html#references-9"><i class="fa fa-check"></i><b>18.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>19</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references-10.html"><a href="references-10.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -224,12 +243,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="header">
 <h1 class="title">Machine Learning with R</h1>
-<h4 class="author"><em>François de Ryckel</em></h4>
-<h4 class="date"><em>2017-12-05</em></h4>
+<p class="author"><em>François de Ryckel</em></p>
+<p class="date"><em>2019-02-23</em></p>
 </div>
 <div id="prerequisites" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>Welcome to my reference book in machine learning. I have tried to put in it all the tricks, tips, how-to, must-know, etc. I consult it almost everytime I embark on data science project. It is impossible to remember all the coding practices, hence this my data science in R bible.<br />
+<p>Welcome to my reference book in machine learning. I have tried to put in it all the tricks, tips, how-to, must-know, etc. I consult it almost everytime I embark on a data science project. It is impossible to remember all the coding practices, hence this book is my data science in R vade-mecum.<br />
 This book is basically a record of my journey in data analysis. So often, I spend time reading articles, blog posts, etc. and wish I could put all the things I’m learning in a central location. It is a living document with constant additions.</p>
 <p>So this book is a compilation of the techniques I’ve learned along the way. Most of what I have learned is through blog posts, stack overflow questions, etc. I am not taking any credit for all the great ideas, examples, graphs, etc. found in this web book. Most of what you’ll find here has been directly taken from blogs, Kaggle kernels, etc. I have tried as much as I could remember to reference the origins of the ideas. I do take responsibility for all mistakes, typos, unclear explanations, poor labeling / presentation of graphs. If you find anything that require improvement, I would be grateful if you would let me know: <a href="mailto:f.deryckel@gmail.com">f.deryckel@gmail.com</a> or even better post an issue on github <a href="https://github.com/fderyckel/machinelearningwithr">here</a>.</p>
 <p>I am assuming that you are already somehow familiar with:</p>
@@ -252,15 +271,7 @@ Besides the hype surrounding the tidyverse, there is a couple reasons for us to 
 <span class="kw">library</span>(skimr)
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(kableExtra)
-<span class="kw">library</span>(tidyverse)</code></pre></div>
-<pre><code>## ── Attaching packages ─────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-## ✔ tibble  1.3.4     ✔ dplyr   0.7.4
-## ✔ tidyr   0.7.2     ✔ stringr 1.2.0
-## ✔ readr   1.1.1     ✔ forcats 0.2.0</code></pre>
-<pre><code>## ── Conflicts ────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<span class="co">#library(tidyverse)</span></code></pre></div>
 <p>Here are some conventions we will be using throughout the book.</p>
 <ul>
 <li><code>df</code> denotes a data frame. Usually the data frame from a raw set of data<br />
@@ -278,9 +289,43 @@ Besides the hype surrounding the tidyverse, there is a couple reasons for us to 
 The second part of the book is about various case studies. Most of them come either from the <a href="http://archive.ics.uci.edu/ml/index.php">UCI Machine learning</a> repository or <a href="http://kaggle.com">Kaggle</a>.</p>
 <p>The two parts can (and maybe should?) be read concommitenly. We use machine learning to model real-life situation, so I see it as essential to go from the algortihms and theory to the case study and practical applications.</p>
 <p>So in the first part, we start by talking about inference and tests with the Chapter <a href="testinference.html#testinference">2</a>. We then go onto the various linear regression technique with the Chapter <a href="mlr.html#mlr">3</a>. Chapter <a href="logistic.html#logistic">4</a> is about logisitic regression and the various way to evaluate a logisitic model. We then go onto the K Nearest Neighbour with <a href="knnchapter.html#knnchapter">7</a>.</p>
+<p>After inferences and regressions, we look into unsupervised machine learning algorithms such as the Kmeans, Chapter <a href="kmeans.html#kmeans">8</a>, hierarchical clustering in Chapter <a href="hierclust.html#hierclust">9</a>. We finish with Principal Component Analysis, aka PCA, Chapter <a href="pca.html#pca">10</a></p>
 <p>The case studies have been put by order of skills required to approach the practical situation.<br />
-The chapter <a href="titanic.html#titanic">11</a> is on the Titanic dataset from the very famous Kaggle competition. This case studies is really about exploratory data analysis and feature engineering. The Chapter <a href="mushroom.html#mushroom">12</a> is based on the mushroom dataset. We delve into data partition, confusion matrix, and a first go on various algorithms such as decision trees, random forest, SVM.<br />
-The chapter <a href="breastcancer.html#breastcancer">13</a> is on the Breast Cancer dataset. We really focus here on model comparison. We also use the LDA and Neural Net algorithms.</p>
+The chapter <a href="#titanic"><strong>??</strong></a> is on the Titanic dataset from the very famous Kaggle competition. This case studies is really about exploratory data analysis and feature engineering. The Chapter <a href="mushroom.html#mushroom">16</a> is based on the mushroom dataset. We delve into data partition, confusion matrix, and a first go on various algorithms such as decision trees, random forest, SVM.<br />
+The chapter <a href="breastcancer.html#breastcancer">18</a> is on the Breast Cancer dataset. We really focus here on model comparison. We also use the LDA and Neural Net algorithms.</p>
+</div>
+<div id="packages" class="section level2">
+<h2><span class="header-section-number">1.3</span> Packages</h2>
+<p>In addition to the tidyverse, we are also using the following packages</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(aod)
+<span class="kw">library</span>(caret)
+<span class="kw">library</span>(corrr)
+<span class="kw">library</span>(corrplot)
+<span class="kw">library</span>(e1071)
+<span class="kw">library</span>(ggfortify)
+<span class="kw">library</span>(ggmosaic)
+<span class="kw">library</span>(grid)
+<span class="kw">library</span>(kableExtra)
+<span class="kw">library</span>(leaps)
+<span class="kw">library</span>(LiblineaR)
+<span class="kw">library</span>(mice)
+<span class="kw">library</span>(missForest)
+<span class="kw">library</span>(pander)
+<span class="kw">library</span>(randomForest)
+<span class="kw">library</span>(ROCR)
+<span class="kw">library</span>(rpart)
+<span class="kw">library</span>(rpart.plot)
+<span class="kw">library</span>(RTextTools)
+<span class="kw">library</span>(simputation)
+<span class="kw">library</span>(skimr)
+<span class="kw">library</span>(tm)
+<span class="kw">library</span>(visdat)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)
+<span class="kw">library</span>(tibble)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(readr)
+<span class="kw">library</span>(purrr)
+<span class="kw">library</span>(ggplot2)</code></pre></div>
 
 </div>
 </div>
@@ -308,10 +353,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -321,6 +367,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/fderyckel/machinelearningwithr/edit/master/index.Rmd",
 "text": "Suggest edit to this page"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -335,9 +385,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

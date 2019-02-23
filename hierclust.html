@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Softmax and multinomial regressions | Machine Learning with R</title>
+  <title>Chapter 9 Hierarichal Clustering | Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta property="og:title" content="Chapter 9 Hierarichal Clustering | Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="fderyckel/machinelearningwithr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 9 Hierarichal Clustering | Machine Learning with R" />
   
   <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="logistic.html">
-<link rel="next" href="gradient-descent.html">
+<link rel="prev" href="kmeans.html">
+<link rel="next" href="pca.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -241,14 +241,97 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="softmax-and-multinomial-regressions" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Softmax and multinomial regressions</h1>
-<div id="multinomial-logistic-regression" class="section level2">
-<h2><span class="header-section-number">5.1</span> Multinomial Logistic Regression</h2>
+<div id="hierclust" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Hierarichal Clustering</h1>
+<p>In simple words, hierarchical clustering tries to create a sequence of nested clusters to explore deeper insights from the data. For example, this technique is being popularly used to explore the standard plant taxonomy which would classify plants by family, genus, species, and so on.</p>
+<p>Hierarchical clustering technique is of two types:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Agglomerative Clustering</strong> – It starts with treating every observation as a cluster. Then, it merges the most similar observations into a new cluster. This process continues until all the observations are merged into one cluster. It uses a bottoms-up approach (think of an inverted tree).</p></li>
+<li><p><strong>Divisive Clustering</strong> – In this technique, initially all the observations are partitioned into one cluster (irrespective of their similarities). Then, the cluster splits into two sub-clusters carrying similar observations. These sub-clusters are intrinsically homogeneous. Then, we continue to split the clusters until the leaf cluster contains exactly one observation. It uses a top-down approach.</p></li>
+</ol>
+<p>This technique creates a hierarchy (in a recursive fashion) to partition the data set into clusters. This partitioning is done in a bottoms-up fashion. This hierarchy of clusters is graphically presented using a Dendogram (shown below). <img src="otherpics/dendogram01.png" alt="Terminology of dendograms" /></p>
+<p>Let’s understand how to study a dendrogram.</p>
+<p>As you know, every leaf in the dendrogram carries one observation. As we move up the leaves, the leaf observations begin to merge into nodes (carrying observations which are similar to each other). As we move further up, these nodes again merge further.</p>
+<p>Always remember, lower the merging happens (towards the bottom of the tree), more similar the observations will be. Higher the merging happens (toward the top of the tree), less similar the observations will be.</p>
+<p>To determine clusters, we make horizontal cuts across the branches of the dendrogram. The number of clusters is then calculated by the number of vertical lines on the dendrogram, which lies under horizontal line.</p>
+<div class="figure">
+<img src="otherpics/dendogram_cut.png" alt="cutting a dendogram for clusters" />
+<p class="caption">cutting a dendogram for clusters</p>
 </div>
-<div id="references-2" class="section level2">
-<h2><span class="header-section-number">5.2</span> References</h2>
-<p>If</p>
+<p>As seen above, the horizontal line cuts the dendrogram into three clusters since it surpasses three vertical lines. In a way, the selection of height to make a horizontal cut is similar to finding k in k means since it also controls the number of clusters.</p>
+<p>But, how to decide where to cut a dendrogram? Practically, analysts do it based on their judgement and business need. More logically, there are several methods (described below) using which you can calculate the accuracy of your model based on different cuts. Finally, select the cut with a better accuracy.</p>
+<p>The advantage of using hierarchical clustering over k means is, it doesn’t require advanced knowledge of number of clusters. However, some of the advantages which k means has over hierarchical clustering are as follows:</p>
+<ul>
+<li>It uses less memory.</li>
+<li>It converges faster.</li>
+<li>Unlike hierarchical, k means doesn’t get trapped in mistakes made on a previous level. It improves iteratively.</li>
+<li>k means is non-deterministic in nature, i.e.. after every time you initialize, it will produce different clusters. On the contrary, hierarchical clustering is deterministic.</li>
+<li>Note: K means is preferred when the data is numeric. Hierarchical clustering is preferred when the data is categorical.</li>
+</ul>
+<div id="example-on-the-pokemon-dataset" class="section level2">
+<h2><span class="header-section-number">9.1</span> Example on the Pokemon dataset</h2>
+<p>For our first example, we are using the Pokemon dataset. It is available on the Kaggle website <a href="https://www.kaggle.com/abcsds/pokemon">here</a>. Let’s load the data and check what variables are there.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/pokemon.csv&quot;</span>)
+<span class="kw">glimpse</span>(df)</code></pre></div>
+<pre><code>## Observations: 800
+## Variables: 13
+## $ `#`        &lt;dbl&gt; 1, 2, 3, 3, 4, 5, 6, 6, 6, 7, 8, 9, 9, 10, 11, 12, 13…
+## $ Name       &lt;chr&gt; &quot;Bulbasaur&quot;, &quot;Ivysaur&quot;, &quot;Venusaur&quot;, &quot;VenusaurMega Ven…
+## $ `Type 1`   &lt;chr&gt; &quot;Grass&quot;, &quot;Grass&quot;, &quot;Grass&quot;, &quot;Grass&quot;, &quot;Fire&quot;, &quot;Fire&quot;, &quot;…
+## $ `Type 2`   &lt;chr&gt; &quot;Poison&quot;, &quot;Poison&quot;, &quot;Poison&quot;, &quot;Poison&quot;, NA, NA, &quot;Flyi…
+## $ Total      &lt;dbl&gt; 318, 405, 525, 625, 309, 405, 534, 634, 634, 314, 405…
+## $ HP         &lt;dbl&gt; 45, 60, 80, 80, 39, 58, 78, 78, 78, 44, 59, 79, 79, 4…
+## $ Attack     &lt;dbl&gt; 49, 62, 82, 100, 52, 64, 84, 130, 104, 48, 63, 83, 10…
+## $ Defense    &lt;dbl&gt; 49, 63, 83, 123, 43, 58, 78, 111, 78, 65, 80, 100, 12…
+## $ `Sp. Atk`  &lt;dbl&gt; 65, 80, 100, 122, 60, 80, 109, 130, 159, 50, 65, 85, …
+## $ `Sp. Def`  &lt;dbl&gt; 65, 80, 100, 120, 50, 65, 85, 85, 115, 64, 80, 105, 1…
+## $ Speed      &lt;dbl&gt; 45, 60, 80, 80, 65, 80, 100, 100, 100, 43, 58, 78, 78…
+## $ Generation &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…
+## $ Legendary  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…</code></pre>
+<p>For this example, we are just concerned with a few explanatory variables of the data set: attack, defense and speed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dt">name =</span> Name, <span class="dt">hit_point =</span> HP, <span class="dt">attack =</span> Attack, <span class="dt">defense =</span> Defense, 
+                         <span class="dt">sp_attack =</span> <span class="st">`</span><span class="dt">Sp. Atk</span><span class="st">`</span>, <span class="dt">sp_defense =</span> <span class="st">`</span><span class="dt">Sp. Def</span><span class="st">`</span>, <span class="dt">speed =</span> Speed) <span class="op">%&gt;%</span><span class="st">  </span>
+<span class="st">  </span><span class="kw">as_tibble</span>()
+<span class="kw">glimpse</span>(df2)</code></pre></div>
+<pre><code>## Observations: 800
+## Variables: 7
+## $ name       &lt;chr&gt; &quot;Bulbasaur&quot;, &quot;Ivysaur&quot;, &quot;Venusaur&quot;, &quot;VenusaurMega Ven…
+## $ hit_point  &lt;dbl&gt; 45, 60, 80, 80, 39, 58, 78, 78, 78, 44, 59, 79, 79, 4…
+## $ attack     &lt;dbl&gt; 49, 62, 82, 100, 52, 64, 84, 130, 104, 48, 63, 83, 10…
+## $ defense    &lt;dbl&gt; 49, 63, 83, 123, 43, 58, 78, 111, 78, 65, 80, 100, 12…
+## $ sp_attack  &lt;dbl&gt; 65, 80, 100, 122, 60, 80, 109, 130, 159, 50, 65, 85, …
+## $ sp_defense &lt;dbl&gt; 65, 80, 100, 120, 50, 65, 85, 85, 115, 64, 80, 105, 1…
+## $ speed      &lt;dbl&gt; 45, 60, 80, 80, 65, 80, 100, 100, 100, 43, 58, 78, 78…</code></pre>
+<p>The first step with hierarichal clustering is always to first scale the data we are dealing with. We use the <code>caret</code> package and its <code>preprocess</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pokemon_preprocess &lt;-<span class="st"> </span>caret<span class="op">::</span><span class="kw">preProcess</span>(df2, <span class="dt">method =</span> <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>))
+df_scaled &lt;-<span class="st"> </span><span class="kw">predict</span>(pokemon_preprocess, df2)</code></pre></div>
+<p>We can now used our standardized data on our hierarchical clustering algorithm.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create the cluster</span>
+hclust_pokemon &lt;-<span class="st"> </span><span class="kw">hclust</span>(<span class="kw">dist</span>(df_scaled), <span class="dt">method =</span> <span class="st">&quot;complete&quot;</span>)</code></pre></div>
+<pre><code>## Warning in dist(df_scaled): NAs introduced by coercion</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create the plot of the cluster</span>
+<span class="kw">plot</span>(hclust_pokemon)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>Although we do not see any of the terminal leaves… they all clobered together. All the leaves at the bottom carry one observation each, which are then merged into similar values as they rise upward. We can see that there are instance four main branches. With the <code>cutree</code> function, we can assign each observation to its specifically assigned cluster.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a df using the cutree function</span>
+df2_clust &lt;-<span class="st"> </span><span class="kw">cutree</span>(hclust_pokemon, <span class="dt">k =</span> <span class="dv">4</span>)
+
+<span class="co"># visual on defense vs attack </span>
+<span class="kw">ggplot</span>(df2, <span class="kw">aes</span>(<span class="dt">x =</span> defense, <span class="dt">y =</span> attack, <span class="dt">col =</span> <span class="kw">as.factor</span>(df2_clust))) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>As comment on this graph of defense vs attack ability of pokemon, on can see the clustering has worked more or less well. There are few more questions to answer with the cluster 4 - purple dot at the bottom right corner which is a pokemon with high defense and low attack abilities. Cluster 3 is also not very clear - the turquoise one scatter all under the green and red ones.</p>
+<p>Using the <code>rect.hclust</code> function we can also see the height where to cut the branches.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(hclust_pokemon)
+<span class="kw">rect.hclust</span>(hclust_pokemon, <span class="dt">k =</span> <span class="dv">4</span>, <span class="dt">border =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+</div>
+<div id="example-on-regressions-1" class="section level2">
+<h2><span class="header-section-number">9.2</span> Example on regressions</h2>
+</div>
+<div id="references-5" class="section level2">
+<h2><span class="header-section-number">9.3</span> References</h2>
+<p>On the general idea of hierarchical clustering. <a href="https://www.hackerearth.com/blog/machine-learning/practical-guide-to-clustering-algorithms-evaluation-in-r/">Here</a></p>
 
 </div>
 </div>
@@ -257,8 +340,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="gradient-descent.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="kmeans.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pca.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -288,7 +371,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/05-softmax_multinomial.Rmd",
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/09-hierarichal_clustering.Rmd",
 "text": "Suggest edit to this page"
 },
 "history": {

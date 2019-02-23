@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Softmax and multinomial regressions | Machine Learning with R</title>
+  <title>Chapter 10 Principal Component Analysis | Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta property="og:title" content="Chapter 10 Principal Component Analysis | Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="fderyckel/machinelearningwithr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 10 Principal Component Analysis | Machine Learning with R" />
   
   <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="logistic.html">
-<link rel="next" href="gradient-descent.html">
+<link rel="prev" href="hierclust.html">
+<link rel="next" href="trees-and-classification.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -241,14 +241,126 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="softmax-and-multinomial-regressions" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Softmax and multinomial regressions</h1>
-<div id="multinomial-logistic-regression" class="section level2">
-<h2><span class="header-section-number">5.1</span> Multinomial Logistic Regression</h2>
+<div id="pca" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> Principal Component Analysis</h1>
+<p>To create a predictive model based on regression we like to have as many relevant predictors as possible. The whole difficulty resides in finding <em>relevant</em> predictors. For predictors to be relevant, they should explain the variance of the dependent variable.<br />
+Too many predictors (high dimensionality) and we take the risk of over-fitting.</p>
+<p>The intuition of Principal Component Analysis is to find new combination of variables which form larger variances. Why are larger variances important? This is a similar concept of entropy in information theory. Let’s say you have two variables. One of them (Var 1) forms N(1, 0.01) and the other (Var 2) forms N(1, 1). Which variable do you think has more information? Var 1 is always pretty much 1 whereas Var 2 can take a wider range of values, like 0 or 2. Thus, Var 2 has more chances to have various values than Var 1, which means Var 2’s entropy is larger than Var 1’s. Thus, we can say Var 2 contains more information than Var 1.</p>
+<p>PCA tries to find linear combination of the variables which contain much information by looking at the variance. This is why the standard deviation is one of the important metrics to determine the number of new variables in PCA. Another interesting aspect of the new variables derived by PCA is that all new variables are orthogonal. You can think that PCA is rotating and translating the data such that the first axis contains the most information, and the second has the second most information, and so forth.</p>
+<p>Principal Component Analysis (PCA) is a feature extraction methods that use orthogonal linear projections to capture the underlying variance of the data. When PCR compute the principle components is not looking at the response but only at the predictors (by looking for a linear combination of the predictors that has the highest variance). It makes the assumption that the linear combination of the predictors that has the highest variance is associated with the response.</p>
+<p>The algorithm when applied linearly transforms m-dimensional input space to n-dimensional (n &lt; m) output space, with the objective to minimize the amount of information/variance lost by discarding (m-n) dimensions. PCA allows us to discard the variables/features that have less variance.</p>
+<p>When choosing the principal component, we assume that the regression plane varies along the line and doesn’t vary in the other orthogonal direction. By choosing one component and not the other, we’re ignoring the second direction.</p>
+<p>PCR looks in the direction of variation of the predictors to find the places where the responses is most likely to vary.</p>
+<p>Some of the most notable advantages of performing PCA are the following:</p>
+<ul>
+<li>Dimensionality reduction</li>
+<li>Avoidance of multicollinearity between predictors. Variables are orthogonal, so including, say, PC9 in the model has no bearing on, say, PC3</li>
+<li>Variables are ordered in terms of standard error. Thus, they also tend to be ordered in terms of statistical significance</li>
+<li>Overfitting mitigation</li>
+</ul>
+<p>The primary disadvantage is that this model is far more difficult to interpret than a regular logistic regression model</p>
+<p>With principal components regression, the new transformed variables (the principal components) are calculated in a totally <strong>unsupervised</strong> way:</p>
+<ul>
+<li>the response Y is not used to help determine the principal component directions).</li>
+<li>the response does not supervise the identification of the principal components.</li>
+<li>PCR just looks at the x variables</li>
+</ul>
+<p>The PCA method can dramatically improve estimation and insight in problems where multicollinearity is a large problem – as well as aid in detecting it.</p>
+<div id="pca-on-an-easy-example." class="section level2">
+<h2><span class="header-section-number">10.1</span> PCA on an easy example.</h2>
+<p>Let’s say we asked 16 participants four questions (on a 7 scale) about what they care about when choosing a new computer, and got the results like this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Price &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>)
+Software &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">3</span>)
+Aesthetics &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">7</span>)
+Brand &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>)
+buy_computer &lt;-<span class="st"> </span><span class="kw">tibble</span>(Price, Software, Aesthetics, Brand)</code></pre></div>
+<p>Let’s go on with the PCA. <code>princomp</code> is part of the <em>stats</em> package.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pca_buycomputer &lt;-<span class="st"> </span><span class="kw">prcomp</span>(buy_computer, <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>)
+<span class="kw">names</span>(pca_buycomputer)</code></pre></div>
+<pre><code>## [1] &quot;sdev&quot;     &quot;rotation&quot; &quot;center&quot;   &quot;scale&quot;    &quot;x&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(pca_buycomputer)</code></pre></div>
+<pre><code>## Standard deviations (1, .., p=4):
+## [1] 1.5589391 0.9804092 0.6816673 0.3792578
+## 
+## Rotation (n x k) = (4 x 4):
+##                   PC1        PC2        PC3         PC4
+## Price      -0.5229138 0.00807487 -0.8483525  0.08242604
+## Software   -0.1771390 0.97675554  0.1198660  0.01423081
+## Aesthetics  0.5965260 0.13369503 -0.2950727  0.73431229
+## Brand       0.5825287 0.16735905 -0.4229212 -0.67363855</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(pca_buycomputer, <span class="dt">loadings =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Warning: In summary.prcomp(pca_buycomputer, loadings = TRUE) :
+##  extra argument &#39;loadings&#39; will be disregarded</code></pre>
+<pre><code>## Importance of components:
+##                           PC1    PC2    PC3     PC4
+## Standard deviation     1.5589 0.9804 0.6817 0.37926
+## Proportion of Variance 0.6076 0.2403 0.1162 0.03596
+## Cumulative Proportion  0.6076 0.8479 0.9640 1.00000</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OS &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
+<span class="kw">library</span>(ggbiplot)
+g &lt;-<span class="st"> </span><span class="kw">ggbiplot</span>(pca_buycomputer, <span class="dt">obs.scale =</span> <span class="dv">1</span>, <span class="dt">var.scale =</span> <span class="dv">1</span>, <span class="dt">groups =</span> <span class="kw">as.character</span>(OS),
+              <span class="dt">ellipse =</span> <span class="ot">TRUE</span>, <span class="dt">circle =</span> <span class="ot">TRUE</span>)
+g &lt;-<span class="st"> </span>g <span class="op">+</span><span class="st"> </span><span class="kw">scale_color_discrete</span>(<span class="dt">name =</span> <span class="st">&#39;&#39;</span>)
+g &lt;-<span class="st"> </span>g <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.direction =</span> <span class="st">&#39;horizontal&#39;</span>, 
+               <span class="dt">legend.position =</span> <span class="st">&#39;top&#39;</span>)
+<span class="kw">print</span>(g)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/pca_graph1-1.png" width="672" /></p>
+<p>Remember that one of the disadventage of PCA is how difficult it is to interpret the model (ie. what does the PC1 is representing, what does PC2 is representing, etc.). The <strong>biplot</strong> graph help somehow to overcome that.</p>
+<p>In the above graph, one can see that <code>Brand</code>and <code>Aesthetic</code> explain most of the variance in the new predictor PC1 while <code>Software</code> explain most of the variance in the new predictor PC2. It is also to be noted that <code>Brand</code> and <code>Aesthetic</code> are quite highly correlated.</p>
+<p>Once you have done the analysis with PCA, you may want to look into whether the new variables can predict some phenomena well. This is kinda like machine learning: Whether features can classify the data well. Let’s say you have asked the participants one more thing, which OS they are using (Windows or Mac) in your survey, and the results are like this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">OS &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)
+<span class="co"># Let&#39;s test our model</span>
+model1 &lt;-<span class="st"> </span><span class="kw">glm</span>(OS <span class="op">~</span><span class="st"> </span>pca_buycomputer<span class="op">$</span>x[,<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>pca_buycomputer<span class="op">$</span>x[,<span class="dv">2</span>], <span class="dt">family =</span> binomial)
+<span class="kw">summary</span>(model1)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = OS ~ pca_buycomputer$x[, 1] + pca_buycomputer$x[, 
+##     2], family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4485  -0.4003   0.1258   0.5652   1.2814  
+## 
+## Coefficients:
+##                        Estimate Std. Error z value Pr(&gt;|z|)  
+## (Intercept)             -0.2138     0.7993  -0.268   0.7891  
+## pca_buycomputer$x[, 1]   1.5227     0.6621   2.300   0.0215 *
+## pca_buycomputer$x[, 2]   0.7337     0.9234   0.795   0.4269  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 22.181  on 15  degrees of freedom
+## Residual deviance: 11.338  on 13  degrees of freedom
+## AIC: 17.338
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Let’s see how well this model predicts the kind of OS. You can use fitted() function to see the prediction.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fitted</span>(model1)</code></pre></div>
+<pre><code>##           1           2           3           4           5           6 
+## 0.114201733 0.009372181 0.217716320 0.066009817 0.440016243 0.031640529 
+##           7           8           9          10          11          12 
+## 0.036189119 0.175766013 0.906761064 0.855587371 0.950088045 0.888272270 
+##          13          14          15          16 
+## 0.781098710 0.757499202 0.842557931 0.927223453</code></pre>
+<p>These values represent the probabilities of being 1. For example, we can expect 11% chance that Participant 1 is using OS 1 based on the variable derived by PCA. Thus, in this case, Participant 1 is more likely to be using OS 0, which agrees with the survey response. In this way, PCA can be used with regression models for calculating the probability of a phenomenon or making a prediction.</p>
+<p>I have tried to do the same with scaling the data using <code>scale(x)</code> and it changed absolutely nothing.</p>
+<p>In general, the data will tend to follow the 80/20 rule. Most of the variance (interesting part of data) will be explained by a very small number of principal components. You might be able to explain 95% of the variance in your dataset using only 10% of the original number of attributes. However, this is entirely dependent on the dataset. Often, a good rule of thumb is to identify the principal components that explain 99% of the variance in the data.</p>
 </div>
-<div id="references-2" class="section level2">
-<h2><span class="header-section-number">5.2</span> References</h2>
-<p>If</p>
+<div id="references." class="section level2">
+<h2><span class="header-section-number">10.2</span> References.</h2>
+<p>Here are the articles I have consulted for this research.</p>
+<ul>
+<li><p><a href="http://yatani.jp/teaching/doku.php?id=hcistats:pca">Principal Component Analysis (PCA)</a></p></li>
+<li><p><a href="http://www.dataperspective.info/2016/02/principal-component-analysis-using-r.html">Principal Component Analysis using R</a></p></li>
+<li><p><a href="https://tgmstat.wordpress.com/2013/11/28/computing-and-visualizing-pca-in-r/">Computing and visualizing PCA in R</a> This is where we learned about the `ggbiplot</p></li>
+<li><p><a href="http://www.analyticsvidhya.com/blog/2016/03/practical-guide-principal-component-analysis-python/">Practical Guide to Principal Component Analysis (PCA) in R &amp; Python</a></p></li>
+<li><p><a href="http://www.milanor.net/blog/performing-principal-components-regression-pcr-in-r/">Performing Principal Components Regression (PCR) in R</a></p></li>
+<li><p><a href="http://gerardnico.com/wiki/data_mining/pca">Data Mining - Principal Component (Analysis|Regression) (PCA)</a></p></li>
+<li><p><a href="https://www.ime.usp.br/~pavan/pdf/MAE0330-PCA-R-2013">PRINCIPAL COMPONENT ANALYSIS IN R</a> A really nice explanation on the difference between the main packages doing PCA such as <code>svd</code>, <code>princomp</code>and <code>prcomp</code>. In R there are two general methods to perform PCA without any missing values: The spectral decomposition method of analysis examines the covariances and correlations between variables, whereas the singular value decomposition method looks at the covariances and correlations among the samples. While both methods can easily be performed within R, the singular value decomposition method is the preferred analysis for numerical accuracy.</p></li>
+</ul>
+<p>Although principal component analysis assumes multivariate normality, this is not a very strict assumption, especially when the procedure is used for data reduction or exploratory purposes. Undoubtedly, the correlation and covariance matrices are better measures of similarity if the data is normal, and yet, PCA is often unaffected by mild violations. However, if the new components are to be used in further analyses, such as regression analysis, normality of the data might be more important.</p>
 
 </div>
 </div>
@@ -257,8 +369,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="gradient-descent.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="hierclust.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="trees-and-classification.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -288,7 +400,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/05-softmax_multinomial.Rmd",
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/10-pca.Rmd",
 "text": "Suggest edit to this page"
 },
 "history": {

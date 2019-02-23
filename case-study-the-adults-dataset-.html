@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Softmax and multinomial regressions | Machine Learning with R</title>
+  <title>Chapter 17 Case study - The adults dataset. | Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta property="og:title" content="Chapter 17 Case study - The adults dataset. | Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="fderyckel/machinelearningwithr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 17 Case study - The adults dataset. | Machine Learning with R" />
   
   <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="logistic.html">
-<link rel="next" href="gradient-descent.html">
+<link rel="prev" href="mushroom.html">
+<link rel="next" href="breastcancer.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -241,14 +241,169 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="softmax-and-multinomial-regressions" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Softmax and multinomial regressions</h1>
-<div id="multinomial-logistic-regression" class="section level2">
-<h2><span class="header-section-number">5.1</span> Multinomial Logistic Regression</h2>
+<div id="case-study---the-adults-dataset." class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> Case study - The adults dataset.</h1>
+<div id="introduction-2" class="section level2">
+<h2><span class="header-section-number">17.1</span> Introduction</h2>
+<p>The adult data set is another famous one from the <strong>UCI - machine learning repository</strong>.<br />
+The idea is to predict whether income exceeds $50K/yr based on census data. Also known as “Census Income” dataset. Extraction was done by Barry Becker from the 1994 Census database.</p>
+<p>Load the libraries</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(stringr)</code></pre></div>
 </div>
-<div id="references-2" class="section level2">
-<h2><span class="header-section-number">5.2</span> References</h2>
-<p>If</p>
+<div id="import-the-data-1" class="section level2">
+<h2><span class="header-section-number">17.2</span> Import the data</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/adult.csv&quot;</span>)
+<span class="kw">glimpse</span>(df)</code></pre></div>
+<pre><code>## Observations: 32,561
+## Variables: 15
+## $ AGE           &lt;dbl&gt; 39, 50, 38, 53, 28, 37, 49, 52, 31, 42, 37, 30, 23…
+## $ WORKCLASS     &lt;chr&gt; &quot;State-gov&quot;, &quot;Self-emp-not-inc&quot;, &quot;Private&quot;, &quot;Priva…
+## $ FNLWGT        &lt;dbl&gt; 77516, 83311, 215646, 234721, 338409, 284582, 1601…
+## $ EDUCATION     &lt;chr&gt; &quot;Bachelors&quot;, &quot;Bachelors&quot;, &quot;HS-grad&quot;, &quot;11th&quot;, &quot;Bach…
+## $ EDUCATIONNUM  &lt;dbl&gt; 13, 13, 9, 7, 13, 14, 5, 9, 14, 13, 10, 13, 13, 12…
+## $ MARITALSTATUS &lt;chr&gt; &quot;Never-married&quot;, &quot;Married-civ-spouse&quot;, &quot;Divorced&quot;,…
+## $ OCCUPATION    &lt;chr&gt; &quot;Adm-clerical&quot;, &quot;Exec-managerial&quot;, &quot;Handlers-clean…
+## $ RELATIONSHIP  &lt;chr&gt; &quot;Not-in-family&quot;, &quot;Husband&quot;, &quot;Not-in-family&quot;, &quot;Husb…
+## $ RACE          &lt;chr&gt; &quot;White&quot;, &quot;White&quot;, &quot;White&quot;, &quot;Black&quot;, &quot;Black&quot;, &quot;Whit…
+## $ SEX           &lt;chr&gt; &quot;Male&quot;, &quot;Male&quot;, &quot;Male&quot;, &quot;Male&quot;, &quot;Female&quot;, &quot;Female&quot;…
+## $ CAPITALGAIN   &lt;dbl&gt; 2174, 0, 0, 0, 0, 0, 0, 0, 14084, 5178, 0, 0, 0, 0…
+## $ CAPITALLOSS   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ HOURSPERWEEK  &lt;dbl&gt; 40, 13, 40, 40, 40, 40, 16, 45, 50, 40, 80, 40, 30…
+## $ NATIVECOUNTRY &lt;chr&gt; &quot;United-States&quot;, &quot;United-States&quot;, &quot;United-States&quot;,…
+## $ ABOVE50K      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0,…</code></pre>
+</div>
+<div id="tidy-the-data-1" class="section level2">
+<h2><span class="header-section-number">17.3</span> Tidy the data</h2>
+<p>Let’s check the level of missing data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map_dbl</span>(df, <span class="cf">function</span>(.x) <span class="kw">sum</span>(<span class="kw">is.na</span>(.x)))</code></pre></div>
+<pre><code>##           AGE     WORKCLASS        FNLWGT     EDUCATION  EDUCATIONNUM 
+##             0             0             0             0             0 
+## MARITALSTATUS    OCCUPATION  RELATIONSHIP          RACE           SEX 
+##             0             0             0             0             0 
+##   CAPITALGAIN   CAPITALLOSS  HOURSPERWEEK NATIVECOUNTRY      ABOVE50K 
+##             0             0             0             0             0</code></pre>
+<p>No missing data! That’s great news.</p>
+<p>Before we change the <chr> variables into factors, let’s see what type of levels we have.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>(is.character) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">map_if</span>(is.character, unique)</code></pre></div>
+<pre><code>## $WORKCLASS
+## [1] &quot;State-gov&quot;        &quot;Self-emp-not-inc&quot; &quot;Private&quot;         
+## [4] &quot;Federal-gov&quot;      &quot;Local-gov&quot;        &quot;?&quot;               
+## [7] &quot;Self-emp-inc&quot;     &quot;Without-pay&quot;      &quot;Never-worked&quot;    
+## 
+## $EDUCATION
+##  [1] &quot;Bachelors&quot;    &quot;HS-grad&quot;      &quot;11th&quot;         &quot;Masters&quot;     
+##  [5] &quot;9th&quot;          &quot;Some-college&quot; &quot;Assoc-acdm&quot;   &quot;Assoc-voc&quot;   
+##  [9] &quot;7th-8th&quot;      &quot;Doctorate&quot;    &quot;Prof-school&quot;  &quot;5th-6th&quot;     
+## [13] &quot;10th&quot;         &quot;1st-4th&quot;      &quot;Preschool&quot;    &quot;12th&quot;        
+## 
+## $MARITALSTATUS
+## [1] &quot;Never-married&quot;         &quot;Married-civ-spouse&quot;    &quot;Divorced&quot;             
+## [4] &quot;Married-spouse-absent&quot; &quot;Separated&quot;             &quot;Married-AF-spouse&quot;    
+## [7] &quot;Widowed&quot;              
+## 
+## $OCCUPATION
+##  [1] &quot;Adm-clerical&quot;      &quot;Exec-managerial&quot;   &quot;Handlers-cleaners&quot;
+##  [4] &quot;Prof-specialty&quot;    &quot;Other-service&quot;     &quot;Sales&quot;            
+##  [7] &quot;Craft-repair&quot;      &quot;Transport-moving&quot;  &quot;Farming-fishing&quot;  
+## [10] &quot;Machine-op-inspct&quot; &quot;Tech-support&quot;      &quot;?&quot;                
+## [13] &quot;Protective-serv&quot;   &quot;Armed-Forces&quot;      &quot;Priv-house-serv&quot;  
+## 
+## $RELATIONSHIP
+## [1] &quot;Not-in-family&quot;  &quot;Husband&quot;        &quot;Wife&quot;           &quot;Own-child&quot;     
+## [5] &quot;Unmarried&quot;      &quot;Other-relative&quot;
+## 
+## $RACE
+## [1] &quot;White&quot;              &quot;Black&quot;              &quot;Asian-Pac-Islander&quot;
+## [4] &quot;Amer-Indian-Eskimo&quot; &quot;Other&quot;             
+## 
+## $SEX
+## [1] &quot;Male&quot;   &quot;Female&quot;
+## 
+## $NATIVECOUNTRY
+##  [1] &quot;United-States&quot;              &quot;Cuba&quot;                      
+##  [3] &quot;Jamaica&quot;                    &quot;India&quot;                     
+##  [5] &quot;?&quot;                          &quot;Mexico&quot;                    
+##  [7] &quot;South&quot;                      &quot;Puerto-Rico&quot;               
+##  [9] &quot;Honduras&quot;                   &quot;England&quot;                   
+## [11] &quot;Canada&quot;                     &quot;Germany&quot;                   
+## [13] &quot;Iran&quot;                       &quot;Philippines&quot;               
+## [15] &quot;Italy&quot;                      &quot;Poland&quot;                    
+## [17] &quot;Columbia&quot;                   &quot;Cambodia&quot;                  
+## [19] &quot;Thailand&quot;                   &quot;Ecuador&quot;                   
+## [21] &quot;Laos&quot;                       &quot;Taiwan&quot;                    
+## [23] &quot;Haiti&quot;                      &quot;Portugal&quot;                  
+## [25] &quot;Dominican-Republic&quot;         &quot;El-Salvador&quot;               
+## [27] &quot;France&quot;                     &quot;Guatemala&quot;                 
+## [29] &quot;China&quot;                      &quot;Japan&quot;                     
+## [31] &quot;Yugoslavia&quot;                 &quot;Peru&quot;                      
+## [33] &quot;Outlying-US(Guam-USVI-etc)&quot; &quot;Scotland&quot;                  
+## [35] &quot;Trinadad&amp;Tobago&quot;            &quot;Greece&quot;                    
+## [37] &quot;Nicaragua&quot;                  &quot;Vietnam&quot;                   
+## [39] &quot;Hong&quot;                       &quot;Ireland&quot;                   
+## [41] &quot;Hungary&quot;                    &quot;Holand-Netherlands&quot;</code></pre>
+<p>Allright, so maybe there were no NA, but there are quite a few “?”</p>
+<p>The “?” should probably be replaced with NAs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/adult.csv&quot;</span>, <span class="dt">na =</span> <span class="kw">c</span>(<span class="st">&quot;NA&quot;</span>, <span class="st">&quot;?&quot;</span>))
+
+<span class="co"># Let&#39;s redo a check on the NA now</span>
+<span class="kw">map_int</span>(df, <span class="cf">function</span>(.x) <span class="kw">sum</span>(<span class="kw">is.na</span>(.x)))</code></pre></div>
+<pre><code>##           AGE     WORKCLASS        FNLWGT     EDUCATION  EDUCATIONNUM 
+##             0          1836             0             0             0 
+## MARITALSTATUS    OCCUPATION  RELATIONSHIP          RACE           SEX 
+##             0          1843             0             0             0 
+##   CAPITALGAIN   CAPITALLOSS  HOURSPERWEEK NATIVECOUNTRY      ABOVE50K 
+##             0             0             0           583             0</code></pre>
+<p>Let’s now rework the column names to better fit our naming conventions</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(df) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;age&quot;</span>, <span class="st">&quot;working_class&quot;</span>, <span class="st">&quot;final_weight&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;education_num&quot;</span>, <span class="st">&quot;marital_status&quot;</span>, 
+                  <span class="st">&quot;occupation&quot;</span>, <span class="st">&quot;relationship&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;capital_gain&quot;</span>, <span class="st">&quot;capital_loss&quot;</span>, <span class="st">&quot;hours_per_week&quot;</span>, 
+                  <span class="st">&quot;native_country&quot;</span>, <span class="st">&quot;above_50k&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_if</span>(is_character, as.factor)
+
+<span class="kw">levels</span>(df2<span class="op">$</span>working_class)</code></pre></div>
+<pre><code>## [1] &quot;Federal-gov&quot;      &quot;Local-gov&quot;        &quot;Never-worked&quot;    
+## [4] &quot;Private&quot;          &quot;Self-emp-inc&quot;     &quot;Self-emp-not-inc&quot;
+## [7] &quot;State-gov&quot;        &quot;Without-pay&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df2)</code></pre></div>
+<pre><code>##       age                 working_class    final_weight    
+##  Min.   :17.00   Private         :22696   Min.   :  12285  
+##  1st Qu.:28.00   Self-emp-not-inc: 2541   1st Qu.: 117827  
+##  Median :37.00   Local-gov       : 2093   Median : 178356  
+##  Mean   :38.58   State-gov       : 1298   Mean   : 189778  
+##  3rd Qu.:48.00   Self-emp-inc    : 1116   3rd Qu.: 237051  
+##  Max.   :90.00   (Other)         :  981   Max.   :1484705  
+##                  NA&#39;s            : 1836                    
+##         education     education_num                 marital_status 
+##  HS-grad     :10501   Min.   : 1.00   Divorced             : 4443  
+##  Some-college: 7291   1st Qu.: 9.00   Married-AF-spouse    :   23  
+##  Bachelors   : 5355   Median :10.00   Married-civ-spouse   :14976  
+##  Masters     : 1723   Mean   :10.08   Married-spouse-absent:  418  
+##  Assoc-voc   : 1382   3rd Qu.:12.00   Never-married        :10683  
+##  11th        : 1175   Max.   :16.00   Separated            : 1025  
+##  (Other)     : 5134                   Widowed              :  993  
+##            occupation            relationship                   race      
+##  Prof-specialty : 4140   Husband       :13193   Amer-Indian-Eskimo:  311  
+##  Craft-repair   : 4099   Not-in-family : 8305   Asian-Pac-Islander: 1039  
+##  Exec-managerial: 4066   Other-relative:  981   Black             : 3124  
+##  Adm-clerical   : 3770   Own-child     : 5068   Other             :  271  
+##  Sales          : 3650   Unmarried     : 3446   White             :27816  
+##  (Other)        :10993   Wife          : 1568                             
+##  NA&#39;s           : 1843                                                    
+##     gender       capital_gain    capital_loss    hours_per_week 
+##  Female:10771   Min.   :    0   Min.   :   0.0   Min.   : 1.00  
+##  Male  :21790   1st Qu.:    0   1st Qu.:   0.0   1st Qu.:40.00  
+##                 Median :    0   Median :   0.0   Median :40.00  
+##                 Mean   : 1078   Mean   :  87.3   Mean   :40.44  
+##                 3rd Qu.:    0   3rd Qu.:   0.0   3rd Qu.:45.00  
+##                 Max.   :99999   Max.   :4356.0   Max.   :99.00  
+##                                                                 
+##        native_country    above_50k     
+##  United-States:29170   Min.   :0.0000  
+##  Mexico       :  643   1st Qu.:0.0000  
+##  Philippines  :  198   Median :0.0000  
+##  Germany      :  137   Mean   :0.2408  
+##  Canada       :  121   3rd Qu.:0.0000  
+##  (Other)      : 1709   Max.   :1.0000  
+##  NA&#39;s         :  583</code></pre>
 
 </div>
 </div>
@@ -257,8 +412,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="gradient-descent.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mushroom.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="breastcancer.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -288,7 +443,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/05-softmax_multinomial.Rmd",
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/29-adults.Rmd",
 "text": "Suggest edit to this page"
 },
 "history": {

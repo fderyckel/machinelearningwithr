@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 5 Softmax and multinomial regressions | Machine Learning with R</title>
+  <title>Chapter 13 Support Vector Machine | Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta property="og:title" content="Chapter 13 Support Vector Machine | Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="fderyckel/machinelearningwithr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Softmax and multinomial regressions | Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 13 Support Vector Machine | Machine Learning with R" />
   
   <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="logistic.html">
-<link rel="next" href="gradient-descent.html">
+<link rel="prev" href="random-forest.html">
+<link rel="next" href="model-evaluation.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -241,14 +241,167 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="softmax-and-multinomial-regressions" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Softmax and multinomial regressions</h1>
-<div id="multinomial-logistic-regression" class="section level2">
-<h2><span class="header-section-number">5.1</span> Multinomial Logistic Regression</h2>
+<div id="svm" class="section level1">
+<h1><span class="header-section-number">Chapter 13</span> Support Vector Machine</h1>
+<div class="figure">
+<img src="otherpics/svm1.png" alt="svm1" />
+<p class="caption">svm1</p>
 </div>
-<div id="references-2" class="section level2">
-<h2><span class="header-section-number">5.2</span> References</h2>
-<p>If</p>
+<p>Goal: we want to find the hyperplane (i.e. decision boundary) linearly separating (or not) our classes.</p>
+<p>Support Vector Machines (SVMs) are a particular classification strategy. SMVs work by transforming the training dataset into a higher dimension, which is then inspected for the optimal separation boundary, or boundaries, between classes. In SVMs, these boundaries are referred to as hyperplanes, which are identified by locating support vectors, or the instances that most essentially define classes, and their margins, which are the lines parallel to the hyperplane defined by the shortest distance between a hyperplane and its support vectors. Consequently, SVMs are able to classify both linear and nonlinear data.</p>
+<p>The grand idea with SVMs is that, with a high enough number of dimensions, a hyperplane separating a particular class from all others can always be found, thereby delineating dataset member classes. When repeated a sufficient number of times, enough hyperplanes can be generated to separate all classes in n-dimensional space. Importantly, SVMs look not just for any separating hyperplane but the maximum-margin hyperplane, being that which resides equidistance from respective class support vectors.</p>
+<p>The distance between the hyperplane and the nearest data point from either set is known as the margin. The goal is to choose a hyperplane with the greatest possible margin between the hyperplane and any point within the training set, giving a greater chance of new data being classified correctly. <img src="otherpics/svm2.png" alt="svm2" /> Intuitively, the further from the hyperplane our data points lie, the more confident we are that they have been correctly classified. We therefore want our data points to be as far away from the hyperplane as possible, while still being on the correct side of it.</p>
+<div class="figure">
+<img src="otherpics/svm3.png" alt="svm3" />
+<p class="caption">svm3</p>
+</div>
+<p>A dataset will often look more like the jumbled balls below which represent a linearly non separable dataset.</p>
+<p>In order to classify a dataset like the one above it’s necessary to move away from a 2d view of the data to a 3d view. Explaining this is easiest with another simplified example. Imagine that our two sets of colored balls above are sitting on a sheet and this sheet is lifted suddenly, launching the balls into the air. While the balls are up in the air, you use the sheet to separate them. This ‘lifting’ of the balls represents the mapping of data into a higher dimension. This is known as kernelling. The commonly used kernel functions are: a) Linear, b) Polynomial, c) Sigmoid and d) Radial Basis.</p>
+<div class="figure">
+<img src="otherpics/svm4.png" alt="svm4" />
+<p class="caption">svm4</p>
+</div>
+<p>Because we are now in three dimensions, our hyperplane can no longer be a line. It must now be a plane as shown in the example above. The idea is that the data will continue to be mapped into higher and higher dimensions until a hyperplane can be formed to segregate it.</p>
+<div id="support-vecotr-regression" class="section level2">
+<h2><span class="header-section-number">13.1</span> Support Vecotr Regression</h2>
+<p>A major benefit of using SVR is that it is a non-parametric technique. Unlike SLR, whose results depend on Gauss-Markov assumptions, the output model from SVR does not depend on distributions of the underlying dependent and independent variables. Instead the SVR technique depends on kernel functions. Another advantage of SVR is that it permits for construction of a non-linear model without changing the explanatory variables, helping in better interpretation of the resultant model. The basic idea behind SVR is not to care about the prediction as long as the error (ϵi) is less than certain value. This is known as the principle of maximal margin. This idea of maximal margin allows viewing SVR as a convex optimization problem. The regression can also be penalized using a cost parameter, which becomes handy to avoid over-fit. SVR is a useful technique provides the user with high flexibility in terms of distribution of underlying variables, relationship between independent and dependent variables and the control on the penalty term.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+<div id="create-data" class="section level3">
+<h3><span class="header-section-number">13.1.1</span> Create data</h3>
+<p>For once, let’s generate some artificial data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">75</span>
+<span class="kw">set.seed</span>(<span class="dv">2302</span>)
+y &lt;-<span class="st"> </span><span class="kw">cumsum</span>(<span class="kw">rnorm</span>(<span class="kw">length</span>(x)))
+
+df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)
+<span class="kw">glimpse</span>(df)</code></pre></div>
+<pre><code>## Observations: 75
+## Variables: 2
+## $ x &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…
+## $ y &lt;dbl&gt; -1.0347913, -0.6663628, -1.6089930, -3.2992371, -2.8075105, -3…</code></pre>
+<p>Let’s plot our data to see what we get</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) </code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/svmplot01-1.png" width="672" /></p>
+<p>If we were going to do a regression, we’ll get</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> df)
+prediction_lm &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">y =</span> df<span class="op">$</span>y, <span class="dt">y_hat =</span> <span class="kw">predict</span>(model_lm, df))
+<span class="kw">head</span>(prediction_lm, <span class="dv">10</span>)</code></pre></div>
+<pre><code>## # A tibble: 10 x 2
+##         y y_hat
+##     &lt;dbl&gt; &lt;dbl&gt;
+##  1 -1.03  -4.14
+##  2 -0.666 -4.14
+##  3 -1.61  -4.15
+##  4 -3.30  -4.16
+##  5 -2.81  -4.16
+##  6 -3.17  -4.17
+##  7 -3.46  -4.18
+##  8 -3.03  -4.19
+##  9 -4.36  -4.19
+## 10 -3.41  -4.20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/svmplot02-1.png" width="672" /> and we’ll get a RMSE for our linear model of</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction_lm <span class="op">%&gt;%</span><span class="st"> </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(y, y_hat)</code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard        2.48</code></pre>
+<p>Let’s move onto SVM modelling.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)</code></pre></div>
+<pre><code>## Warning: package &#39;e1071&#39; was built under R version 3.5.2</code></pre>
+<pre><code>## 
+## Attaching package: &#39;e1071&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:simputation&#39;:
+## 
+##     impute</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_svm &lt;-<span class="st"> </span><span class="kw">svm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> df)
+
+<span class="co">#To plot the prediction, we need a bit of tweaking</span>
+prediction_svm &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">y =</span> df<span class="op">$</span>y, <span class="dt">y_hat =</span> <span class="kw">predict</span>(model_svm, df))
+
+df2 &lt;-<span class="st"> </span><span class="kw">bind_cols</span>(df, <span class="dt">y_hat =</span> prediction_svm<span class="op">$</span>y_hat)
+
+<span class="kw">ggplot</span>(df2, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y_hat), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/svm04-1.png" width="672" /></p>
+<p>and we’ll get a RMSE for our SVM model of</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 <span class="op">%&gt;%</span><span class="st"> </span>yardstick<span class="op">::</span><span class="kw">rmse</span>(y, y_hat)</code></pre></div>
+<pre><code>## # A tibble: 1 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard        1.11</code></pre>
+</div>
+<div id="tuning-a-svm-model" class="section level3">
+<h3><span class="header-section-number">13.1.2</span> Tuning a SVM model</h3>
+<p>Identifying best parameters doing a grid search. We’ll vary epsilon between 0 and 1 by increment of 0.1 (10 values total). We’ll vary the cost from 0.5 to 8 by increment of 0.5 (15 values total). So we’ll test 150 models in total.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tune_model_svm &lt;-<span class="st"> </span><span class="kw">tune</span>(svm, y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> df, 
+                       <span class="dt">ranges =</span> <span class="kw">list</span>(<span class="dt">epsilon =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.1</span>), <span class="dt">cost =</span> <span class="dv">2</span><span class="op">^</span>(<span class="kw">seq</span>(<span class="fl">0.5</span>, <span class="dv">8</span>, <span class="fl">0.5</span>))))
+
+<span class="kw">plot</span>(tune_model_svm)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/svm_tunedplot-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(tune_model_svm)</code></pre></div>
+<pre><code>## 
+## Parameter tuning of &#39;svm&#39;:
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  epsilon cost
+##      0.2  256
+## 
+## - best performance: 0.6844569</code></pre>
+<p>Let’s even go further in our fine tuning (drilling down.. but overfitting?)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tune_model_svm2 &lt;-<span class="st"> </span><span class="kw">tune</span>(svm, y<span class="op">~</span>x, <span class="dt">data =</span> df, 
+                        <span class="dt">ranges =</span> <span class="kw">list</span>(<span class="dt">epsilon =</span> <span class="kw">seq</span>(tune_model_svm<span class="op">$</span>best.model<span class="op">$</span>epsilon<span class="op">-</span>.<span class="dv">15</span>, 
+                                                    tune_model_svm<span class="op">$</span>best.model<span class="op">$</span>epsilon<span class="op">+</span>.<span class="dv">15</span>, <span class="fl">0.01</span>), 
+                                      <span class="dt">cost =</span> <span class="kw">seq</span>(<span class="dv">2</span><span class="op">^</span>(<span class="kw">log2</span>(tune_model_svm<span class="op">$</span>best.model<span class="op">$</span>cost)<span class="op">-</span><span class="dv">1</span>), 
+                                                 <span class="dv">2</span><span class="op">^</span>(<span class="kw">log2</span>(tune_model_svm<span class="op">$</span>best.model<span class="op">$</span>cost)<span class="op">+</span><span class="dv">1</span>), <span class="dt">length =</span> <span class="dv">6</span>)))
+
+<span class="kw">print</span>(tune_model_svm2)</code></pre></div>
+<pre><code>## 
+## Parameter tuning of &#39;svm&#39;:
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  epsilon cost
+##     0.05  512
+## 
+## - best performance: 0.6872402</code></pre>
+<p>We now use this parameters for prefiction. !!! Overfitting is possible here.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_svm_tuned &lt;-<span class="st"> </span><span class="kw">predict</span>(tune_model_svm2<span class="op">$</span>best.model, <span class="dt">data =</span> df)
+
+<span class="co">#To plot the prediction, we need a bit of tweaking</span>
+prediction_svm_tuned &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">y =</span> df<span class="op">$</span>y, <span class="dt">y_hat =</span> <span class="kw">predict</span>(tune_model_svm2<span class="op">$</span>best.model, df))
+
+df3 &lt;-<span class="st"> </span><span class="kw">bind_cols</span>(df2, <span class="dt">y_hat_tuned =</span> prediction_svm_tuned<span class="op">$</span>y_hat)
+
+<span class="kw">ggplot</span>(df3, <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y_hat), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y_hat_tuned), <span class="dt">col =</span> <span class="st">&quot;green&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>)</code></pre></div>
+<p><img src="machinelearningwithR_files/figure-html/svm08-1.png" width="672" /></p>
+</div>
+<div id="discussion-on-parameters" class="section level3">
+<h3><span class="header-section-number">13.1.3</span> Discussion on parameters</h3>
+<p>The gamma parameter in the RBF kernel determines the reach of a single training instance. If the value of Gamma is low, then every training instance will have a far reach. Conversely, high values of gamma mean that training instances will have a close reach. So, with a high value of gamma, the SVM decision boundary will simply be dependent on just the points that are closest to the decision boundary, effectively ignoring points that are farther away. In comparison, a low value of gamma will result in a decision boundary that will consider points that are further from it. As a result, high values of gamma typically produce highly flexed decision boundaries, and low values of gamma often results in a decision boundary that is more linear.</p>
+<p><a href="http://scikit-learn.org/stable/modules/svm.html" class="uri">http://scikit-learn.org/stable/modules/svm.html</a></p>
+<p><a href="https://www.youtube.com/watch?v=m2a2K4lprQw" class="uri">https://www.youtube.com/watch?v=m2a2K4lprQw</a></p>
+<p><a href="http://haohanw.blogspot.com/2014/03/ml-how-sigma-matters-in-svm-rbf-kernel.html" class="uri">http://haohanw.blogspot.com/2014/03/ml-how-sigma-matters-in-svm-rbf-kernel.html</a></p>
+<p><a href="https://link.springer.com/protocol/10.1007/978-1-60327-241-4_13" class="uri">https://link.springer.com/protocol/10.1007/978-1-60327-241-4_13</a></p>
+</div>
+</div>
+<div id="references-8" class="section level2">
+<h2><span class="header-section-number">13.2</span> References</h2>
+<p>Intro from <a href="https://www.kdnuggets.com/2016/09/support-vector-machines-concise-technical-overview.html">kdnugget</a> The R code with the creating data part is from a <a href="https://rpubs.com/richkt/280840">RPUB document</a> and the <a href="https://www.svm-tutorial.com/2014/10/support-vector-regression-r/">fine tuning</a> and using it for further prediction</p>
 
 </div>
 </div>
@@ -257,8 +410,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="logistic.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="gradient-descent.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="random-forest.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="model-evaluation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -288,7 +441,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/05-softmax_multinomial.Rmd",
+"link": "https://github.com/fderyckel/machinelearningwithr/edit/master/15-svm.Rmd",
 "text": "Suggest edit to this page"
 },
 "history": {

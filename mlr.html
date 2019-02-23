@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Machine Learning with R</title>
+  <title>Chapter 3 Single &amp; Multiple Linear Regression | Machine Learning with R</title>
   <meta name="description" content="This book is about using R for machine learning purposes.">
-  <meta name="generator" content="bookdown 0.5.4 and GitBook 2.6.7">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Machine Learning with R" />
+  <meta property="og:title" content="Chapter 3 Single &amp; Multiple Linear Regression | Machine Learning with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   <meta name="github-repo" content="fderyckel/machinelearningwithr" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Machine Learning with R" />
+  <meta name="twitter:title" content="Chapter 3 Single &amp; Multiple Linear Regression | Machine Learning with R" />
   
   <meta name="twitter:description" content="This book is about using R for machine learning purposes." />
   
@@ -25,7 +25,7 @@
 <meta name="author" content="François de Ryckel">
 
 
-<meta name="date" content="2017-12-05">
+<meta name="date" content="2019-02-23">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -36,6 +36,7 @@
 <link rel="next" href="logistic.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,6 +48,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -106,6 +108,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#pre-requisite-and-conventions"><i class="fa fa-check"></i><b>1.1</b> Pre-requisite and conventions</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#organization"><i class="fa fa-check"></i><b>1.2</b> Organization</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#packages"><i class="fa fa-check"></i><b>1.3</b> Packages</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="testinference.html"><a href="testinference.html"><i class="fa fa-check"></i><b>2</b> Tests and inferences</a><ul>
 <li class="chapter" data-level="2.1" data-path="testinference.html"><a href="testinference.html#normality"><i class="fa fa-check"></i><b>2.1</b> Assumption of normality</a><ul>
@@ -114,6 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="testinference.html"><a href="testinference.html#ttest"><i class="fa fa-check"></i><b>2.2</b> T-tests</a></li>
 <li class="chapter" data-level="2.3" data-path="testinference.html"><a href="testinference.html#anova---analyse-of-variance."><i class="fa fa-check"></i><b>2.3</b> ANOVA - Analyse of variance.</a></li>
+<li class="chapter" data-level="2.4" data-path="testinference.html"><a href="testinference.html#covariance"><i class="fa fa-check"></i><b>2.4</b> Covariance</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mlr.html"><a href="mlr.html"><i class="fa fa-check"></i><b>3</b> Single &amp; Multiple Linear Regression</a><ul>
 <li class="chapter" data-level="3.1" data-path="mlr.html"><a href="mlr.html#single-variable-regression"><i class="fa fa-check"></i><b>3.1</b> Single variable regression</a></li>
@@ -154,57 +158,72 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="knnchapter.html"><a href="knnchapter.html#references-3"><i class="fa fa-check"></i><b>7.3</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8</b> Principal Component Analysis</a><ul>
-<li class="chapter" data-level="8.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>8.1</b> PCA on an easy example.</a></li>
-<li class="chapter" data-level="8.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#references."><i class="fa fa-check"></i><b>8.2</b> References.</a></li>
+<li class="chapter" data-level="8" data-path="kmeans.html"><a href="kmeans.html"><i class="fa fa-check"></i><b>8</b> Kmeans clustering</a><ul>
+<li class="chapter" data-level="8.1" data-path="kmeans.html"><a href="kmeans.html#multinomial-logistic-regression-1"><i class="fa fa-check"></i><b>8.1</b> Multinomial Logistic Regression</a></li>
+<li class="chapter" data-level="8.2" data-path="kmeans.html"><a href="kmeans.html#references-4"><i class="fa fa-check"></i><b>8.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html"><i class="fa fa-check"></i><b>9</b> Trees, Random forests and Classification</a><ul>
-<li class="chapter" data-level="9.1" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
-<li class="chapter" data-level="9.2" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#first-example."><i class="fa fa-check"></i><b>9.2</b> First example.</a></li>
-<li class="chapter" data-level="9.3" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#second-example."><i class="fa fa-check"></i><b>9.3</b> Second Example.</a></li>
-<li class="chapter" data-level="9.4" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>9.4</b> How does a tree decide where to split?</a></li>
-<li class="chapter" data-level="9.5" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#third-example."><i class="fa fa-check"></i><b>9.5</b> Third example.</a></li>
-<li class="chapter" data-level="9.6" data-path="trees-random-forests-and-classification.html"><a href="trees-random-forests-and-classification.html#references-4"><i class="fa fa-check"></i><b>9.6</b> References</a></li>
+<li class="chapter" data-level="9" data-path="hierclust.html"><a href="hierclust.html"><i class="fa fa-check"></i><b>9</b> Hierarichal Clustering</a><ul>
+<li class="chapter" data-level="9.1" data-path="hierclust.html"><a href="hierclust.html#example-on-the-pokemon-dataset"><i class="fa fa-check"></i><b>9.1</b> Example on the Pokemon dataset</a></li>
+<li class="chapter" data-level="9.2" data-path="hierclust.html"><a href="hierclust.html#example-on-regressions-1"><i class="fa fa-check"></i><b>9.2</b> Example on regressions</a></li>
+<li class="chapter" data-level="9.3" data-path="hierclust.html"><a href="hierclust.html#references-5"><i class="fa fa-check"></i><b>9.3</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>10</b> Model Evaluation</a><ul>
-<li class="chapter" data-level="10.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>10.1</b> Biais variance tradeoff</a></li>
-<li class="chapter" data-level="10.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>10.2</b> Bagging</a></li>
-<li class="chapter" data-level="10.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>10.3</b> Cross Validation</a></li>
+<li class="chapter" data-level="10" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>10</b> Principal Component Analysis</a><ul>
+<li class="chapter" data-level="10.1" data-path="pca.html"><a href="pca.html#pca-on-an-easy-example."><i class="fa fa-check"></i><b>10.1</b> PCA on an easy example.</a></li>
+<li class="chapter" data-level="10.2" data-path="pca.html"><a href="pca.html#references."><i class="fa fa-check"></i><b>10.2</b> References.</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="titanic.html"><a href="titanic.html"><i class="fa fa-check"></i><b>11</b> Case Study - Predicting Survivalship on the Titanic</a><ul>
-<li class="chapter" data-level="11.1" data-path="titanic.html"><a href="titanic.html#import-the-data."><i class="fa fa-check"></i><b>11.1</b> Import the data.</a></li>
-<li class="chapter" data-level="11.2" data-path="titanic.html"><a href="titanic.html#tidy-the-data"><i class="fa fa-check"></i><b>11.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="11.3" data-path="titanic.html"><a href="titanic.html#understand-the-data-1"><i class="fa fa-check"></i><b>11.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="11.3.1" data-path="titanic.html"><a href="titanic.html#a.-transform-the-data"><i class="fa fa-check"></i><b>11.3.1</b> A. Transform the data</a></li>
-<li class="chapter" data-level="11.3.2" data-path="titanic.html"><a href="titanic.html#a.-vizualize-with-families."><i class="fa fa-check"></i><b>11.3.2</b> A. Vizualize with families.</a></li>
+<li class="chapter" data-level="11" data-path="trees-and-classification.html"><a href="trees-and-classification.html"><i class="fa fa-check"></i><b>11</b> Trees and Classification</a><ul>
+<li class="chapter" data-level="11.1" data-path="trees-and-classification.html"><a href="trees-and-classification.html#introduction-1"><i class="fa fa-check"></i><b>11.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.2" data-path="trees-and-classification.html"><a href="trees-and-classification.html#first-example."><i class="fa fa-check"></i><b>11.2</b> First example.</a></li>
+<li class="chapter" data-level="11.3" data-path="trees-and-classification.html"><a href="trees-and-classification.html#second-example."><i class="fa fa-check"></i><b>11.3</b> Second Example.</a></li>
+<li class="chapter" data-level="11.4" data-path="trees-and-classification.html"><a href="trees-and-classification.html#how-does-a-tree-decide-where-to-split"><i class="fa fa-check"></i><b>11.4</b> How does a tree decide where to split?</a></li>
+<li class="chapter" data-level="11.5" data-path="trees-and-classification.html"><a href="trees-and-classification.html#third-example."><i class="fa fa-check"></i><b>11.5</b> Third example.</a></li>
+<li class="chapter" data-level="11.6" data-path="trees-and-classification.html"><a href="trees-and-classification.html#references-6"><i class="fa fa-check"></i><b>11.6</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11.4" data-path="titanic.html"><a href="titanic.html#a.-visualize-with-cabins."><i class="fa fa-check"></i><b>11.4</b> A. Visualize with cabins.</a></li>
-<li class="chapter" data-level="11.5" data-path="titanic.html"><a href="titanic.html#b.-transform-dealing-with-missing-data."><i class="fa fa-check"></i><b>11.5</b> B. Transform Dealing with missing data.</a><ul>
-<li class="chapter" data-level="11.5.1" data-path="titanic.html"><a href="titanic.html#overview."><i class="fa fa-check"></i><b>11.5.1</b> Overview.</a></li>
-<li class="chapter" data-level="11.5.2" data-path="titanic.html"><a href="titanic.html#c.-transform-more-feature-engineering-with-the-ages-and-others."><i class="fa fa-check"></i><b>11.5.2</b> C. Transform More feature engineering with the ages and others.</a></li>
+<li class="chapter" data-level="12" data-path="random-forest.html"><a href="random-forest.html"><i class="fa fa-check"></i><b>12</b> Random Forest</a><ul>
+<li class="chapter" data-level="12.1" data-path="random-forest.html"><a href="random-forest.html#how-does-it-work"><i class="fa fa-check"></i><b>12.1</b> How does it work?</a></li>
+<li class="chapter" data-level="12.2" data-path="random-forest.html"><a href="random-forest.html#references-7"><i class="fa fa-check"></i><b>12.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="11.6" data-path="titanic.html"><a href="titanic.html#references.-1"><i class="fa fa-check"></i><b>11.6</b> References.</a></li>
+<li class="chapter" data-level="13" data-path="svm.html"><a href="svm.html"><i class="fa fa-check"></i><b>13</b> Support Vector Machine</a><ul>
+<li class="chapter" data-level="13.1" data-path="svm.html"><a href="svm.html#support-vecotr-regression"><i class="fa fa-check"></i><b>13.1</b> Support Vecotr Regression</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="svm.html"><a href="svm.html#create-data"><i class="fa fa-check"></i><b>13.1.1</b> Create data</a></li>
+<li class="chapter" data-level="13.1.2" data-path="svm.html"><a href="svm.html#tuning-a-svm-model"><i class="fa fa-check"></i><b>13.1.2</b> Tuning a SVM model</a></li>
+<li class="chapter" data-level="13.1.3" data-path="svm.html"><a href="svm.html#discussion-on-parameters"><i class="fa fa-check"></i><b>13.1.3</b> Discussion on parameters</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="mushroom.html"><a href="mushroom.html"><i class="fa fa-check"></i><b>12</b> Case Study - Mushrooms Classification</a><ul>
-<li class="chapter" data-level="12.1" data-path="mushroom.html"><a href="mushroom.html#import-the-data"><i class="fa fa-check"></i><b>12.1</b> Import the data</a></li>
-<li class="chapter" data-level="12.2" data-path="mushroom.html"><a href="mushroom.html#tidy-the-data-1"><i class="fa fa-check"></i><b>12.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="12.3" data-path="mushroom.html"><a href="mushroom.html#understand-the-data-2"><i class="fa fa-check"></i><b>12.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="12.3.1" data-path="mushroom.html"><a href="mushroom.html#transform-the-data"><i class="fa fa-check"></i><b>12.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="12.3.2" data-path="mushroom.html"><a href="mushroom.html#visualize-the-data"><i class="fa fa-check"></i><b>12.3.2</b> Visualize the data</a></li>
-<li class="chapter" data-level="12.3.3" data-path="mushroom.html"><a href="mushroom.html#modeling"><i class="fa fa-check"></i><b>12.3.3</b> Modeling</a></li>
+<li class="chapter" data-level="13.2" data-path="svm.html"><a href="svm.html#references-8"><i class="fa fa-check"></i><b>13.2</b> References</a></li>
 </ul></li>
-<li class="chapter" data-level="12.4" data-path="mushroom.html"><a href="mushroom.html#communication"><i class="fa fa-check"></i><b>12.4</b> Communication</a></li>
+<li class="chapter" data-level="14" data-path="model-evaluation.html"><a href="model-evaluation.html"><i class="fa fa-check"></i><b>14</b> Model Evaluation</a><ul>
+<li class="chapter" data-level="14.1" data-path="model-evaluation.html"><a href="model-evaluation.html#biais-variance-tradeoff"><i class="fa fa-check"></i><b>14.1</b> Biais variance tradeoff</a></li>
+<li class="chapter" data-level="14.2" data-path="model-evaluation.html"><a href="model-evaluation.html#bagging"><i class="fa fa-check"></i><b>14.2</b> Bagging</a></li>
+<li class="chapter" data-level="14.3" data-path="model-evaluation.html"><a href="model-evaluation.html#crossvalidation"><i class="fa fa-check"></i><b>14.3</b> Cross Validation</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="breastcancer.html"><a href="breastcancer.html"><i class="fa fa-check"></i><b>13</b> Case Study - Wisconsin Breast Cancer</a><ul>
-<li class="chapter" data-level="13.1" data-path="breastcancer.html"><a href="breastcancer.html#import-the-data-1"><i class="fa fa-check"></i><b>13.1</b> Import the data</a></li>
-<li class="chapter" data-level="13.2" data-path="breastcancer.html"><a href="breastcancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>13.2</b> Tidy the data</a></li>
-<li class="chapter" data-level="13.3" data-path="breastcancer.html"><a href="breastcancer.html#understand-the-data-3"><i class="fa fa-check"></i><b>13.3</b> Understand the data</a><ul>
-<li class="chapter" data-level="13.3.1" data-path="breastcancer.html"><a href="breastcancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>13.3.1</b> Transform the data</a></li>
-<li class="chapter" data-level="13.3.2" data-path="breastcancer.html"><a href="breastcancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>13.3.2</b> Pre-process the data</a></li>
-<li class="chapter" data-level="13.3.3" data-path="breastcancer.html"><a href="breastcancer.html#model-the-data-1"><i class="fa fa-check"></i><b>13.3.3</b> Model the data</a></li>
+<li class="chapter" data-level="15" data-path="case-study-text-classification-spam-and-ham-.html"><a href="case-study-text-classification-spam-and-ham-.html"><i class="fa fa-check"></i><b>15</b> Case Study - Text classification: Spam and Ham.</a></li>
+<li class="chapter" data-level="16" data-path="mushroom.html"><a href="mushroom.html"><i class="fa fa-check"></i><b>16</b> Case Study - Mushrooms Classification</a><ul>
+<li class="chapter" data-level="16.1" data-path="mushroom.html"><a href="mushroom.html#import-the-data"><i class="fa fa-check"></i><b>16.1</b> Import the data</a></li>
+<li class="chapter" data-level="16.2" data-path="mushroom.html"><a href="mushroom.html#tidy-the-data"><i class="fa fa-check"></i><b>16.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="16.3" data-path="mushroom.html"><a href="mushroom.html#understand-the-data-1"><i class="fa fa-check"></i><b>16.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="16.3.1" data-path="mushroom.html"><a href="mushroom.html#transform-the-data"><i class="fa fa-check"></i><b>16.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="16.3.2" data-path="mushroom.html"><a href="mushroom.html#visualize-the-data"><i class="fa fa-check"></i><b>16.3.2</b> Visualize the data</a></li>
+<li class="chapter" data-level="16.3.3" data-path="mushroom.html"><a href="mushroom.html#modeling"><i class="fa fa-check"></i><b>16.3.3</b> Modeling</a></li>
 </ul></li>
-<li class="chapter" data-level="13.4" data-path="breastcancer.html"><a href="breastcancer.html#references-5"><i class="fa fa-check"></i><b>13.4</b> References</a></li>
+<li class="chapter" data-level="16.4" data-path="mushroom.html"><a href="mushroom.html#communication"><i class="fa fa-check"></i><b>16.4</b> Communication</a></li>
 </ul></li>
+<li class="chapter" data-level="17" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html"><i class="fa fa-check"></i><b>17</b> Case study - The adults dataset.</a><ul>
+<li class="chapter" data-level="17.1" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html#introduction-2"><i class="fa fa-check"></i><b>17.1</b> Introduction</a></li>
+<li class="chapter" data-level="17.2" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html#import-the-data-1"><i class="fa fa-check"></i><b>17.2</b> Import the data</a></li>
+<li class="chapter" data-level="17.3" data-path="case-study-the-adults-dataset-.html"><a href="case-study-the-adults-dataset-.html#tidy-the-data-1"><i class="fa fa-check"></i><b>17.3</b> Tidy the data</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="breastcancer.html"><a href="breastcancer.html"><i class="fa fa-check"></i><b>18</b> Case Study - Wisconsin Breast Cancer</a><ul>
+<li class="chapter" data-level="18.1" data-path="breastcancer.html"><a href="breastcancer.html#import-the-data-2"><i class="fa fa-check"></i><b>18.1</b> Import the data</a></li>
+<li class="chapter" data-level="18.2" data-path="breastcancer.html"><a href="breastcancer.html#tidy-the-data-2"><i class="fa fa-check"></i><b>18.2</b> Tidy the data</a></li>
+<li class="chapter" data-level="18.3" data-path="breastcancer.html"><a href="breastcancer.html#understand-the-data-2"><i class="fa fa-check"></i><b>18.3</b> Understand the data</a><ul>
+<li class="chapter" data-level="18.3.1" data-path="breastcancer.html"><a href="breastcancer.html#transform-the-data-1"><i class="fa fa-check"></i><b>18.3.1</b> Transform the data</a></li>
+<li class="chapter" data-level="18.3.2" data-path="breastcancer.html"><a href="breastcancer.html#pre-process-the-data"><i class="fa fa-check"></i><b>18.3.2</b> Pre-process the data</a></li>
+<li class="chapter" data-level="18.3.3" data-path="breastcancer.html"><a href="breastcancer.html#model-the-data-1"><i class="fa fa-check"></i><b>18.3.3</b> Model the data</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="breastcancer.html"><a href="breastcancer.html#references-9"><i class="fa fa-check"></i><b>18.4</b> References</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>19</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references-10.html"><a href="references-10.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
 
       </nav>
@@ -224,6 +243,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="mlr" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Single &amp; Multiple Linear Regression</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(skimr)
+<span class="kw">library</span>(kableExtra) <span class="co"># for the kable_styling function</span>
+
+<span class="kw">library</span>(tibble)
+<span class="kw">library</span>(dplyr)
+<span class="kw">library</span>(readr)
+<span class="kw">library</span>(ggplot2)</code></pre></div>
 <div id="single-variable-regression" class="section level2">
 <h2><span class="header-section-number">3.1</span> Single variable regression</h2>
 <p>The general equation for a linear regression model</p>
@@ -277,27 +303,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  n obs: 25 
 ##  n variables: 7 
 ## 
-## Variable type: integer 
-##           var missing complete  n    mean     sd  min  p25 median  p75
-## 1         Age       0       25 25   17.2    7.69    5   11     17   23
-## 2 HarvestRain       0       25 25  148.56  74.42   38   89    130  187
-## 3  WinterRain       0       25 25  605.28 132.28  376  536    600  697
-## 4        Year       0       25 25 1965.8    7.69 1952 1960   1966 1972
-##    max     hist
-## 1   31 ▇▆▆▇▆▆▃▆
-## 2  292 ▅▇▇▅▆▁▃▅
-## 3  830 ▅▁▂▇▃▃▂▃
-## 4 1978 ▆▃▆▇▆▆▆▇
-## 
-## Variable type: numeric 
-##         var missing complete  n     mean      sd      min      p25
-## 1      AGST       0       25 25    16.51    0.68    14.98    16.2 
-## 2 FrancePop       0       25 25 49694.44 3665.27 43183.57 46584   
-## 3     Price       0       25 25     7.07    0.65     6.2      6.52
-##     median      p75      max     hist
-## 1    16.53    17.07    17.65 ▂▃▃▇▆▆▆▅
-## 2 50254.97 52894.18 54602.19 ▃▂▃▂▃▃▃▇
-## 3     7.12     7.5      8.49 ▇▃▃▇▃▂▂▁</code></pre>
+## ── Variable type:numeric ───────────────────────────────────────────────────
+##     variable missing complete  n     mean      sd       p0      p25
+##          Age       0       25 25    17.2     7.69     5       11   
+##         AGST       0       25 25    16.51    0.68    14.98    16.2 
+##    FrancePop       0       25 25 49694.44 3665.27 43183.57 46584   
+##  HarvestRain       0       25 25   148.56   74.42    38       89   
+##        Price       0       25 25     7.07    0.65     6.2      6.52
+##   WinterRain       0       25 25   605.28  132.28   376      536   
+##         Year       0       25 25  1965.8     7.69  1952     1960   
+##       p50      p75     p100     hist
+##     17       23       31    ▇▆▆▇▆▆▃▆
+##     16.53    17.07    17.65 ▂▃▃▇▆▆▆▅
+##  50254.97 52894.18 54602.19 ▃▂▃▂▃▃▃▇
+##    130      187      292    ▅▇▇▅▆▁▃▅
+##      7.12     7.5      8.49 ▇▃▃▇▃▂▂▁
+##    600      697      830    ▅▁▂▇▃▃▂▃
+##   1966     1972     1978    ▆▃▆▇▆▆▆▇</code></pre>
 <p>We use the <code>lm</code> function to create our linear regression model. We use <em>AGST</em> as the independent variable while the <em>price</em> is the dependent variable. <img src="machinelearningwithR_files/figure-html/linreg02-plot-1.png" width="672" /></p>
 <p>We can see a weak positive correlation between <code>AGST</code> and <code>Price</code>. The model would confirm that.<br />
 </p>
@@ -368,8 +390,11 @@ p</code></pre></div>
 <p>We continue here with the same dataset, <em>wine.csv</em>.<br />
 First, we can see how each variable is correlated with each other ones.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(corrr)
-d &lt;-<span class="st"> </span><span class="kw">correlate</span>(df)
-d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">shave</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fashion</span>()</code></pre></div>
+d &lt;-<span class="st"> </span><span class="kw">correlate</span>(df)</code></pre></div>
+<pre><code>## 
+## Correlation method: &#39;pearson&#39;
+## Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">shave</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fashion</span>()</code></pre></div>
 <pre><code>##       rowname  Year Price WinterRain AGST HarvestRain  Age FrancePop
 ## 1        Year                                                       
 ## 2       Price  -.45                                                 
@@ -499,40 +524,40 @@ This plot shows if residuals have non-linear patterns. There could be a non-line
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;dataset/Boston.csv&quot;</span>)
 skimr<span class="op">::</span><span class="kw">skim</span>(df)</code></pre></div>
 <pre><code>## Skim summary statistics
-##  n obs: 506 
+##  n obs: 333 
 ##  n variables: 14 
 ## 
-## Variable type: integer 
-##    var missing complete   n    mean     sd min p25 median p75 max     hist
-## 1 CHAS       0      506 506   0.069   0.25   0   0      0   0   1 ▇▁▁▁▁▁▁▁
-## 2  RAD       0      506 506   9.55    8.71   1   4      5  24  24 ▂▇▁▁▁▁▁▅
-## 3  TAX       0      506 506 408.24  168.54 187 279    330 666 711 ▃▇▂▅▁▁▁▆
-## 
-## Variable type: numeric 
-##        var missing complete   n   mean    sd     min     p25 median    p75
-## 1      AGE       0      506 506  68.57 28.15  2.9     45.02   77.5   94.07
-## 2        B       0      506 506 356.67 91.29  0.32   375.38  391.44 396.23
-## 3    Crime       0      506 506   3.61  8.6   0.0063   0.082   0.26   3.68
-## 4      DIS       0      506 506   3.8   2.11  1.13     2.1     3.21   5.19
-## 5    INDUS       0      506 506  11.14  6.86  0.46     5.19    9.69  18.1 
-## 6    LSTAT       0      506 506  12.65  7.14  1.73     6.95   11.36  16.96
-## 7     MEDV       0      506 506  22.53  9.2   5       17.02   21.2   25   
-## 8      NOX       0      506 506   0.55  0.12  0.39     0.45    0.54   0.62
-## 9  PTRATIO       0      506 506  18.46  2.16 12.6     17.4    19.05  20.2 
-## 10      RM       0      506 506   6.28  0.7   3.56     5.89    6.21   6.62
-## 11      ZN       0      506 506  11.36 23.32  0        0       0     12.5 
-##       max     hist
-## 1  100    ▁▂▂▂▂▂▃▇
-## 2  396.9  ▁▁▁▁▁▁▁▇
-## 3   88.98 ▇▁▁▁▁▁▁▁
-## 4   12.13 ▇▅▃▃▂▁▁▁
-## 5   27.74 ▃▆▅▁▁▇▁▁
-## 6   37.97 ▆▇▆▅▂▁▁▁
-## 7   50    ▂▅▇▆▂▂▁▁
-## 8    0.87 ▇▆▇▆▃▅▁▁
-## 9   22    ▁▂▂▂▅▅▇▃
-## 10   8.78 ▁▁▂▇▇▂▁▁
-## 11 100    ▇▁▁▁▁▁▁▁</code></pre>
+## ── Variable type:numeric ───────────────────────────────────────────────────
+##  variable missing complete   n   mean     sd       p0     p25    p50
+##       AGE       0      333 333  68.23  28.13   6       45.4    76.7 
+##     BLACK       0      333 333 359.47  86.58   3.5    376.73  392.05
+##      CHAS       0      333 333   0.06   0.24   0        0       0   
+##      CRIM       0      333 333   3.36   7.35   0.0063   0.079   0.26
+##       DIS       0      333 333   3.71   1.98   1.13     2.12    3.09
+##     INDUS       0      333 333  11.29   7      0.74     5.13    9.9 
+##     LSTAT       0      333 333  12.52   7.07   1.73     7.18   10.97
+##      MEDV       0      333 333  22.77   9.17   5       17.4    21.6 
+##       NOX       0      333 333   0.56   0.11   0.39     0.45    0.54
+##   PTRATIO       0      333 333  18.45   2.15  12.6     17.4    19   
+##       RAD       0      333 333   9.63   8.74   1        4       5   
+##        RM       0      333 333   6.27   0.7    3.56     5.88    6.2 
+##       TAX       0      333 333 409.28 170.84 188      279     330   
+##        ZN       0      333 333  10.69  22.67   0        0       0   
+##     p75   p100     hist
+##   93.8  100    ▁▂▂▂▂▂▃▇
+##  396.24 396.9  ▁▁▁▁▁▁▁▇
+##    0      1    ▇▁▁▁▁▁▁▁
+##    3.68  73.53 ▇▁▁▁▁▁▁▁
+##    5.12  10.71 ▇▆▅▃▂▁▁▁
+##   18.1   27.74 ▅▅▃▁▁▇▁▁
+##   16.42  37.97 ▅▇▆▃▂▁▁▁
+##   25     50    ▂▅▇▇▂▂▁▁
+##    0.63   0.87 ▇▇▇▆▃▅▁▁
+##   20.2   21.2  ▁▂▁▂▃▃▂▇
+##   24     24    ▃▇▂▁▁▁▁▅
+##    6.59   8.72 ▁▁▂▇▇▂▁▁
+##  666    711    ▅▇▂▅▁▁▁▇
+##   12.5  100    ▇▁▁▁▁▁▁▁</code></pre>
 <p>Here is the list of variables with their meaning.</p>
 <ul>
 <li>CRIM per capita crime rate by town</li>
@@ -556,20 +581,23 @@ skimr<span class="op">::</span><span class="kw">skim</span>(df)</code></pre></di
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">corrplot</span>(<span class="kw">cor</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>CHAS)), <span class="dt">type =</span> <span class="st">&quot;lower&quot;</span>, <span class="dt">order =</span> <span class="st">&quot;hclust&quot;</span>, <span class="dt">tl.col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">sig.level =</span> <span class="fl">0.01</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/linreg09-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">correlate</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>CHAS)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">shave</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fashion</span>()</code></pre></div>
-<pre><code>##    rowname Crime   ZN INDUS  NOX   RM  AGE  DIS  RAD  TAX PTRATIO    B
-## 1    Crime                                                            
-## 2       ZN  -.20                                                      
-## 3    INDUS   .41 -.53                                                 
-## 4      NOX   .42 -.52   .76                                           
-## 5       RM  -.22  .31  -.39 -.30                                      
-## 6      AGE   .35 -.57   .64  .73 -.24                                 
-## 7      DIS  -.38  .66  -.71 -.77  .21 -.75                            
-## 8      RAD   .63 -.31   .60  .61 -.21  .46 -.49                       
-## 9      TAX   .58 -.31   .72  .67 -.29  .51 -.53  .91                  
-## 10 PTRATIO   .29 -.39   .38  .19 -.36  .26 -.23  .46  .46             
-## 11       B  -.39  .18  -.36 -.38  .13 -.27  .29 -.44 -.44    -.18     
-## 12   LSTAT   .46 -.41   .60  .59 -.61  .60 -.50  .49  .54     .37 -.37
-## 13    MEDV  -.39  .36  -.48 -.43  .70 -.38  .25 -.38 -.47    -.51  .33
+<pre><code>## 
+## Correlation method: &#39;pearson&#39;
+## Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<pre><code>##    rowname CRIM   ZN INDUS  NOX   RM  AGE  DIS  RAD  TAX PTRATIO BLACK
+## 1     CRIM                                                            
+## 2       ZN -.21                                                       
+## 3    INDUS  .42 -.52                                                  
+## 4      NOX  .46 -.50   .75                                            
+## 5       RM -.31  .33  -.44 -.34                                       
+## 6      AGE  .38 -.54   .64  .74 -.25                                  
+## 7      DIS -.40  .64  -.70 -.77  .27 -.76                             
+## 8      RAD  .67 -.30   .57  .61 -.27  .45 -.48                        
+## 9      TAX  .62 -.31   .71  .67 -.36  .51 -.53  .90                   
+## 10 PTRATIO  .31 -.38   .39  .19 -.37  .26 -.23  .47  .47              
+## 11   BLACK -.48  .17  -.34 -.37  .16 -.27  .28 -.41 -.41    -.16      
+## 12   LSTAT  .53 -.39   .61  .60 -.62  .59 -.51  .48  .54     .37  -.36
+## 13    MEDV -.41  .34  -.47 -.41  .69 -.36  .25 -.35 -.45    -.48   .34
 ##    LSTAT MEDV
 ## 1            
 ## 2            
@@ -584,8 +612,11 @@ skimr<span class="op">::</span><span class="kw">skim</span>(df)</code></pre></di
 ## 11           
 ## 12           
 ## 13  -.74</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yo &lt;-<span class="st"> </span><span class="kw">correlate</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>CHAS)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">shave</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fashion</span>()
-<span class="kw">kable</span>(yo, <span class="dt">format =</span> <span class="st">&quot;html&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">yo &lt;-<span class="st"> </span><span class="kw">correlate</span>(df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>CHAS)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">shave</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">fashion</span>()</code></pre></div>
+<pre><code>## 
+## Correlation method: &#39;pearson&#39;
+## Missing treated using: &#39;pairwise.complete.obs&#39;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">kable</span>(yo, <span class="dt">format =</span> <span class="st">&quot;html&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>()</code></pre></div>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -593,7 +624,7 @@ skimr<span class="op">::</span><span class="kw">skim</span>(df)</code></pre></di
 rowname
 </th>
 <th style="text-align:left;">
-Crime
+CRIM
 </th>
 <th style="text-align:left;">
 ZN
@@ -623,7 +654,7 @@ TAX
 PTRATIO
 </th>
 <th style="text-align:left;">
-B
+BLACK
 </th>
 <th style="text-align:left;">
 LSTAT
@@ -636,7 +667,7 @@ MEDV
 <tbody>
 <tr>
 <td style="text-align:left;">
-Crime
+CRIM
 </td>
 <td style="text-align:left;">
 </td>
@@ -670,7 +701,7 @@ Crime
 ZN
 </td>
 <td style="text-align:left;">
--.20
+-.21
 </td>
 <td style="text-align:left;">
 </td>
@@ -702,10 +733,10 @@ ZN
 INDUS
 </td>
 <td style="text-align:left;">
-.41
+.42
 </td>
 <td style="text-align:left;">
--.53
+-.52
 </td>
 <td style="text-align:left;">
 </td>
@@ -735,13 +766,13 @@ INDUS
 NOX
 </td>
 <td style="text-align:left;">
-.42
+.46
 </td>
 <td style="text-align:left;">
--.52
+-.50
 </td>
 <td style="text-align:left;">
-.76
+.75
 </td>
 <td style="text-align:left;">
 </td>
@@ -769,16 +800,16 @@ NOX
 RM
 </td>
 <td style="text-align:left;">
--.22
+-.31
 </td>
 <td style="text-align:left;">
-.31
+.33
 </td>
 <td style="text-align:left;">
--.39
+-.44
 </td>
 <td style="text-align:left;">
--.30
+-.34
 </td>
 <td style="text-align:left;">
 </td>
@@ -804,19 +835,19 @@ RM
 AGE
 </td>
 <td style="text-align:left;">
-.35
+.38
 </td>
 <td style="text-align:left;">
--.57
+-.54
 </td>
 <td style="text-align:left;">
 .64
 </td>
 <td style="text-align:left;">
-.73
+.74
 </td>
 <td style="text-align:left;">
--.24
+-.25
 </td>
 <td style="text-align:left;">
 </td>
@@ -840,22 +871,22 @@ AGE
 DIS
 </td>
 <td style="text-align:left;">
--.38
+-.40
 </td>
 <td style="text-align:left;">
-.66
+.64
 </td>
 <td style="text-align:left;">
--.71
+-.70
 </td>
 <td style="text-align:left;">
 -.77
 </td>
 <td style="text-align:left;">
-.21
+.27
 </td>
 <td style="text-align:left;">
--.75
+-.76
 </td>
 <td style="text-align:left;">
 </td>
@@ -877,25 +908,25 @@ DIS
 RAD
 </td>
 <td style="text-align:left;">
-.63
+.67
 </td>
 <td style="text-align:left;">
--.31
+-.30
 </td>
 <td style="text-align:left;">
-.60
+.57
 </td>
 <td style="text-align:left;">
 .61
 </td>
 <td style="text-align:left;">
--.21
+-.27
 </td>
 <td style="text-align:left;">
-.46
+.45
 </td>
 <td style="text-align:left;">
--.49
+-.48
 </td>
 <td style="text-align:left;">
 </td>
@@ -915,19 +946,19 @@ RAD
 TAX
 </td>
 <td style="text-align:left;">
-.58
+.62
 </td>
 <td style="text-align:left;">
 -.31
 </td>
 <td style="text-align:left;">
-.72
+.71
 </td>
 <td style="text-align:left;">
 .67
 </td>
 <td style="text-align:left;">
--.29
+-.36
 </td>
 <td style="text-align:left;">
 .51
@@ -936,7 +967,7 @@ TAX
 -.53
 </td>
 <td style="text-align:left;">
-.91
+.90
 </td>
 <td style="text-align:left;">
 </td>
@@ -954,19 +985,19 @@ TAX
 PTRATIO
 </td>
 <td style="text-align:left;">
-.29
+.31
 </td>
 <td style="text-align:left;">
--.39
+-.38
 </td>
 <td style="text-align:left;">
-.38
+.39
 </td>
 <td style="text-align:left;">
 .19
 </td>
 <td style="text-align:left;">
--.36
+-.37
 </td>
 <td style="text-align:left;">
 .26
@@ -975,10 +1006,10 @@ PTRATIO
 -.23
 </td>
 <td style="text-align:left;">
-.46
+.47
 </td>
 <td style="text-align:left;">
-.46
+.47
 </td>
 <td style="text-align:left;">
 </td>
@@ -991,37 +1022,37 @@ PTRATIO
 </tr>
 <tr>
 <td style="text-align:left;">
-B
+BLACK
 </td>
 <td style="text-align:left;">
--.39
+-.48
 </td>
 <td style="text-align:left;">
-.18
+.17
 </td>
 <td style="text-align:left;">
--.36
+-.34
 </td>
 <td style="text-align:left;">
--.38
+-.37
 </td>
 <td style="text-align:left;">
-.13
+.16
 </td>
 <td style="text-align:left;">
 -.27
 </td>
 <td style="text-align:left;">
-.29
+.28
 </td>
 <td style="text-align:left;">
--.44
+-.41
 </td>
 <td style="text-align:left;">
--.44
+-.41
 </td>
 <td style="text-align:left;">
--.18
+-.16
 </td>
 <td style="text-align:left;">
 </td>
@@ -1035,28 +1066,28 @@ B
 LSTAT
 </td>
 <td style="text-align:left;">
-.46
+.53
 </td>
 <td style="text-align:left;">
--.41
+-.39
+</td>
+<td style="text-align:left;">
+.61
 </td>
 <td style="text-align:left;">
 .60
+</td>
+<td style="text-align:left;">
+-.62
 </td>
 <td style="text-align:left;">
 .59
 </td>
 <td style="text-align:left;">
--.61
+-.51
 </td>
 <td style="text-align:left;">
-.60
-</td>
-<td style="text-align:left;">
--.50
-</td>
-<td style="text-align:left;">
-.49
+.48
 </td>
 <td style="text-align:left;">
 .54
@@ -1065,7 +1096,7 @@ LSTAT
 .37
 </td>
 <td style="text-align:left;">
--.37
+-.36
 </td>
 <td style="text-align:left;">
 </td>
@@ -1077,37 +1108,37 @@ LSTAT
 MEDV
 </td>
 <td style="text-align:left;">
--.39
+-.41
 </td>
 <td style="text-align:left;">
-.36
-</td>
-<td style="text-align:left;">
--.48
-</td>
-<td style="text-align:left;">
--.43
-</td>
-<td style="text-align:left;">
-.70
-</td>
-<td style="text-align:left;">
--.38
-</td>
-<td style="text-align:left;">
-.25
-</td>
-<td style="text-align:left;">
--.38
+.34
 </td>
 <td style="text-align:left;">
 -.47
 </td>
 <td style="text-align:left;">
--.51
+-.41
 </td>
 <td style="text-align:left;">
-.33
+.69
+</td>
+<td style="text-align:left;">
+-.36
+</td>
+<td style="text-align:left;">
+.25
+</td>
+<td style="text-align:left;">
+-.35
+</td>
+<td style="text-align:left;">
+-.45
+</td>
+<td style="text-align:left;">
+-.48
+</td>
+<td style="text-align:left;">
+.34
 </td>
 <td style="text-align:left;">
 -.74
@@ -1125,62 +1156,62 @@ model_bwe_df &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(<s
 ## lm(formula = MEDV ~ ., data = df)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -15.595  -2.730  -0.518   1.777  26.199 
+##      Min       1Q   Median       3Q      Max 
+## -11.6174  -2.8741  -0.6261   1.6553  24.5250 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  3.646e+01  5.103e+00   7.144 3.28e-12 ***
-## Crime       -1.080e-01  3.286e-02  -3.287 0.001087 ** 
-## ZN           4.642e-02  1.373e-02   3.382 0.000778 ***
-## INDUS        2.056e-02  6.150e-02   0.334 0.738288    
-## CHAS1        2.687e+00  8.616e-01   3.118 0.001925 ** 
-## NOX         -1.777e+01  3.820e+00  -4.651 4.25e-06 ***
-## RM           3.810e+00  4.179e-01   9.116  &lt; 2e-16 ***
-## AGE          6.922e-04  1.321e-02   0.052 0.958229    
-## DIS         -1.476e+00  1.995e-01  -7.398 6.01e-13 ***
-## RAD          3.060e-01  6.635e-02   4.613 5.07e-06 ***
-## TAX         -1.233e-02  3.760e-03  -3.280 0.001112 ** 
-## PTRATIO     -9.527e-01  1.308e-01  -7.283 1.31e-12 ***
-## B            9.312e-03  2.686e-03   3.467 0.000573 ***
-## LSTAT       -5.248e-01  5.072e-02 -10.347  &lt; 2e-16 ***
+## (Intercept)  34.045438   6.296131   5.407 1.26e-07 ***
+## CRIM         -0.052489   0.053799  -0.976  0.32997    
+## ZN            0.047445   0.016916   2.805  0.00534 ** 
+## INDUS         0.053855   0.074238   0.725  0.46871    
+## CHAS1         3.784864   1.149874   3.292  0.00111 ** 
+## NOX         -15.739657   4.855773  -3.241  0.00131 ** 
+## RM            3.768832   0.520066   7.247 3.23e-12 ***
+## AGE          -0.004627   0.016885  -0.274  0.78426    
+## DIS          -1.548823   0.264283  -5.860 1.15e-08 ***
+## RAD           0.328967   0.081861   4.019 7.31e-05 ***
+## TAX          -0.012866   0.004519  -2.847  0.00469 ** 
+## PTRATIO      -0.856976   0.165343  -5.183 3.88e-07 ***
+## BLACK         0.011666   0.003597   3.243  0.00131 ** 
+## LSTAT        -0.600315   0.063841  -9.403  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 4.745 on 492 degrees of freedom
-## Multiple R-squared:  0.7406, Adjusted R-squared:  0.7338 
-## F-statistic: 108.1 on 13 and 492 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 4.834 on 319 degrees of freedom
+## Multiple R-squared:  0.7331, Adjusted R-squared:  0.7223 
+## F-statistic: 67.41 on 13 and 319 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_bwe_df, <span class="dt">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</code></pre></div>
 <p><img src="machinelearningwithR_files/figure-html/linreg11-1.png" width="672" /></p>
 <p>Ideally, the model should consider the following variables</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2_mlr_df &lt;-<span class="st"> </span><span class="kw">lm</span>(MEDV <span class="op">~</span><span class="st"> </span>Crime <span class="op">+</span><span class="st"> </span>NOX <span class="op">+</span><span class="st"> </span>RM <span class="op">+</span><span class="st"> </span>DIS <span class="op">+</span><span class="st"> </span>RAD <span class="op">+</span><span class="st"> </span>PTRATIO <span class="op">+</span><span class="st"> </span>B <span class="op">+</span><span class="st"> </span>LSTAT, <span class="dt">data =</span> df)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2_mlr_df &lt;-<span class="st"> </span><span class="kw">lm</span>(MEDV <span class="op">~</span><span class="st"> </span>CRIM <span class="op">+</span><span class="st"> </span>NOX <span class="op">+</span><span class="st"> </span>RM <span class="op">+</span><span class="st"> </span>DIS <span class="op">+</span><span class="st"> </span>RAD <span class="op">+</span><span class="st"> </span>PTRATIO <span class="op">+</span><span class="st"> </span>BLACK <span class="op">+</span><span class="st"> </span>LSTAT, <span class="dt">data =</span> df)
 <span class="kw">summary</span>(model2_mlr_df)</code></pre></div>
 <pre><code>## 
 ## Call:
-## lm(formula = MEDV ~ Crime + NOX + RM + DIS + RAD + PTRATIO + 
-##     B + LSTAT, data = df)
+## lm(formula = MEDV ~ CRIM + NOX + RM + DIS + RAD + PTRATIO + BLACK + 
+##     LSTAT, data = df)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -14.0482  -3.0662  -0.5636   1.8869  26.7061 
+## -12.0039  -3.1223  -0.6353   1.8782  25.2095 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  35.691726   5.179826   6.891 1.69e-11 ***
-## Crime        -0.102920   0.033516  -3.071 0.002252 ** 
-## NOX         -20.141922   3.517282  -5.727 1.78e-08 ***
-## RM            4.174645   0.411001  10.157  &lt; 2e-16 ***
-## DIS          -1.214760   0.165053  -7.360 7.68e-13 ***
-## RAD           0.145792   0.041132   3.544 0.000431 ***
-## PTRATIO      -1.166270   0.123647  -9.432  &lt; 2e-16 ***
-## B             0.010201   0.002743   3.719 0.000223 ***
-## LSTAT        -0.533222   0.048701 -10.949  &lt; 2e-16 ***
+## (Intercept)  32.703270   6.414135   5.099 5.83e-07 ***
+## CRIM         -0.041182   0.055041  -0.748 0.454880    
+## NOX         -18.097931   4.535787  -3.990 8.17e-05 ***
+## RM            4.194258   0.508532   8.248 4.09e-15 ***
+## DIS          -1.288755   0.219996  -5.858 1.15e-08 ***
+## RAD           0.166232   0.052295   3.179 0.001622 ** 
+## PTRATIO      -1.080124   0.157349  -6.864 3.41e-11 ***
+## BLACK         0.013020   0.003689   3.529 0.000477 ***
+## LSTAT        -0.604600   0.061989  -9.753  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 4.871 on 497 degrees of freedom
-## Multiple R-squared:  0.724,  Adjusted R-squared:  0.7195 
-## F-statistic: 162.9 on 8 and 497 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 4.99 on 324 degrees of freedom
+## Multiple R-squared:  0.7112, Adjusted R-squared:  0.7041 
+## F-statistic: 99.76 on 8 and 324 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div id="model-diagmostic" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Model diagmostic</h3>
 <p>To check that we have a linear relationship between the numerical explanatory variables and the response variable, we create a scatter plot with the variable and the residuals</p>
@@ -1236,10 +1267,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -1249,6 +1281,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/fderyckel/machinelearningwithr/edit/master/03-linear_regressions.Rmd",
 "text": "Suggest edit to this page"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -1263,9 +1299,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

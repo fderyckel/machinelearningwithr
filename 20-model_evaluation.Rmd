@@ -1,0 +1,13 @@
+# Model Evaluation
+
+## Biais variance tradeoff
+
+![Biais Variance tradeoff](otherpics/Biais_Variance_Tradeoff.png)
+
+![Model Complexity and total variance](otherpics/ModelComplexity_TotalError.png)
+
+
+## Bagging
+
+## Cross Validation {#crossvalidation}
+

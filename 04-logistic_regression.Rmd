@@ -40,7 +40,6 @@ As usual we will use the `tidyverse` and `caret` package
 ```{r message=FALSE, warning=FALSE}
 library(caret)      # For confusion matrix
 library(ROCR)       # For the ROC curve
-library(tidyverse)
 ```
 
 We can now get straight to business and see how to model logisitc regression with R and then have the more interesting discussion on its performance.   
@@ -109,8 +108,8 @@ To check the accuracy of the model, we need a confusion matrix with a cut off va
 
 ```{r}
 prediction_lgr_df2 <- if_else(prediction_lgr_df2 > 0.5 , 1, 0)
-confusionMatrix(data = prediction_lgr_df2, 
-                reference = df2$admit, positive = "1")
+confusionMatrix(data = factor(prediction_lgr_df2), 
+                reference = factor(df2$admit), positive = "1")
 ```
 
 We have an interesting situation here.  Although all our variables were significant in our model, the accuracy of our model, `71%` is just a little bit higher than the basic benchmark which is the no-information model (ie. we just predict the highest class) in this case `68.25%`.  
@@ -144,8 +143,8 @@ Let's try
 ```{r}
 prediction_lgr_df2 <- predict(model_lgr_df2, data = df2, type = "response")
 prediction_lgr_df2 <- if_else(prediction_lgr_df2 > cutoff , 1, 0)
-confusionMatrix(data = prediction_lgr_df2, 
-                reference = df2$admit, 
+confusionMatrix(data = factor(prediction_lgr_df2), 
+                reference = factor(df2$admit), 
                 positive = "1")
 ```
 
@@ -249,8 +248,8 @@ prediction_lgr_df2 <- if_else(prediction_lgr_df2 > 0.5, 1, 0)
 
 table(df2$test)
 
-confusionMatrix(data = prediction_lgr_df2, 
-                reference = df2$test, 
+confusionMatrix(data = factor(prediction_lgr_df2), 
+                reference = factor(df2$test), 
                 positive = "1")
 
 ```

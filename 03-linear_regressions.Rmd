@@ -1,4 +1,20 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 # Single & Multiple Linear Regression {#mlr}
+
+```{r message=FALSE}
+library(skimr)
+library(kableExtra) # for the kable_styling function
+
+library(tibble)
+library(dplyr)
+library(readr)
+library(ggplot2)
+```
+
 
 ##Single variable regression
 
@@ -285,7 +301,7 @@ plot(model_bwe_df, scale = "adjr2")
 
 Ideally, the model should consider the following variables
 ```{r linreg12}
-model2_mlr_df <- lm(MEDV ~ Crime + NOX + RM + DIS + RAD + PTRATIO + B + LSTAT, data = df)
+model2_mlr_df <- lm(MEDV ~ CRIM + NOX + RM + DIS + RAD + PTRATIO + BLACK + LSTAT, data = df)
 summary(model2_mlr_df)
 ```
 

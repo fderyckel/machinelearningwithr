@@ -1,0 +1,42 @@
+# Random Forest  
+Random forest is a tree-based algorithm which involves building several trees (decision trees), then combining their output to improve generalization ability of the model. The method of combining trees is known as an ensemble method. Ensembling is nothing but a combination of weak learners (individual trees) to produce a strong learner.  Random Forest comes with the goal of overcoming over-fitting problem of individual decision tree.  
+
+Random Forest can be used to solve regression and classification problems. 
+
+The random Forest algorithm was created by Leo Brieman and Adele Cutler in 2001.
+
+## How does it work?  
+
+1. Given a data frame (n x p), a tree stratifies or partitions the data based on rules (if-else). Yes, a tree creates rules. These rules divide the data set into distinct and non-overlapping regions. These rules are determined by a variable's contribution to the homogenity or pureness of the resultant child nodes (X2,X3).
+
+2. In the image above, the variable X1 resulted in highest homogeneity in child nodes, hence it became the root node. A variable at root node is also seen as the most important variable in the data set.
+
+3, But how is this homogeneity or pureness determined? In other words, how does the tree decide at which variable to split?
+
+In regression trees (where the output is predicted using the mean of observations in the terminal nodes), the splitting decision is based on minimizing RSS. The variable which leads to the greatest possible reduction in RSS is chosen as the root node. The tree splitting takes a top-down greedy approach, also known as recursive binary splitting. We call it "greedy" because the algorithm cares to make the best split at the current step rather than saving a split for better results on future nodes.
+In classification trees (where the output is predicted using mode of observations in the terminal nodes), the splitting decision is based on the following methods:
+Gini Index - It's a measure of node purity. If the Gini index takes on a smaller value, it suggests that the node is pure. For a split to take place, the Gini index for a child node should be less than that for the parent node.
+Entropy - Entropy is a measure of node impurity. For a binary class (a,b), the formula to calculate it is shown below. Entropy is maximum at p = 0.5. For p(X=a)=0.5 or p(X=b)=0.5 means, a new observation has a 50%-50% chance of getting classified in either classes. The entropy is minimum when the probability is 0 or 1.
+Entropy = - p(a)*log(p(a)) - p(b)*log(p(b))
+
+entropy curve
+
+In a nutshell, every tree attempts to create rules in such a way that the resultant terminal nodes could be as pure as possible. Higher the purity, lesser the uncertainity to make the decision.
+
+But a decision tree suffers from high variance. "High Variance" means getting high prediction error on unseen data. We can overcome the variance problem by using more data for training. But since the data set available is limited to us, we can use resampling techniques like bagging and random forest to generate more data.
+
+Building many decision trees results in a forest. A random forest works the following way:
+
+First, it uses the Bagging (Bootstrap Aggregating) algorithm to create random samples. Given a data set D1 (n rows and p columns), it creates a new dataset (D2) by sampling n cases at random with replacement from the original data. About 1/3 of the rows from D1 are left out, known as Out of Bag(OOB) samples.
+Then, the model trains on D2. OOB sample is used to determine unbiased estimate of the error.
+Out of p columns, P << p columns are selected at each node in the data set. The P columns are selected at random. Usually, the default choice of P is p/3 for regression tree and P is sqrt(p) for classification tree.
+pruning decision treesUnlike a tree, no pruning takes place in random forest; i.e, each tree is grown fully. In decision trees, pruning is a method to avoid overfitting. Pruning means selecting a subtree that leads to the lowest test errror rate. We can use cross validation to determine the test error rate of a subtree.
+Several trees are grown and the final prediction is obtained by averaging or voting.
+Each tree is grown on a different sample of original data. Since random forest has the feature to calculate OOB error internally, cross validation doesn't make much sense in random forest.
+
+
+## References
+
+
+https://www.hackerearth.com/blog/machine-learning/practical-tutorial-random-forest-parameter-tuning-r/
+

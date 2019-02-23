@@ -1,5 +1,7 @@
 # KNN - K Nearest Neighbour {#knnchapter}
 
+Clustering is an unsupervised learning technique. It is the task of grouping together a set of objects in a way that objects in the same cluster are more similar to each other than to objects in other clusters. Similarity is an amount that reflects the strength of relationship between two data objects. Clustering is mainly used for exploratory data mining. 
+
 The KNN algorithm is a robust and versatile classifier that is often used as a benchmark for more complex classifiers such as Artificial Neural Networks (ANN) and Support Vector Machines (SVM). Despite its simplicity, KNN can outperform more powerful classifiers and is used in a variety of applications.  
 
 The KNN classifier is also a non parametric and instance-based learning algorithm.
@@ -22,11 +24,16 @@ On the other hand, a higher K averages more voters in each prediction and hence 
 
 What we are observing here is that increasing k will decrease variance and increase bias. While decreasing k will increase variance and decrease bias. Take a look at how variable the predictions are for different data sets at low k. As k increases this variability is reduced. But if we increase k too much, then we no longer follow the true boundary line and we observe high bias. This is the nature of the Bias-Variance Tradeoff.  
 
+Clustering can be broadly divided into two subgroups:
+
+* Hard clustering: in hard clustering, each data object or point either belongs to a cluster completely or not. For example in the Uber dataset, each location belongs to either one borough or the other.
+* Soft clustering: in soft clustering, a data point can belong to more than one cluster with some probability or likelihood value. For example, you could identify some locations as the border points belonging to two or more boroughs.
+
+
 ## Example 1.  Prostate Cancer dataset  
 \index{Prostate cancer dataset}
 
 ```{r knn01, message=FALSE, warning=FALSE}
-library(tidyverse)
 df <- read_csv("dataset/prostate_cancer.csv")
 glimpse(df)
 ```
@@ -162,3 +169,4 @@ confusionMatrix(prediction_knn_df2, reference = test_df2$Origin)
 
 * KNN R, K-Nearest neighbor implementation in R using caret package. [Here](http://dataaspirant.com/2017/01/09/knn-implementation-r-using-caret-package/)
 * A complete guide to KNN.  [Here](https://kevinzakka.github.io/2016/07/13/k-nearest-neighbor/)
+* K-Means Clustering in R Tutorial.  [Here](https://www.datacamp.com/community/tutorials/k-means-clustering-r?utm_campaign=News&utm_medium=Community&utm_source=DataCamp.com)

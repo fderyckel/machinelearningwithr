@@ -1,5 +1,13 @@
 # Tests and inferences {#testinference}
 
+```{r message=FALSE}
+library(knitr)
+library(kableExtra)
+
+library(tidyverse)
+```
+
+
 One of the first thing to be familiar with while doing machine learning works is the basic of statistical inferences.  
 In this chapter, we go over some of these important concepts and the "R-ways" to do them.  
 
@@ -26,7 +34,7 @@ Visual inspection of the distribution may be used for assessing normality, altho
 
 The various normality tests compare the scores in the sample to a normally distributed set of scores with the same mean and standard deviation; the null hypothesis is that “sample distribution is normal.” If the test is significant, the distribution is non-normal. For small sample sizes, normality tests have little power to reject the null hypothesis and therefore small samples most often pass normality tests. For large sample sizes, significant results would be derived even in the case of a small deviation from normality, although this small deviation will not affect the results of a parametric test. It has been reported that the K-S test has low power and it should not be seriously considered for testing normality (11). Moreover, it is not recommended when parameters are estimated from the data, regardless of sample size (12).
 
-The Shapiro-Wilk test \index{Shapiro-Wilk test} is based on the correlation between the data and the corresponding normal scores and provides better power than the K-S test even after the Lilliefors correction. Power is the most frequent measure of the value of a test for normality. Some researchers recommend the Shapiro-Wilk test as the best choice for testing the normality of data.
+The Shapiro-Wilk test \index{Shapiro-Wilk test} is based on the correlation between the data and the corresponding normal scores provides better power than the K-S test even after the Lilliefors correction. Power is the most frequent measure of the value of a test for normality. Some researchers recommend the Shapiro-Wilk test as the best choice for testing the normality of data.
 
 ## T-tests {#ttest}
 \index{T test}
@@ -40,7 +48,7 @@ When these assumptions are satisfied the results of the t test are valid. Otherw
 
 Using the `mtcars` data set, we check if there are any difference in mile per gallon (mpg) for each of the automatic and manual group.   
 
-First things, first, let's check the data.  
+First things first, let's check the data.  
 \index{mtcars dataset}
 ```{r intro01}
 glimpse(mtcars)
@@ -239,3 +247,10 @@ shapiro.test(residuals(model_aov_df))
 ```
 
 Again the p-value indicate no violation from normality.  
+
+## Covariance 
+The correlation coefficient between 2 variables can be calculated by
+$r = \frac{Cov(x, y)}{\sigma{x} \cdot \sigma{y}}$ 
+
+The covariance is defined as $\frac {\sum(x - \overline x) \cdot (y - \overline y)}{n-1}$ 
+and the standard deviation is defined as $\sqrt \frac{\sum(x - \overline x)^2}{n-1}$

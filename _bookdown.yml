@@ -3,3 +3,4 @@ output_dir: "book"
 language:
   ui:
     chapter_name: "Chapter "
+    delete_merged_file: TRUE
